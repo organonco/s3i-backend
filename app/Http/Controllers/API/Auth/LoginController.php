@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers\API\Auth;
 
+use App\Exceptions\Auth\InvalidCredentials;
 use App\Http\Controllers\API\Controller;
 use App\Http\Requests\API\Auth\LoginRequest;
 use App\Models\Student;
-use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 
 class LoginController extends Controller
@@ -14,15 +14,15 @@ class LoginController extends Controller
      * Login
      * @group Auth
      * @responseFile app/Http/Responses/Samples/Auth/login.json
+     * @responseFile 401 app/Http/Responses/Samples/Auth/invalid-credentials-exception.json
      */
     public function __invoke(LoginRequest $request)
     {
-//        return $request->validated();
-        if(Auth::guard('api')->attempt($request->validated())){
-            $token = Student::where('phone' , $request->phone)->first()->createToken('access-token');
-            return ['token' => $token->plainTextToken];
-        }else{
-            return false;
-        }
+        if(!Auth::guard('api')->attempt($request->validated()))
+            throw new InvalidCredentials;
+
+        $user = Student::where('phone' , $request->phone)->first();
+        $user->tokens()->delete();
+        return ['token' => $user->createToken('access-token')->plainTextToken];
     }
 }

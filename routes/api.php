@@ -17,3 +17,7 @@ use Illuminate\Support\Facades\Route;
 Route::group(['middleware' => 'guest'], function(){
     Route::post('/login', \App\Http\Controllers\API\Auth\LoginController::class)->name('login');
 });
+
+Route::group(['middleware' => 'auth:sanctum'], function(){
+    Route::post('/logout', \App\Http\Controllers\API\Auth\LogoutController::class)->name('logout');
+});
