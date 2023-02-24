@@ -1,6 +1,5 @@
 <?php
 
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -21,4 +20,8 @@ Route::group(['middleware' => 'guest'], function(){
 
 Route::group(['middleware' => 'auth:sanctum'], function(){
     Route::post('/logout', \App\Http\Controllers\API\Auth\LogoutController::class)->name('logout');
+    Route::controller(\App\Http\Controllers\API\Student\ProfileController::class)->group(function () {
+        Route::get('/profile', 'show');
+        Route::put('/profile', 'update');
+    });
 });

@@ -19,4 +19,13 @@ class Student extends BaseUser
         );
     }
 
+    public function nationality()
+    {
+        return $this->belongsTo(Nationality::class);
+    }
+
+    public function educationLevel()
+    {
+        return $this->belongsTo(EducationLevel::class);
+    }
 }
