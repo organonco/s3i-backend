@@ -1,0 +1,11 @@
+{
+    "message": "The phone has already been taken. (and 1 more error)",
+    "errors": {
+        "phone": [
+            "The phone has already been taken."
+        ],
+        "password": [
+            "The password field must be at least 8 characters."
+        ]
+    }
+}
