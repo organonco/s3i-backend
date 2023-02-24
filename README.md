@@ -34,3 +34,15 @@ To run this project
 ```bash
   sail up -d
 ```
+## Links
+- Documentation: <http://localhost/docs>
+- Dashboard: <http://localhost>
+
+## Credentials
+### Dashboard (Admin)
+email: super@admin.com \
+password: password
+
+### API (Student)
+phone: 99999999 \
+password: 12345678
