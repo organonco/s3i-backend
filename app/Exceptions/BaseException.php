@@ -4,7 +4,6 @@ namespace App\Exceptions;
 
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Config;
 
 abstract class BaseException extends \Exception implements BaseExceptionInterface
 {

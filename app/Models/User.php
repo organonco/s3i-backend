@@ -3,7 +3,6 @@
 namespace App\Models;
 
 use App\Models\BaseModels\BaseUser;
-use Laravel\Sanctum\HasApiTokens;
 
 class User extends BaseUser
 {

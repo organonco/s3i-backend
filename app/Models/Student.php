@@ -3,9 +3,9 @@
 namespace App\Models;
 
 use App\Models\BaseModels\BaseUser;
+use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Support\Facades\Hash;
 use Laravel\Sanctum\HasApiTokens;
-use Illuminate\Database\Eloquent\Casts\Attribute;
 
 class Student extends BaseUser
 {
