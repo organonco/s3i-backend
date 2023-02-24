@@ -5,10 +5,10 @@ import { Link } from '@inertiajs/vue3';
 <script>
 export default {
     data() {
-        let currentRoute = this.$page.props.metadata.route;
         return {
             listItems: [
-                { icon: "mdi-home-city", title: "Home", 'route': 'dashboard', 'value': 'dashboard' },
+                { icon: "mdi-view-dashboard-outline", title: "Home", 'route': 'dashboard', 'value': 'dashboard' },
+                { icon: "mdi-account-outline", title: "Profile", 'route': 'profile.edit', 'value': 'profile' },
             ]
         }
     }
@@ -36,7 +36,7 @@ export default {
                 </template>
                 <v-divider></v-divider>
                 <v-list density="compact" nav>
-                    <v-list-item v-for="listItem in listItems" :prepend-icon="listItem.icon" :title="listItem.title" :value="listItem.value" :active="listItem.value == $page.props.metadata.route"></v-list-item>
+                    <Link v-for="listItem in listItems" :href="route(listItem.route)"><v-list-item :prepend-icon="listItem.icon" :title="listItem.title" :value="listItem.value" :active="listItem.value == $page.props.metadata.route"></v-list-item></Link>
                 </v-list>
             </v-navigation-drawer>
             <v-main>
