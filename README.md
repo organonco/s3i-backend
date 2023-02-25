@@ -15,25 +15,34 @@ To install this project run
 
 
 ```bash
-  composer install
-  sail up -d
-  sail artisan key:generate
-  sail artisan migrate --seed
+composer install
+sail up -d
+sail artisan key:generate
+sail artisan migrate --seed
 ```
 
 After installing run the tests with
 ```bash
-  sail artisan test
+sail artisan test
 ```
 Check if all the tests pass
+
 
 ## Running
 
 To run this project
 
 ```bash
-  sail up -d
+sail up -d
 ```
+
+## Documentation
+
+To generate documentation run
+```bash
+sail artisan scribe:generate
+```
+
 ## Links
 - Documentation: <http://localhost/docs>
 - Dashboard: <http://localhost>
@@ -46,3 +55,4 @@ password: password
 ### API (Student)
 phone: 99999999 \
 password: 12345678
+
