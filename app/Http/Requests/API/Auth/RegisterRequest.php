@@ -15,7 +15,8 @@ class RegisterRequest extends Request
     {
         return [
             'phone' => 'required|min:8|max:8|unique:students',
-            'password' => 'required|min:8',
+            'password' => 'required|confirmed|min:8',
+            'password_confirmation' => 'required',
             'name_en' => 'required',
             'name_ar' => 'required',
             'email' => 'required|email|unique:students',
@@ -33,6 +34,9 @@ class RegisterRequest extends Request
                 'example' => '99999999',
             ],
             'password' => [
+                'example' => '12345678',
+            ],
+            'password_confirmation' => [
                 'example' => '12345678',
             ],
             'name_en' => [

@@ -23,5 +23,6 @@ Route::group(['middleware' => 'auth:sanctum'], function(){
     Route::controller(\App\Http\Controllers\API\Student\ProfileController::class)->group(function () {
         Route::get('/profile', 'show');
         Route::put('/profile', 'update');
+        Route::post('/reset-password', 'resetPassword');
     });
 });
