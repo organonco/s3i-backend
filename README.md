@@ -16,6 +16,11 @@ To install this project run
 
 ```bash
 composer install
+cp .env.example .env
+php artisan sail:install
+```
+select mysql (0)
+```bash
 vendor\bin\sail up -d
 vendor\bin\sail artisan key:generate
 vendor\bin\sail artisan migrate --seed
