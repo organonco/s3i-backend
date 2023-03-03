@@ -15,7 +15,8 @@ use Illuminate\Support\Facades\Route;
 
 Route::group(['middleware' => 'guest'], function(){
     Route::post('/login', \App\Http\Controllers\API\Auth\LoginController::class)->name('login');
-    Route::post('/register', \App\Http\Controllers\API\Auth\RegisterController::class)->name('register');
+    Route::get('/register', [\App\Http\Controllers\API\Auth\RegisterController::class, 'show'])->name('register.show');
+    Route::post('/register', [\App\Http\Controllers\API\Auth\RegisterController::class, 'store'])->name('register.store');
 });
 
 Route::group(['middleware' => 'auth:sanctum'], function(){

@@ -1,0 +1,18 @@
+{
+    "data": {
+        "EducationLevels": [
+            {
+                "id": "1234214",
+                "name": "School"
+            },
+            {
+                "id": "1234214",
+                "name": "School"
+            },
+            {
+                "id": "1234214",
+                "name": "School"
+            }
+        ]
+    }
+}

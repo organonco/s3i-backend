@@ -7,7 +7,7 @@ use App\Http\Controllers\API\Controller;
 use App\Http\Requests\API\Student\Profile\ResetPasswordRequest;
 use App\Http\Requests\API\Student\Profile\ShowProfileRequest;
 use App\Http\Requests\API\Student\Profile\UpdateProfileRequest;
-use App\Http\Resources\StudentResource;
+use App\Http\Resources\Model\StudentResource;
 use Illuminate\Support\Facades\Auth;
 
 /**

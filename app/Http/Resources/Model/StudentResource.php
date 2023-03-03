@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Resources;
+namespace App\Http\Resources\Model;
 
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
@@ -15,6 +15,7 @@ class StudentResource extends JsonResource
     public function toArray(Request $request): array
     {
         return [
+            'id' => $this->hash,
             'phone' => $this->phone,
             'name_ar' => $this->name_ar,
             'name_en' => $this->name_en,
