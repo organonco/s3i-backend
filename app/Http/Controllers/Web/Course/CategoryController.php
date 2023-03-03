@@ -26,8 +26,25 @@ class CategoryController extends Controller
 
     public function edit(Category $category)
     {
-        return Inertia::render('Category/Index', [
-            'categories' => CategoryResource::collection(Category::all())
+        return Inertia::render('Category/Edit', [
+            'category' => new CategoryResource($category)
         ]);
+    }
+
+    public function update(Category $category, Request $request)
+    {
+        $category->update($request->all());
+        return redirect()->route('category.index');
+    }
+
+    public function create(Category $category, Request $request)
+    {
+        return Inertia::render('Category/Create');
+    }
+
+    public function store(Request $request)
+    {
+        Category::create($request->all());
+        return redirect()->route('category.index');
     }
 }

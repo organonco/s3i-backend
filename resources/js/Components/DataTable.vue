@@ -5,7 +5,7 @@ export default {
     data() {
         this.headers.push({ title: 'Actions', align: 'end', key: 'actions' })
         return {
-            itemsPerPage: 5,
+            itemsPerPage: 25,
             search: "",
         }
     },
