@@ -21,7 +21,7 @@ class StudentFactory extends Factory
     {
         return [
             'phone' => $this->faker->randomNumber(8),
-            'password' => Hash::make('12345678'),
+            'password' => '12345678',
             'name_en' => $this->faker->name,
             'name_ar' => 'حسن حسين',
             'email' => $this->faker->email,
