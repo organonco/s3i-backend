@@ -26,4 +26,5 @@ Route::group(['middleware' => 'auth:sanctum'], function(){
         Route::put('/profile', 'update');
         Route::post('/reset-password', 'resetPassword');
     });
+    Route::resource('/category', \App\Http\Controllers\CategoryController::class)->only(['index']);
 });
