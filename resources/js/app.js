@@ -13,9 +13,11 @@ import 'vuetify/styles'
 
 import '@mdi/font/css/materialdesignicons.css' // Ensure you are using css-loader
 
+import { VDataTable } from 'vuetify/labs/VDataTable'
+
 
 const vuetify = createVuetify({
-    components,
+    components: {...components, VDataTable},
     directives,
     icons: {
         defaultSet: 'mdi', // This is already the default value - only for display purposes

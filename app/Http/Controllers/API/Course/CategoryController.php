@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\API\Course;
 
+use App\Http\Controllers\Controller;
 use App\Http\Resources\Model\CategoryResource;
 use App\Models\Category;
-use Illuminate\Http\Request;
 
 /**
  * @group Category
