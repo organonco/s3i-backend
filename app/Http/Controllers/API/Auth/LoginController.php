@@ -15,6 +15,7 @@ class LoginController extends Controller
      * @group Auth
      * @responseFile app/Http/Responses/Samples/Auth/login.json
      * @responseFile 401 app/Http/Responses/Samples/Auth/invalid-credentials-exception.json
+     * @responseFile 422 app/Http/Responses/Samples/validation-error.json
      */
     public function __invoke(LoginRequest $request)
     {

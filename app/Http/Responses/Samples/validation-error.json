@@ -1,11 +1,11 @@
 {
-    "message": "The phone has already been taken. (and 1 more error)",
+    "message": "field FIELD_NAME_1 is required (and 1 more error)",
     "errors": {
-        "phone": [
-            "The phone has already been taken."
+        "FIELD_NAME_1": [
+            "FIELD_NAME_1 is required"
         ],
-        "password": [
-            "The password field must be at least 8 characters."
+        "FIELD_NAME_2": [
+            "FIELD_NAME_2 should have at least 5 characters"
         ]
     }
 }

@@ -27,6 +27,7 @@ class ProfileController extends Controller
 
     /**
      * Update
+     * @responseFile 422 app/Http/Responses/Samples/validation-error.json
      */
     public function update(UpdateProfileRequest $request)
     {
@@ -36,6 +37,7 @@ class ProfileController extends Controller
     /**
      * Reset Password
      * @responseFile 422 app/Http/Responses/Samples/Profile/invalid-password.json
+     * @responseFile 422 app/Http/Responses/Samples/validation-error.json
      */
     public function resetPassword(ResetPasswordRequest $request)
     {
