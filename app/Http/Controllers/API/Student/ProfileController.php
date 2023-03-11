@@ -18,6 +18,7 @@ class ProfileController extends Controller
 {
     /**
      * Show
+     * @responseFile app/Http/Responses/Samples/Profile/show.json
      */
     public function show(ShowProfileRequest $request)
     {
