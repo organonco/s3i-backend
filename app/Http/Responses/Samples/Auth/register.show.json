@@ -1,17 +1,15 @@
 {
     "data": {
-        "EducationLevels": [
+        "education_levels": [
             {
-                "id": "m8OB2ODZ",
-                "name": "School"
-            },
+                "id": "VjKYd4ZL",
+                "name": "Mid School"
+            }
+        ],
+        "nationalities": [
             {
-                "id": "MR1q0Lo5",
-                "name": "School"
-            },
-            {
-                "id": "m86iFODZ",
-                "name": "School"
+                "id": "EmZ2qWD3",
+                "name": "High School"
             }
         ]
     }
