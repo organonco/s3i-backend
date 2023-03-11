@@ -4,12 +4,20 @@
             {
                 "id": "VjKYd4ZL",
                 "name": "Mid School"
+            },
+            {
+                "id": "EmZ2qWD3",
+                "name": "High School"
             }
         ],
         "nationalities": [
             {
                 "id": "EmZ2qWD3",
-                "name": "High School"
+                "name": "Syrian"
+            },
+            {
+                "id": "EmZ2qWD3",
+                "name": "Palestinian"
             }
         ]
     }
