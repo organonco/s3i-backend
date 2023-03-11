@@ -35,7 +35,7 @@ class ProfileController extends Controller
 
     /**
      * Reset Password
-     * @responseFile 422 app/Http/Responses/Samples/Profile/invalid_password.json
+     * @responseFile 422 app/Http/Responses/Samples/Profile/invalid-password.json
      */
     public function resetPassword(ResetPasswordRequest $request)
     {
