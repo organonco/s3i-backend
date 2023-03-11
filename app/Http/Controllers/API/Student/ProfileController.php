@@ -35,6 +35,7 @@ class ProfileController extends Controller
 
     /**
      * Reset Password
+     * @responseFile 422
      */
     public function resetPassword(ResetPasswordRequest $request)
     {
