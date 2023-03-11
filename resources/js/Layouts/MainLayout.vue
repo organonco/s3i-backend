@@ -10,6 +10,7 @@ export default {
                 { icon: "mdi-view-dashboard-outline", title: "Home", 'route': 'dashboard', 'value': 'dashboard' },
                 { icon: "mdi-account-outline", title: "Profile", 'route': 'profile.edit', 'value': 'profile' },
                 { icon: "mdi-folder-multiple-outline", title: "Categories", 'route': 'category.index', 'value': 'categories' },
+                { icon: "mdi-folder-multiple-outline", title: "Nationalities", 'route': 'nationality.index', 'value': 'nationalities' },
             ]
         }
     }
@@ -38,7 +39,7 @@ export default {
 
                 <v-divider></v-divider>
                 <v-list density="compact" nav>
-                    <Link v-for="listItem in listItems" :href="route(listItem.route)"><v-list-item :prepend-icon="listItem.icon" :title="listItem.title" :value="listItem.value" :active="listItem.value == $page.props.metadata.route"></v-list-item></Link>
+                    <Link v-for="listItem in listItems" :href="route(listItem.route)"><v-list-item :prepend-icon="listItem.icon" :title="listItem.title" :value="listItem.value" :active="listItem.value === $page.props.metadata.route"></v-list-item></Link>
                 </v-list>
             </v-navigation-drawer>
             <v-main>
