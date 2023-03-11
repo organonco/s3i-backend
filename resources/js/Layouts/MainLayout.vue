@@ -11,6 +11,7 @@ export default {
                 { icon: "mdi-account-outline", title: "Profile", 'route': 'profile.edit', 'value': 'profile' },
                 { icon: "mdi-folder-multiple-outline", title: "Categories", 'route': 'category.index', 'value': 'categories' },
                 { icon: "mdi-folder-multiple-outline", title: "Nationalities", 'route': 'nationality.index', 'value': 'nationalities' },
+                { icon: "mdi-folder-multiple-outline", title: "Education Levels", 'route': 'education_level.index', 'value': 'education_levels' },
             ]
         }
     }

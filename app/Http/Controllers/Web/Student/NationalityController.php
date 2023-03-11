@@ -37,7 +37,7 @@ class NationalityController extends Controller
         return redirect()->route('nationality.index');
     }
 
-    public function create(Nationality $nationality, Request $request)
+    public function create(Request $request)
     {
         return Inertia::render('Nationality/Create');
     }

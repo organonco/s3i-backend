@@ -35,6 +35,7 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
     Route::resource('category', \App\Http\Controllers\Web\Course\CategoryController::class);
     Route::resource('nationality', \App\Http\Controllers\Web\Student\NationalityController::class);
+    Route::resource('education_level', \App\Http\Controllers\Web\Student\EducationLevelController::class);
 });
 
 require __DIR__.'/auth.php';
