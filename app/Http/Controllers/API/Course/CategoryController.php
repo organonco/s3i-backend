@@ -8,7 +8,6 @@ use App\Models\Category;
 
 /**
  * @group Category
- * @authenticated
  */
 class CategoryController extends Controller
 {
