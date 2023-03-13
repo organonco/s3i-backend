@@ -1,56 +1,34 @@
 <script setup>
-import { Head } from '@inertiajs/vue3';
 import MainLayout from "@/Layouts/MainLayout.vue";
 import SaveButton from "@/Components/SaveButton.vue";
-
 defineProps({
     nationality: Object,
 });
 </script>
 
 <script>
-
-import { router } from '@inertiajs/vue3'
+import {useForm} from "@inertiajs/vue3";
 export default {
-
     data: function () {
         return {
-            id: this.nationality.data.id,
-            name: this.nationality.data.name
+            form: useForm({
+                name: this.nationality.data.name
+            })
         }
     },
     methods: {
         submit: function() {
-            let self = this
-            router.put('/nationality/' + self.id, {
-                name: self.name
-            })
+            this.form.put(route('nationality.update', this.nationality.data.id));
         }
     }
 }
-
 </script>
 
 <template>
-    <Head>
-        <title>
-            Nationalities
-        </title>
-    </Head>
-
-    <MainLayout>
-        <template #header>
-            <h2 class="font-semibold text-xl text-gray-800 leading-tight">Nationalities</h2>
-        </template>
-        <div class="py-12">
-            <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-                <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
-                    <form @submit.prevent="submit">
-                        <v-text-field v-model="name"/>
-                        <save-button/>
-                    </form>
-                </div>
-            </div>
-        </div>
+    <MainLayout title="Edit Nationality">
+        <v-form @submit.prevent="submit">
+            <v-text-field label="Name" variant="solo" v-model="form.name" :error-messages="form.errors.name"></v-text-field>
+            <save-button/>
+        </v-form>
     </MainLayout>
 </template>

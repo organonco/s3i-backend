@@ -1,5 +1,4 @@
 <script setup>
-import { Head } from '@inertiajs/vue3';
 import MainLayout from "@/Layouts/MainLayout.vue";
 import DataTable from "@/Components/DataTable.vue";
 import { Link } from '@inertiajs/vue3';
@@ -25,23 +24,14 @@ export default {
 </script>
 
 <template>
-    <Head title="Categories" />
-
-    <MainLayout>
-        <template #header>
-            <h2 class="font-semibold text-xl text-gray-800 leading-tight">Categories</h2>
-        </template>
-        <div class="py-12">
-            <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-                <div class="row py-4">
-                    <Link :href="route('category.create')">
-                        <v-btn color="primary"> Create </v-btn>
-                    </link>
-                </div>
-                <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
-                    <data-table :headers="headers" :data="categories.data" actions_route="category"/>
-                </div>
-            </div>
-        </div>
+    <MainLayout title="Categories">
+        <v-row>
+            <Link :href="route('category.create')">
+                <v-btn color="primary"> Create </v-btn>
+            </link>
+        </v-row>
+        <v-row class="pt-5">
+            <data-table :headers="headers" :data="categories.data" actions_route="category"/>
+        </v-row>
     </MainLayout>
 </template>

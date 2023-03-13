@@ -1,9 +1,14 @@
 
 <script setup>
 import { Link } from '@inertiajs/vue3';
+import { Head } from '@inertiajs/vue3';
+
 </script>
 <script>
 export default {
+    props: {
+        'title': String
+    },
     data() {
         return {
             listItems: [
@@ -20,38 +25,32 @@ export default {
 
 
 <template>
-    <v-card>
-        <v-layout>
-            <v-navigation-drawer
-                permanent
-                location="left"
-            >
-                <template v-slot:prepend>
-                    <v-list-item
-                        lines="two"
-                        prepend-avatar="https://www.citypng.com/public/uploads/small/11640168385jtmh7kpmvna5ddyynoxsjy5leb1nmpvqooaavkrjmt9zs7vtvuqi4lcwofkzsaejalxn7ggpim4hkg0wbwtzsrp1ldijzbdbsj5z.png"
-                        :title="$page.props.auth.user.name"
-                    >
-                        <Link :href="route('logout')" method="post" class="underline">
-                            Log Out
-                        </Link>
-                    </v-list-item>
-                </template>
-
-                <v-divider></v-divider>
-                <v-list density="compact" nav>
-                    <Link v-for="listItem in listItems" :href="route(listItem.route)"><v-list-item :prepend-icon="listItem.icon" :title="listItem.title" :value="listItem.value" :active="listItem.value === $page.props.metadata.route"></v-list-item></Link>
-                </v-list>
-            </v-navigation-drawer>
-            <v-main>
-                <header class="bg-white shadow" v-if="$slots.header">
-                    <div class="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8">
-                        <slot name="header" />
+    <Head><title> {{ title }} </title></Head>
+    <v-layout>
+        <v-navigation-drawer permanent location="left">
+            <template v-slot:prepend>
+                <v-list-item lines="two" prepend-avatar="https://www.citypng.com/public/uploads/small/11640168385jtmh7kpmvna5ddyynoxsjy5leb1nmpvqooaavkrjmt9zs7vtvuqi4lcwofkzsaejalxn7ggpim4hkg0wbwtzsrp1ldijzbdbsj5z.png" :title="$page.props.auth.user.name">
+                    <Link :href="route('logout')" method="post" class="underline"> Log Out </Link>
+                </v-list-item>
+            </template>
+            <v-divider></v-divider>
+            <v-list density="compact" nav>
+                <Link v-for="listItem in listItems" :href="route(listItem.route)"><v-list-item :prepend-icon="listItem.icon" :title="listItem.title" :value="listItem.value" :active="listItem.value === $page.props.metadata.route"></v-list-item></Link>
+            </v-list>
+        </v-navigation-drawer>
+        <v-main>
+            <v-container class="pa-16">
+                <v-row>
+                    <div class="text-h4 mb-8">
+                        {{ title }}
                     </div>
-                </header>
+                    <v-divider
+                        :thickness="3"
+                        class="border-opacity-100 mb-8"
+                    ></v-divider>
+                </v-row>
                 <slot></slot>
-            </v-main>
-        </v-layout>
-    </v-card>
-
+            </v-container>
+        </v-main>
+    </v-layout>
 </template>

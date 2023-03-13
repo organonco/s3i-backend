@@ -1,11 +1,29 @@
+<template>
+    <Head><title> Login </title></Head>
+    <v-container fluid>
+        <v-row align="center" justify="center" class="ma-16">
+            <v-col cols="12" sm="8" md="3">
+                <v-card class="elevation-12">
+                    <v-toolbar dark flat>
+                        <v-toolbar-title>Login</v-toolbar-title>
+                    </v-toolbar>
+                    <v-card-text>
+                        <v-form @submit.prevent="submit">
+                            <v-text-field v-model="form.email" label="Email" type="email" required :error-messages="form.errors.email"></v-text-field>
+                            <v-text-field v-model="form.password" label="Password" type="password" required :error-messages="form.errors.password"></v-text-field>
+                            <v-btn :disabled="form.processing" color="black" block type="submit">Login</v-btn>
+                        </v-form>
+                    </v-card-text>
+                </v-card>
+            </v-col>
+        </v-row>
+    </v-container>`
+</template>
+
 <script setup>
-import Checkbox from '@/Components/Checkbox.vue';
-import GuestLayout from '@/Layouts/GuestLayout.vue';
-import InputError from '@/Components/InputError.vue';
-import InputLabel from '@/Components/InputLabel.vue';
-import PrimaryButton from '@/Components/PrimaryButton.vue';
-import TextInput from '@/Components/TextInput.vue';
-import { Head, Link, useForm } from '@inertiajs/vue3';
+
+import {useForm} from "@inertiajs/vue3";
+import { Head } from '@inertiajs/vue3';
 
 defineProps({
     canResetPassword: Boolean,
@@ -22,69 +40,6 @@ const submit = () => {
     form.post(route('login'), {
         onFinish: () => form.reset('password'),
     });
-};
+}
+
 </script>
-
-<template>
-    <GuestLayout>
-        <Head title="Log in" />
-
-        <div v-if="status" class="mb-4 font-medium text-sm text-green-600">
-            {{ status }}
-        </div>
-
-        <form @submit.prevent="submit">
-            <div>
-                <InputLabel for="email" value="Email" />
-
-                <TextInput
-                    id="email"
-                    type="email"
-                    class="mt-1 block w-full"
-                    v-model="form.email"
-                    required
-                    autofocus
-                    autocomplete="username"
-                />
-
-                <InputError class="mt-2" :message="form.errors.email" />
-            </div>
-
-            <div class="mt-4">
-                <InputLabel for="password" value="Password" />
-
-                <TextInput
-                    id="password"
-                    type="password"
-                    class="mt-1 block w-full"
-                    v-model="form.password"
-                    required
-                    autocomplete="current-password"
-                />
-
-                <InputError class="mt-2" :message="form.errors.password" />
-            </div>
-
-            <div class="block mt-4">
-                <label class="flex items-center">
-                    <Checkbox name="remember" v-model:checked="form.remember" />
-                    <span class="ml-2 text-sm text-gray-600">Remember me</span>
-                </label>
-            </div>
-
-            <div class="flex items-center justify-end mt-4">
-                <Link
-                    v-if="canResetPassword"
-                    :href="route('password.request')"
-                    class="underline text-sm text-gray-600 hover:text-gray-900 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
-                >
-                    Forgot your password?
-                </Link>
-
-                <PrimaryButton class="ml-4" :class="{ 'opacity-25': form.processing }" :disabled="form.processing">
-                    Log in
-                </PrimaryButton>
-            </div>
-        </form>
-    </GuestLayout>
-</template>

@@ -33,17 +33,20 @@ class CategoryController extends Controller
 
     public function update(Category $category, Request $request)
     {
+        $request->validate(['name' => 'required']);
         $category->update($request->all());
         return redirect()->route('category.index');
     }
 
-    public function create(Category $category, Request $request)
+    public function create(Request $request)
     {
+        $request->validate(['name' => 'required']);
         return Inertia::render('Category/Create');
     }
 
     public function store(Request $request)
     {
+        $request->validate(['name' => 'required']);
         Category::create($request->all());
         return redirect()->route('category.index');
     }
