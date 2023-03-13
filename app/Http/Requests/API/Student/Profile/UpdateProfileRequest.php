@@ -47,10 +47,10 @@ class UpdateProfileRequest extends Request
                 'example' => '1998-01-01'
             ],
             'nationality_id' => [
-                'example' => '1'
+                'example' => 'VjKYd4ZL'
             ],
             'education_level_id' => [
-                'example' => '1'
+                'example' => 'VjKYd4ZL'
             ],
             'address' => [
                 'example' => 'New York'
