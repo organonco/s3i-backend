@@ -3,6 +3,9 @@
 namespace App\Http\Requests\API\Student\Profile;
 
 use App\Http\Requests\API\Request;
+use App\Models\EducationLevel;
+use App\Models\Nationality;
+use Veelasky\LaravelHashId\Rules\ExistsByHash;
 
 class UpdateProfileRequest extends Request
 {
@@ -11,14 +14,22 @@ class UpdateProfileRequest extends Request
         return true;
     }
 
+    public function passedValidation()
+    {
+        $this->merge([
+            'nationality_id' => Nationality::hashToId($this->input('nationality_id')),
+            'education_level_id' => EducationLevel::hashToId($this->input('education_level_id'))
+        ]);
+    }
+
     public function rules() : array
     {
         return [
             'name_en' => 'required',
             'name_ar' => 'required',
             'date_of_birth' => 'required|date',
-            'nationality_id' => 'required|exists:nationalities,id',
-            'education_level_id' => 'required|exists:nationalities,id',
+            'nationality_id' =>  ['required', new ExistsByHash(Nationality::class)],
+            'education_level_id' =>  ['required', new ExistsByHash(EducationLevel::class)],
             'address' => 'required',
             'reference' => 'required'
         ];
