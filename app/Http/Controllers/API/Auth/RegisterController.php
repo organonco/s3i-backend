@@ -30,6 +30,6 @@ class RegisterController extends Controller
      */
     public function store(RegisterRequest $request)
     {
-        Student::create($request->all());
+        Student::create($request->validated());
     }
 }

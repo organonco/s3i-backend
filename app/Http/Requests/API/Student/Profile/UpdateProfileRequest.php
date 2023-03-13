@@ -14,9 +14,9 @@ class UpdateProfileRequest extends Request
         return true;
     }
 
-    public function passedValidation()
+    public function validated($key = null, $default = null)
     {
-        $this->merge([
+        return array_merge(parent::validated(), [
             'nationality_id' => Nationality::hashToId($this->input('nationality_id')),
             'education_level_id' => EducationLevel::hashToId($this->input('education_level_id'))
         ]);
