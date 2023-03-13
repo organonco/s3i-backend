@@ -33,17 +33,19 @@ class EducationLevelController extends Controller
 
     public function update(EducationLevel $educationLevel, Request $request)
     {
+        $request->validate(['name' => 'required']);
         $educationLevel->update($request->all());
         return redirect()->route('education_level.index');
     }
 
-    public function create(Request $request)
+    public function create()
     {
         return Inertia::render('EducationLevels/Create');
     }
 
     public function store(Request $request)
     {
+        $request->validate(['name' => 'required']);
         EducationLevel::create($request->all());
         return redirect()->route('education_level.index');
     }

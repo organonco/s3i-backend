@@ -33,17 +33,19 @@ class NationalityController extends Controller
 
     public function update(Nationality $nationality, Request $request)
     {
+        $request->validate(['name' => 'required']);
         $nationality->update($request->all());
         return redirect()->route('nationality.index');
     }
 
-    public function create(Request $request)
+    public function create()
     {
         return Inertia::render('Nationality/Create');
     }
 
     public function store(Request $request)
     {
+        $request->validate(['name' => 'required']);
         Nationality::create($request->all());
         return redirect()->route('nationality.index');
     }
