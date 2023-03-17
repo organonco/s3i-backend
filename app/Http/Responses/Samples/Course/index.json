@@ -1,0 +1,20 @@
+{
+    "data": [
+        {
+            "id": "Q0PKjxn1",
+            "name": "كورس فوتوشوب",
+            "description": "الكورس الأكثر طلباً في التصميم",
+            "introduction_video_url": "https://www.youtube.com/watch?v=S07VbDLnv4I",
+            "category_id": "QFVK1231",
+            "image_url": "http://localhost/storage/12/YQpMczyk.jpg"
+        },
+        {
+            "id": "Q0PDExn1",
+            "name": "كورس اكسل",
+            "description": "الكورس الأكثر طلباً في التصميم",
+            "introduction_video_url": "https://www.youtube.com/watch?v=S07VbDLnv4I",
+            "category_id": "QFVK1231",
+            "image_url": "http://localhost/storage/12/YQpMczyk.jpg"
+        }
+    ]
+}
