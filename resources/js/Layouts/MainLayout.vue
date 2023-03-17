@@ -31,13 +31,13 @@ export default {
         <v-navigation-drawer permanent location="left">
             <template v-slot:prepend>
                 <v-list-item lines="two" prepend-avatar="https://www.citypng.com/public/uploads/small/11640168385jtmh7kpmvna5ddyynoxsjy5leb1nmpvqooaavkrjmt9zs7vtvuqi4lcwofkzsaejalxn7ggpim4hkg0wbwtzsrp1ldijzbdbsj5z.png" :title="$page.props.auth.user.name">
-                    <Link :href="route('logout')" method="post" class="underline"> Log Out </Link>
+                    <Link as="div" :href="route('logout')" method="post" class="underline"> Log Out </Link>
                 </v-list-item>
             </template>
             <v-divider></v-divider>
             <v-list density="compact" nav>
                 <template v-for="listItem in listItems">
-                    <Link :href="route(listItem.route)" as="div">
+                    <Link as="div" :href="route(listItem.route)">
                         <v-list-item  as="v-list-item" :prepend-icon="listItem.icon" :title="listItem.title" :value="listItem.value" :active="listItem.value === $page.props.metadata.route"></v-list-item>
                     </Link>
                 </template>

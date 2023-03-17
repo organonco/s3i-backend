@@ -40,7 +40,7 @@ export default {
                 class="elevation-1"
             >
                 <template v-slot:item.actions="{ item }">
-                    <Link :href="route(actions_route + '.destroy', { [actions_route]: item.columns.id })" method="delete" class="underline">
+                    <Link as="button" :href="route(actions_route + '.destroy', { [actions_route]: item.columns.id })" method="delete" class="underline">
                         <v-icon
                             size="small"
                             class="me-2"
@@ -48,7 +48,7 @@ export default {
                             mdi-delete
                         </v-icon>
                     </Link>
-                    <Link :href="route(actions_route + '.edit', { [actions_route]: item.columns.id })" method="get" class="underline">
+                    <Link as="button" :href="route(actions_route + '.edit', { [actions_route]: item.columns.id })" method="get" class="underline">
                         <v-icon
                             size="small"
                             class="me-2"

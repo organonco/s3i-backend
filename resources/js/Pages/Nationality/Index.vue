@@ -26,7 +26,7 @@ export default {
 <template>
     <MainLayout title="Nationalities">
         <v-row>
-            <Link :href="route('nationality.create')">
+            <Link as="div" :href="route('nationality.create')">
                 <v-btn color="primary"> Create </v-btn>
             </link>
         </v-row>

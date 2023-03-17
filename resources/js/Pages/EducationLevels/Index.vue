@@ -26,7 +26,7 @@ export default {
 <template>
     <MainLayout title="Education Levels">
         <v-row>
-            <Link :href="route('education_level.create')">
+            <Link as="div" :href="route('education_level.create')">
                 <v-btn color="primary"> Create </v-btn>
             </link>
         </v-row>

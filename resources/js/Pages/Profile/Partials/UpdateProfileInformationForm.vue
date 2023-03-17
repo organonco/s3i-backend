@@ -63,7 +63,7 @@ const form = useForm({
             <div v-if="props.mustVerifyEmail && user.email_verified_at === null">
                 <p class="text-sm mt-2 text-gray-800">
                     Your email address is unverified.
-                    <Link
+                    <Link as="div"
                         :href="route('verification.send')"
                         method="post"
                         as="button"

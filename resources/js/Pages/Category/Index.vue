@@ -26,7 +26,7 @@ export default {
 <template>
     <MainLayout title="Categories">
         <v-row>
-            <Link :href="route('category.create')">
+            <Link as="div" :href="route('category.create')">
                 <v-btn color="primary"> Create </v-btn>
             </link>
         </v-row>
