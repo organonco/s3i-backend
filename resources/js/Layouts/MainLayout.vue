@@ -14,9 +14,10 @@ export default {
             listItems: [
                 { icon: "mdi-view-dashboard-outline", title: "Home", 'route': 'dashboard', 'value': 'dashboard' },
                 { icon: "mdi-account-outline", title: "Profile", 'route': 'profile.edit', 'value': 'profile' },
-                { icon: "mdi-folder-multiple-outline", title: "Categories", 'route': 'category.index', 'value': 'categories' },
-                { icon: "mdi-folder-multiple-outline", title: "Nationalities", 'route': 'nationality.index', 'value': 'nationalities' },
-                { icon: "mdi-folder-multiple-outline", title: "Education Levels", 'route': 'education_level.index', 'value': 'education_levels' },
+                { icon: "mdi-folder-multiple-outline", title: "Categories", 'route': 'category.index', 'value': 'category' },
+                { icon: "mdi-folder-multiple-outline", title: "Nationalities", 'route': 'nationality.index', 'value': 'nationality' },
+                { icon: "mdi-folder-multiple-outline", title: "Education Levels", 'route': 'education_level.index', 'value': 'education_level' },
+                { icon: "mdi-folder-multiple-outline", title: "Courses", 'route': 'course.index', 'value': 'course' },
             ]
         }
     }
@@ -35,7 +36,11 @@ export default {
             </template>
             <v-divider></v-divider>
             <v-list density="compact" nav>
-                <Link v-for="listItem in listItems" :href="route(listItem.route)"><v-list-item :prepend-icon="listItem.icon" :title="listItem.title" :value="listItem.value" :active="listItem.value === $page.props.metadata.route"></v-list-item></Link>
+                <template v-for="listItem in listItems">
+                    <Link :href="route(listItem.route)" as="div">
+                        <v-list-item  as="v-list-item" :prepend-icon="listItem.icon" :title="listItem.title" :value="listItem.value" :active="listItem.value === $page.props.metadata.route"></v-list-item>
+                    </Link>
+                </template>
             </v-list>
         </v-navigation-drawer>
         <v-main>

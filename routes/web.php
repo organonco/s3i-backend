@@ -24,6 +24,7 @@ Route::middleware('auth')->group(function () {
     Route::resource('category', \App\Http\Controllers\Web\Course\CategoryController::class);
     Route::resource('nationality', \App\Http\Controllers\Web\Student\NationalityController::class);
     Route::resource('education_level', \App\Http\Controllers\Web\Student\EducationLevelController::class);
+    Route::resource('course', \App\Http\Controllers\Web\Course\CourseController::class);
 });
 
 require __DIR__.'/auth.php';
