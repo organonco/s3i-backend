@@ -24,7 +24,7 @@ export default {
 </script>
 
 <template>
-    <MainLayout title="Education Levels">
+    <MainLayout title="Students">
         <v-row class="pt-5">
             <data-table uneditable showable :headers="headers" :data="students.data" actions_route="student"/>
         </v-row>
