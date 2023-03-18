@@ -5,7 +5,7 @@ namespace App\Http\Resources\Model\Student;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class StudentResource extends JsonResource
+class StudentBaseResource extends JsonResource
 {
     /**
      * Transform the resource into an array.
