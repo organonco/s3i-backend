@@ -25,4 +25,8 @@ class Course extends BaseModel implements HasMedia
     {
         return $this->belongsTo(Category::class);
     }
+    public function courseItems()
+    {
+        return $this->hasMany(CourseItem::class);
+    }
 }
