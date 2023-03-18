@@ -15,15 +15,6 @@ class IndexCoursesRequest extends Request
         return true;
     }
 
-    public function rules() : array
-    {
-        return [];
-    }
-    public function bodyParameters(): array
-    {
-        return [];
-    }
-
     public function hasCategoryId() : bool
     {
         return $this->has('category_id');
