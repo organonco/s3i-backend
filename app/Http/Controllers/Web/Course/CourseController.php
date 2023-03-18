@@ -10,6 +10,7 @@ use App\Models\Course;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 use Inertia\Response;
+use Veelasky\LaravelHashId\Rules\ExistsByHash;
 
 class CourseController extends Controller
 {
@@ -40,9 +41,10 @@ class CourseController extends Controller
             'name' => 'required',
             'description' => 'required',
             'introduction_video_url' => 'required',
-            'category_id' => 'required',
+            'category_id' => ['required', new ExistsByHash(Category::class)],
             'image' => 'nullable|image',
         ]);
+        $request->category_id = Category::hashToId($request->category_id);
         $course->update($request->all());
         if($request->hasFile('image'))
             $course->addMediaFromRequest('image')->toMediaCollection("image");
@@ -62,12 +64,13 @@ class CourseController extends Controller
             'name' => 'required',
             'description' => 'required',
             'introduction_video_url' => 'required',
-            'category_id' => 'required',
+            'category_id' => ['required', new ExistsByHash(Category::class)],
             'image' => 'required|image',
         ]);
-        /** @var Course $course */
-        $course = Course::create($request->all());
-        $course->addMediaFromRequest('image')->toMediaCollection('iamge');
+        $course = Course::create(array_merge($request->all(), [
+            'category_id' => Category::hashToId($request->category_id)
+        ]));
+        $course->addMediaFromRequest('image')->toMediaCollection('image');
         return redirect()->route('course.index');
     }
 }

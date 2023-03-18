@@ -16,7 +16,7 @@ return new class extends Migration
             $table->string('name');
             $table->text("description");
             $table->text('introduction_video_url');
-            $table->text('category_id');
+            $table->foreignId('category_id')->constrained();
             $table->timestamps();
             $table->softDeletes();
         });

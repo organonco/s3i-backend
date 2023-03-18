@@ -19,7 +19,7 @@ class CourseBaseResource extends JsonResource
             'name' => $this->name,
             'description' => $this->description,
             'introduction_video_url' => $this->introduction_video_url,
-            'category_id' => $this->category_id,
+            'category_id' => $this->category->hash,
             'image_url' => $this->image_url,
         ];
     }

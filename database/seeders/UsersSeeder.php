@@ -14,8 +14,5 @@ class UsersSeeder extends Seeder
             'name' => 'Super Admin',
             'email' => 'super@admin.com',
         ]);
-        Student::factory()->create([
-            'phone' => '99999999',
-        ]);
     }
 }

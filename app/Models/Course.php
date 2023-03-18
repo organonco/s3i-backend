@@ -21,5 +21,8 @@ class Course extends BaseModel implements HasMedia
             ->addMediaCollection('image')
             ->singleFile();
     }
-
+    public function category()
+    {
+        return $this->belongsTo(Category::class);
+    }
 }
