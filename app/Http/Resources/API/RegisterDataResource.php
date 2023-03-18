@@ -2,8 +2,8 @@
 
 namespace App\Http\Resources\API;
 
-use App\Http\Resources\Model\EducationLevelResource;
-use App\Http\Resources\Model\NationalityResource;
+use App\Http\Resources\Model\EducationLevel\EducationLevelResource;
+use App\Http\Resources\Model\Nationality\NationalityResource;
 use App\Models\EducationLevel;
 use App\Models\Nationality;
 use Illuminate\Http\Request;

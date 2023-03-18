@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Web\Student;
 
 use App\Http\Controllers\Web\Controller;
-use App\Http\Resources\Model\EducationLevelResource;
+use App\Http\Resources\Model\EducationLevel\EducationLevelResource;
 use App\Models\EducationLevel;
 use Illuminate\Http\Request;
 use Inertia\Inertia;

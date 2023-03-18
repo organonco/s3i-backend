@@ -3,8 +3,8 @@
 namespace App\Http\Controllers\Web\Course;
 
 use App\Http\Controllers\Web\Controller;
-use App\Http\Resources\Model\CategoryResource;
-use App\Http\Resources\Model\CourseResource;
+use App\Http\Resources\Model\Category\CategoryResource;
+use App\Http\Resources\Model\Course\CourseBaseResource;
 use App\Models\Category;
 use App\Models\Course;
 use Illuminate\Http\Request;
@@ -16,7 +16,7 @@ class CourseController extends Controller
     public function index(Request $request): Response
     {
         return Inertia::render('Course/Index', [
-            'courses' => CourseResource::collection(Course::all())
+            'courses' => CourseBaseResource::collection(Course::all())
         ]);
     }
 
@@ -30,7 +30,7 @@ class CourseController extends Controller
     {
         return Inertia::render('Course/Edit', [
             "categories" => CategoryResource::collection(Category::all()),
-            'course' => new CourseResource($course)
+            'course' => new CourseBaseResource($course)
         ]);
     }
 

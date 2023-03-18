@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\API\Course;
 
 use App\Http\Controllers\Controller;
-use App\Http\Resources\Model\CourseResource;
+use App\Http\Resources\Model\Course\CourseIndexResource;
 use App\Models\Course;
 
 /**
@@ -17,6 +17,6 @@ class CourseController extends Controller
      */
     public function index()
     {
-        return CourseResource::collection(Course::all());
+        return CourseIndexResource::collection(Course::all());
     }
 }

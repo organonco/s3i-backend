@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\API\Course;
 
 use App\Http\Controllers\Controller;
-use App\Http\Resources\Model\CategoryResource;
+use App\Http\Resources\Model\Category\CategoryResource;
 use App\Models\Category;
 
 /**
