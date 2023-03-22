@@ -1,5 +1,6 @@
 <script setup>
 import MainLayout from "@/Layouts/MainLayout.vue";
+import { Link } from '@inertiajs/vue3';
 defineProps({
     student: Object,
 });
@@ -14,11 +15,11 @@ export default {
 }
 </script>
 
-        <template>
+<template>
     <MainLayout title="Show Student">
         <v-container>
             <v-card class="mx-auto text-right" max-width="700">
-                <v-card-title class="text-h5 font-weight-bold">{{ student.data.name_en + " - " + student.data.name_ar }}</v-card-title>
+                <v-card-title class="text-h5 font-weight-bold pa-5">{{ student.data.name_en + " - " + student.data.name_ar }}</v-card-title>
                 <v-card-text>
                     <v-row>
                         <v-col cols="12">
@@ -44,6 +45,15 @@ export default {
                                 </v-list-item>
                                 <v-list-item>
                                     <v-list-item-title> {{ student.data.reference }} <v-icon>mdi-information-variant</v-icon> </v-list-item-title>
+                                </v-list-item>
+                                <v-list-item>
+                                    <v-list-item-title>
+                                        <Link as="button" :href="route('student.unfreeze', { 'student': student.data.id })" method="put" class="underline">
+                                            Reset
+                                        </Link>
+                                        {{student.data.number_of_login_attempts}}
+                                        <v-icon> mdi-login </v-icon>
+                                    </v-list-item-title>
                                 </v-list-item>
                             </v-list>
                         </v-col>

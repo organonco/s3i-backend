@@ -24,4 +24,10 @@ class StudentController extends Controller
             'student' => StudentBaseResource::make($student)
         ]);
     }
+
+    public function unfreeze(Student $student)
+    {
+        $student->resetNumberOfLoginAttempts();
+        return redirect()->route('student.show', ['student' => $student->hash]);
+    }
 }

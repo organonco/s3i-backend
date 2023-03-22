@@ -25,6 +25,7 @@ class StudentBaseResource extends JsonResource
             'reference' => $this->reference,
             'education_level' => $this->educationLevel->name,
             'nationality' => $this->nationality->name,
+            'number_of_login_attempts' => $this->number_of_login_attempts,
         ];
     }
 }

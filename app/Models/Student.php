@@ -28,4 +28,21 @@ class Student extends BaseUser
     {
         return $this->belongsTo(EducationLevel::class);
     }
+
+    public function incrementNumberOfLoginAttempts()
+    {
+        $this->number_of_login_attempts = $this->number_of_login_attempts + 1;
+        $this->save();
+    }
+
+    public function resetNumberOfLoginAttempts()
+    {
+        $this->number_of_login_attempts = 0;
+        $this->save();
+    }
+
+    public function canLogin() : int
+    {
+        return $this->number_of_login_attempts < 3;
+    }
 }
