@@ -44,8 +44,7 @@ class CourseController extends Controller
             'category_id' => ['required', new ExistsByHash(Category::class)],
             'image' => 'nullable|image',
         ]);
-        $request->category_id = Category::hashToId($request->category_id);
-        $course->update($request->all());
+        $course->update(array_merge($request->all(), ['category_id' => Category::hashToId($request->category_id)]));
         if($request->hasFile('image'))
             $course->addMediaFromRequest('image')->toMediaCollection("image");
         return redirect()->route('course.index');
