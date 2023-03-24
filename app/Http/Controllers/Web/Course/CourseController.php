@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Web\Course;
 use App\Http\Controllers\Web\Controller;
 use App\Http\Resources\Model\Category\CategoryResource;
 use App\Http\Resources\Model\Course\CourseBaseResource;
+use App\Http\Resources\Model\Course\CourseShowResource;
 use App\Models\Category;
 use App\Models\Course;
 use App\Models\CourseItem;
@@ -33,7 +34,7 @@ class CourseController extends Controller
     {
         return Inertia::render('Course/Edit', [
             "categories" => CategoryResource::collection(Category::all()),
-            'course' => new CourseBaseResource($course)
+            'course' => new CourseShowResource($course)
         ]);
     }
 

@@ -1,6 +1,8 @@
 <script setup>
 import MainLayout from "@/Layouts/MainLayout.vue";
 import SaveButton from "@/Components/SaveButton.vue";
+import CourseItemsInput from "@/Components/Course/CourseItemsInput.vue";
+
 defineProps({
     course: Object,
     categories: Object,
@@ -19,6 +21,7 @@ export default {
                 introduction_video_url: this.course.data.introduction_video_url,
                 category_id: this.course.data.category_id,
                 image: "",
+                items: this.course.data.items,
             })
         }
     },
@@ -47,10 +50,11 @@ export default {
             <v-row>
                 <v-col>
                     <v-file-input prepend-icon="mdi-image" label="Image" variant="solo" :error-messages="form.errors.image" @change="form.image = $event.target.files[0]"></v-file-input>
-                    <save-button/>
                 </v-col>
                 <v-col cols="3"><v-img :src="course.data.image_url" width="500px"/></v-col>
             </v-row>
+            <course-items-input v-model="form.items"/>
+            <save-button/>
         </v-form>
     </MainLayout>
 </template>
