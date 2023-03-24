@@ -15,4 +15,11 @@ class CourseItem extends BaseModel
     {
         return $this->morphTo('item');
     }
+    public static function createFromDataObject($dataObject, $order, $courseId) : self
+    {
+        $createdCourseItem = null;
+        if($dataObject['type'] == 'section')
+            $createdCourseItem = CourseSection::create(['name' => $dataObject['object']['name']]);
+        return $createdCourseItem->courseItem()->create(['course_id' => $courseId, 'order' => $order]);
+    }
 }

@@ -7,6 +7,8 @@ use App\Http\Resources\Model\Category\CategoryResource;
 use App\Http\Resources\Model\Course\CourseBaseResource;
 use App\Models\Category;
 use App\Models\Course;
+use App\Models\CourseItem;
+use App\Models\CourseSection;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 use Inertia\Response;
@@ -65,10 +67,17 @@ class CourseController extends Controller
             'introduction_video_url' => 'required',
             'category_id' => ['required', new ExistsByHash(Category::class)],
             'image' => 'required|image',
+            'items' => 'required',
+            'items.*.type' => 'required',
+            'items.*.object' => 'required',
         ]);
         $course = Course::create(array_merge($request->all(), [
             'category_id' => Category::hashToId($request->category_id)
         ]));
+
+        foreach($request->items as $order => $item)
+            CourseItem::createFromDataObject($item, $order, $course->id);
+
         $course->addMediaFromRequest('image')->toMediaCollection('image');
         return redirect()->route('course.index');
     }
