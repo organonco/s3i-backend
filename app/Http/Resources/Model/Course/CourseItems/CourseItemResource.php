@@ -10,7 +10,7 @@ class CourseItemResource extends JsonResource
     {
         return [
             'id' => $this->hash,
-            'type' => $this->item->itemType,
+            'type' => $this->type,
             'object' => $this->getCourseItemObjectResource($this->item),
         ];
     }

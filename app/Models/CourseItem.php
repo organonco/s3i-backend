@@ -15,12 +15,30 @@ class CourseItem extends BaseModel
     {
         return $this->morphTo('item');
     }
+
+    public function getTypeAttribute()
+    {
+        return $this->classToType($this->item::class);
+    }
+
+    private static function classToType(string $className) : string
+    {
+        return match($className){
+            CourseSection::class => 'section'
+        };
+    }
+
+    private static function typeToClass(string $type) : string
+    {
+        return match($type){
+            'section' => CourseSection::class
+        };
+    }
+
     public static function createOrUpdateFromDataObject($dataObject, $order, $courseId) : self
     {
         if(!isset($dataObject['id'])) {
-            $courseItemDetails = null;
-            if ($dataObject['type'] == 'section')
-                $courseItemDetails = CourseSection::create($dataObject['object']);
+            $courseItemDetails = self::typeToClass($dataObject['type'])::create($dataObject['object']);
             return $courseItemDetails->courseItem()->create(['course_id' => $courseId, 'order' => $order]);
         }
         $courseItem = CourseItem::byHash($dataObject['id']);

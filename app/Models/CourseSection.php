@@ -15,9 +15,4 @@ class CourseSection extends BaseModel implements HasCourseItemInterface
     {
         return CourseSectionResource::class;
     }
-
-    public function getItemTypeAttribute(): string
-    {
-        return "section";
-    }
 }
