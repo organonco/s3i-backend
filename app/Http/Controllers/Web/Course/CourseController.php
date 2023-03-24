@@ -46,10 +46,22 @@ class CourseController extends Controller
             'introduction_video_url' => 'required',
             'category_id' => ['required', new ExistsByHash(Category::class)],
             'image' => 'nullable|image',
+            'items' => 'required',
+            'items.*.type' => 'required',
+            'items.*.object' => 'required',
         ]);
         $course->update(array_merge($request->all(), ['category_id' => Category::hashToId($request->category_id)]));
         if($request->hasFile('image'))
             $course->addMediaFromRequest('image')->toMediaCollection("image");
+
+        $remainingIds = collect($request->items)->whereNotNull('id')->pluck(['id'])->transform(function($hash){
+            return CourseItem::hashToId($hash);
+        });
+        $course->courseItems()->whereNotIn('id', $remainingIds)->delete();
+
+        foreach($request->items as $order => $item)
+            CourseItem::createOrUpdateFromDataObject($item, $order, $course->id);
+
         return redirect()->route('course.index');
     }
 
@@ -77,7 +89,7 @@ class CourseController extends Controller
         ]));
 
         foreach($request->items as $order => $item)
-            CourseItem::createFromDataObject($item, $order, $course->id);
+            CourseItem::createOrUpdateFromDataObject($item, $order, $course->id);
 
         $course->addMediaFromRequest('image')->toMediaCollection('image');
         return redirect()->route('course.index');

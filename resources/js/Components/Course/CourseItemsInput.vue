@@ -34,7 +34,7 @@ export default {
             if(this.index === -1)
                 this.value.push({"type": "section", "object": {"name": this.add_section.object.name}})
             else
-                this.value[this.index] = {"type": "section", "object": {"name": this.add_section.object.name}}
+                this.value[this.index].object =  {"name": this.add_section.object.name}
             this.add_section.object.name = null
         },
         openSectionDialog: function(index) {

@@ -15,11 +15,17 @@ class CourseItem extends BaseModel
     {
         return $this->morphTo('item');
     }
-    public static function createFromDataObject($dataObject, $order, $courseId) : self
+    public static function createOrUpdateFromDataObject($dataObject, $order, $courseId) : self
     {
-        $createdCourseItem = null;
-        if($dataObject['type'] == 'section')
-            $createdCourseItem = CourseSection::create(['name' => $dataObject['object']['name']]);
-        return $createdCourseItem->courseItem()->create(['course_id' => $courseId, 'order' => $order]);
+        if(!isset($dataObject['id'])) {
+            $courseItemDetails = null;
+            if ($dataObject['type'] == 'section')
+                $courseItemDetails = CourseSection::create($dataObject['object']);
+            return $courseItemDetails->courseItem()->create(['course_id' => $courseId, 'order' => $order]);
+        }
+        $courseItem = CourseItem::byHash($dataObject['id']);
+        $courseItem->update(['order' => $order]);
+        $courseItem->item->update($dataObject['object']);
+        return $courseItem;
     }
 }
