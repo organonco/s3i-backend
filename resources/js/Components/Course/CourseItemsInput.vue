@@ -12,7 +12,7 @@
             <v-btn class="ma-1" color="primary" width="100%">Add Meeting</v-btn>
             <v-btn class="ma-1" color="primary" width="100%">Add Quiz</v-btn>
         </v-col>
-        <add-section-popup title="Add Section" v-model="section.dialog" @save="saveDialog('section')" :index="index">
+        <add-section-popup title="Add Section" v-model="section.dialog" @save="saveDialog" :index="index">
             <v-text-field label="Name" variant="solo" v-model="section.object.name"/>
         </add-section-popup>
     </v-row>
