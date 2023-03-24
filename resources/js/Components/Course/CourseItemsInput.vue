@@ -4,16 +4,16 @@
     </v-row>
     <v-row>
         <v-col cols="8">
-            <custom-draggable v-model="value" @clickOnItem="openSectionDialog"></custom-draggable>
+            <custom-draggable v-model="value" @clickOnItem="openDialog"></custom-draggable>
         </v-col>
         <v-col>
-            <v-btn class="ma-1 mt-4" color="primary" width="100%" @click="openSectionDialog(-1)">Add Section</v-btn>
+            <v-btn class="ma-1 mt-4" color="primary" width="100%" @click="openDialog(-1, 'section')">Add Section</v-btn>
             <v-btn class="ma-1" color="primary" width="100%">Add Video</v-btn>
             <v-btn class="ma-1" color="primary" width="100%">Add Meeting</v-btn>
             <v-btn class="ma-1" color="primary" width="100%">Add Quiz</v-btn>
         </v-col>
-        <add-section-popup title="Add Section" v-model="add_section.dialog" @save="saveSectionDialog" :index="index">
-            <v-text-field label="Name" variant="solo" v-model="add_section.object.name"/>
+        <add-section-popup title="Add Section" v-model="section.dialog" @save="saveDialog('section')" :index="index">
+            <v-text-field label="Name" variant="solo" v-model="section.object.name"/>
         </add-section-popup>
     </v-row>
 </template>
@@ -29,18 +29,17 @@ export default {
     props: ['modelValue'],
     emits: ['update:modelValue'],
     methods: {
-        saveSectionDialog: function () {
-            this.add_section.dialog = false;
+        saveDialog: function (type) {
             if(this.index === -1)
-                this.value.push({"type": "section", "object": {"name": this.add_section.object.name}})
+                this.value.push({"type": type, "object": {...this[type].object}})
             else
-                this.value[this.index].object =  {"name": this.add_section.object.name}
-            this.add_section.object.name = null
+                this.value[this.index].object =  {...this[type].object}
+            this[type].object = this[type].initial()
         },
-        openSectionDialog: function(index) {
+        openDialog: function(index, type) {
             this.index = index
-            this.add_section.object.name = index === -1 ? null : this.value[this.index].object.name
-            this.add_section.dialog = true
+            this[type].object = index === -1 ? this[type].initial() : this.value[this.index].object
+            this[type].dialog = true
         }
     },
     computed: {
@@ -56,10 +55,12 @@ export default {
     data: () => {
         return {
             "index": null,
-            "add_section": {
+            "section": {
                 "dialog": false,
-                "object": {
-                    "name": null,
+                initial: function(){
+                    return {
+                        "name": null
+                    }
                 }
             }
         }

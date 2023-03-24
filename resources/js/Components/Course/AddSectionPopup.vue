@@ -46,6 +46,7 @@ export default {
         },
         save: function(){
             this.$emit('save')
+            this.value = false
         }
     },
     computed: {

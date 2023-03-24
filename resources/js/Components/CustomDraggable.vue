@@ -12,7 +12,7 @@ export default {
             this.value.splice(index, 1)
         },
         click(index){
-            this.$emit("clickOnItem", index)
+            this.$emit("clickOnItem", index, this.value[index].type)
         }
     },
     computed: {
