@@ -12,15 +12,15 @@
             <v-btn class="ma-1" color="primary" width="100%">Add Meeting</v-btn>
             <v-btn class="ma-1" color="primary" width="100%">Add Quiz</v-btn>
         </v-col>
-        <add-section-popup title="Add Section" v-model="section.dialog" @save="saveDialog" :index="index">
+        <add-item-dialog title="Add Section" v-model="section.dialog" @save="saveDialog('section')" :index="index">
             <v-text-field label="Name" variant="solo" v-model="section.object.name"/>
-        </add-section-popup>
+        </add-item-dialog>
     </v-row>
 </template>
 
 <script setup>
 import CustomDraggable from "@/Components/CustomDraggable.vue";
-import AddSectionPopup from "@/Components/Course/AddSectionPopup.vue";
+import AddItemDialog from "@/Components/Course/AddItemDialog.vue";
 
 </script>
 <script>

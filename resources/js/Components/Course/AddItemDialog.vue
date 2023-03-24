@@ -45,7 +45,7 @@ export default {
             this.value = false;
         },
         save: function(){
-            this.$emit('save', 'section')
+            this.$emit('save')
             this.value = false
         }
     },
