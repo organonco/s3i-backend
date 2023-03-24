@@ -4,7 +4,9 @@ namespace App\Http\Controllers\API\Course;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\API\Course\IndexCoursesRequest;
+use App\Http\Requests\API\Course\ShowCourseRequest;
 use App\Http\Resources\Model\Course\CourseIndexResource;
+use App\Http\Resources\Model\Course\CourseShowResource;
 use App\Models\Course;
 
 /**
@@ -22,4 +24,14 @@ class CourseController extends Controller
             return CourseIndexResource::collection(Course::query()->where('category_id', $request->getCategoryId())->get());
         return CourseIndexResource::collection(Course::all());
     }
+
+    /**
+     * Show
+     * @responseFile app/Http/Responses/Samples/Course/show.json
+     */
+    public function show(Course $course, ShowCourseRequest $request)
+    {
+        return new CourseShowResource($course);
+    }
+
 }
