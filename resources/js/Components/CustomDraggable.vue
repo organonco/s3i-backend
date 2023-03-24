@@ -7,6 +7,14 @@ export default {
     components: [draggable],
     props: ['modelValue'],
     emits: ['update:modelValue'],
+    methods: {
+        remove(index){
+            this.value.splice(index, 1)
+        },
+        click(index){
+            this.$emit("clickOnItem", index)
+        }
+    },
     computed: {
         value: {
             get() {
@@ -29,15 +37,19 @@ export default {
 </script>
 
 <template>
-    <v-list lines="three" select-strategy="classic">
-        <draggable v-model="value" item-key="id" v-bind="dragOptions">
+    <v-list select-strategy="classic">
+        <draggable v-model="value" item-key="id" v-bind="dragOptions" handle=".handle">
             <template #item="{ element, index }">
                 <div class="bg-blue-grey-lighten-5 ma-1">
                     <v-list-item>
-                        <v-list-item-title>Section</v-list-item-title>
-                        <v-list-item-subtitle>
-                            {{ element.name }}
-                        </v-list-item-subtitle>
+                        <template v-slot:prepend>
+                            <v-icon class="handle">mdi-menu</v-icon>
+                        </template>
+                        <v-list-item-title @click="click(index)">Section</v-list-item-title>
+                        <v-list-item-subtitle @click="click(index)"> {{ element.object.name }} </v-list-item-subtitle>
+                        <template v-slot:append>
+                            <v-icon @click="remove(index)">mdi-delete</v-icon>
+                        </template>
                     </v-list-item>
                 </div>
             </template>

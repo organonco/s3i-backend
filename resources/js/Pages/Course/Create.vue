@@ -1,7 +1,7 @@
 <script setup>
 import MainLayout from "@/Layouts/MainLayout.vue";
 import SaveButton from "@/Components/SaveButton.vue";
-import CourseItemsInput from "@/Pages/Course/CourseItemsInput.vue";
+import CourseItemsInput from "@/Components/Course/CourseItemsInput.vue";
 
 defineProps({
     categories: Array
@@ -14,20 +14,13 @@ import {useForm} from "@inertiajs/vue3";
 export default {
     data: function () {
         return {
-            myArray: [
-                {"id": 123, "name": "hi1"},
-                {"id": 123, "name": "hi1"},
-                {"id": 123, "name": "hi1"},
-                {"id": 123, "name": "hi1"},
-                {"id": 123, "name": "hi1"},
-                {"id": 123, "name": "hi1"}
-            ],
             form: useForm({
                 name: "",
                 description: "",
                 introduction_video_url: "",
                 category_id: "",
-                image: ""
+                image: "",
+                items: [],
             })
         }
     },
@@ -73,7 +66,7 @@ export default {
                               :error-messages="form.errors.image"
                               @input="form.image = $event.target.files[0]"></v-file-input>
             </v-row>
-            <course-items-input v-model="myArray"/>
+            <course-items-input v-model="form.items"/>
             <save-button/>
         </v-form>
     </MainLayout>
