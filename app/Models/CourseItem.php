@@ -24,14 +24,16 @@ class CourseItem extends BaseModel
     private static function classToType(string $className) : string
     {
         return match($className){
-            CourseSection::class => 'section'
+            CourseSection::class => 'section',
+            CourseVideo::class => 'video'
         };
     }
 
     private static function typeToClass(string $type) : string
     {
         return match($type){
-            'section' => CourseSection::class
+            'section' => CourseSection::class,
+            'video' => CourseVideo::class
         };
     }
 
