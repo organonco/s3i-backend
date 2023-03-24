@@ -45,7 +45,7 @@ export default {
                         <template v-slot:prepend>
                             <v-icon class="handle">mdi-menu</v-icon>
                         </template>
-                        <v-list-item-title @click="click(index)">Section</v-list-item-title>
+                        <v-list-item-title @click="click(index)">{{ element.type }}</v-list-item-title>
                         <v-list-item-subtitle @click="click(index)"> {{ element.object.name }} </v-list-item-subtitle>
                         <template v-slot:append>
                             <v-icon @click="remove(index)">mdi-delete</v-icon>

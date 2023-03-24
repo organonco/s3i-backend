@@ -8,13 +8,20 @@
         </v-col>
         <v-col>
             <v-btn class="ma-1 mt-4" color="primary" width="100%" @click="openDialog(-1, 'section')">Add Section</v-btn>
-            <v-btn class="ma-1" color="primary" width="100%">Add Video</v-btn>
+            <v-btn class="ma-1" color="primary" width="100%" @click="openDialog(-1, 'video')">Add Video</v-btn>
             <v-btn class="ma-1" color="primary" width="100%">Add Meeting</v-btn>
             <v-btn class="ma-1" color="primary" width="100%">Add Quiz</v-btn>
         </v-col>
         <add-item-dialog title="Add Section" v-model="section.dialog" @save="saveDialog('section')" :index="index">
             <v-text-field label="Name" variant="solo" v-model="section.object.name"/>
         </add-item-dialog>
+
+        <add-item-dialog title="Add Video" v-model="video.dialog" @save="saveDialog('video')" :index="index">
+            <v-text-field label="Name" variant="solo" v-model="video.object.name"/>
+            <v-text-field label="Video URL" variant="solo" v-model="video.object.url"/>
+        </add-item-dialog>
+
+
     </v-row>
 </template>
 
@@ -60,6 +67,15 @@ export default {
                 initial: function(){
                     return {
                         "name": null
+                    }
+                }
+            },
+            "video": {
+                "dialog": false,
+                initial: function(){
+                    return {
+                        "name": null,
+                        "url": null,
                     }
                 }
             }
