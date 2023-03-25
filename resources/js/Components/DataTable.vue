@@ -64,23 +64,15 @@ export default {
                 class="elevation-1"
             >
                 <template v-slot:item.actions="{ item }">
-                    <v-icon @click="activateDestroyDialog(item.columns.id)">mdi-delete</v-icon>
-<!--                    <Link v-if="!uneditable" as="button" :href="route(actions_route + '.destroy', { [actions_route]: item.columns.id })" method="delete" class="underline">-->
-<!--                        <v-icon-->
-<!--                            size="small"-->
-<!--                            class="me-2"-->
-<!--                        >-->
-<!--                            mdi-delete-->
-<!--                        </v-icon>-->
-<!--                    </Link>-->
-<!--                    <Link v-if="!uneditable" as="button" :href="route(actions_route + '.edit', { [actions_route]: item.columns.id })" method="get" class="underline">-->
-<!--                        <v-icon-->
-<!--                            size="small"-->
-<!--                            class="me-2"-->
-<!--                        >-->
-<!--                            mdi-pencil-->
-<!--                        </v-icon>-->
-<!--                    </Link>-->
+                    <v-icon v-if="!uneditable" @click="activateDestroyDialog(item.columns.id)">mdi-delete</v-icon>
+                    <Link v-if="!uneditable" as="button" :href="route(actions_route + '.edit', { [actions_route]: item.columns.id })" method="get" class="underline">
+                        <v-icon
+                            size="small"
+                            class="me-2"
+                        >
+                            mdi-pencil
+                        </v-icon>
+                    </Link>
                     <Link v-if="showable" as="button" :href="route(actions_route + '.show', { [actions_route]: item.columns.id })" method="get" class="underline">
                         <v-icon
                             size="small"
