@@ -10,4 +10,5 @@ class Category extends BaseModel
 {
     use HasFactory;
     public $fillable = ['name'];
+    //TODO: Add Icon
 }

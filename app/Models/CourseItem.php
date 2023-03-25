@@ -26,7 +26,8 @@ class CourseItem extends BaseModel
         return match($className){
             CourseSection::class => 'section',
             CourseVideo::class => 'video',
-            CourseMeeting::class => 'meeting'
+            CourseMeeting::class => 'meeting',
+            CourseFile::class => 'file',
         };
     }
 
@@ -36,6 +37,7 @@ class CourseItem extends BaseModel
             'section' => CourseSection::class,
             'video' => CourseVideo::class,
             'meeting' => CourseMeeting::class,
+            'file' => CourseFile::class,
         };
     }
 
