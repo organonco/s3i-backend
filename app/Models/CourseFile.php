@@ -13,6 +13,15 @@ class CourseFile extends BaseModel implements HasCourseItemInterface, HasMedia
 {
     use HasCourseItem, InteractsWithMedia;
     protected $fillable = ['name'];
+
+    public static function create(array $attributes = [])
+    {
+        /** @var self $model */
+        $model = static::query()->create($attributes);
+        $model->addMedia($attributes['file'])->toMediaCollection('file');
+        return $model;
+    }
+
     public function getResourceClass(): string
     {
         return CourseFileResource::class;

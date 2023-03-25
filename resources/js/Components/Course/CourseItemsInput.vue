@@ -10,6 +10,7 @@
             <v-btn class="ma-1 mt-4" color="primary" width="100%" @click="openDialog(-1, 'section')">Add Section</v-btn>
             <v-btn class="ma-1" color="primary" width="100%" @click="openDialog(-1, 'video')">Add Video</v-btn>
             <v-btn class="ma-1" color="primary" width="100%" @click="openDialog(-1, 'meeting')">Add Meeting</v-btn>
+            <v-btn class="ma-1" color="primary" width="100%" @click="openDialog(-1, 'file')">Add File</v-btn>
             <v-btn class="ma-1" color="primary" width="100%">Add Quiz</v-btn>
         </v-col>
         <add-item-dialog title="Add Section" v-model="section.dialog" @save="saveDialog('section')" :index="index">
@@ -18,16 +19,27 @@
 
         <add-item-dialog title="Add Video" v-model="video.dialog" @save="saveDialog('video')" :index="index">
             <v-text-field label="Name" variant="solo" v-model="video.object.name"/>
-            <v-text-field label="Video URL" variant="solo" v-model="video.object.url"/>
+            <v-text-field label="Video Link" variant="solo" v-model="video.object.url"/>
         </add-item-dialog>
 
-        <add-item-dialog title="Add Video" v-model="meeting.dialog" @save="saveDialog('meeting')" :index="index">
+        <add-item-dialog title="Add Meeting" v-model="meeting.dialog" @save="saveDialog('meeting')" :index="index">
             <v-text-field label="Name" variant="solo" v-model="meeting.object.name"/>
-            <v-text-field label="Video URL" variant="solo" v-model="meeting.object.url"/>
+            <v-text-field label="Meeting Link" variant="solo" v-model="meeting.object.url"/>
             <v-text-field label="Date" type="date" variant="solo" v-model="meeting.object.date"/>
             <v-text-field label="Time" type="time" variant="solo" v-model="meeting.object.time"/>
         </add-item-dialog>
 
+        <add-item-dialog title="Add File" v-model="file.dialog" @save="saveDialog('file')" :index="index">
+            <v-text-field label="Name" variant="solo" v-model="file.object.name"/>
+
+            <v-file-input prepend-icon="mdi-attachment" label="File" variant="solo"
+                          @input="file.object.file = $event.target.files[0]"
+            />
+
+<!--            <v-file-input prepend-icon="mdi-attachment" label="File" variant="solo"-->
+<!--                          v-model="file.object.file"-->
+<!--            />-->
+        </add-item-dialog>
 
     </v-row>
 </template>
@@ -52,7 +64,7 @@ export default {
         },
         openDialog: function(index, type) {
             this.index = index
-            this[type].object = index === -1 ? this[type].initial() : this.value[this.index].object
+                this[type].object = index === -1 ? this[type].initial() : this.value[this.index].object
             this[type].dialog = true
         }
     },
@@ -94,6 +106,15 @@ export default {
                         "url": null,
                         "date": null,
                         "time": null,
+                    }
+                }
+            },
+            "file": {
+                "dialog": false,
+                initial: function(){
+                    return {
+                        "name": null,
+                        "file": null,
                     }
                 }
             }
