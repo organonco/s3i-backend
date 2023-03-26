@@ -11,6 +11,7 @@
             <v-btn class="ma-1" color="primary" width="100%" @click="openDialog(-1, 'video')">Add Video</v-btn>
             <v-btn class="ma-1" color="primary" width="100%" @click="openDialog(-1, 'meeting')">Add Meeting</v-btn>
             <v-btn class="ma-1" color="primary" width="100%" @click="openDialog(-1, 'file')">Add File</v-btn>
+            <v-btn class="ma-1" color="primary" width="100%" @click="openDialog(-1, 'homework')">Add Homework</v-btn>
             <v-btn class="ma-1" color="primary" width="100%">Add Quiz</v-btn>
         </v-col>
         <add-item-dialog title="Add Section" v-model="section.dialog" @save="saveDialog('section')" :index="index">
@@ -31,14 +32,11 @@
 
         <add-item-dialog title="Add File" v-model="file.dialog" @save="saveDialog('file')" :index="index">
             <v-text-field label="Name" variant="solo" v-model="file.object.name"/>
+            <v-file-input prepend-icon="mdi-attachment" label="File" variant="solo" @input="file.object.file = $event.target.files[0]"/>
+        </add-item-dialog>
 
-            <v-file-input prepend-icon="mdi-attachment" label="File" variant="solo"
-                          @input="file.object.file = $event.target.files[0]"
-            />
-
-<!--            <v-file-input prepend-icon="mdi-attachment" label="File" variant="solo"-->
-<!--                          v-model="file.object.file"-->
-<!--            />-->
+        <add-item-dialog title="Add Homework" v-model="homework.dialog" @save="saveDialog('homework')" :index="index">
+            <v-text-field label="Name" variant="solo" v-model="homework.object.name"/>
         </add-item-dialog>
 
     </v-row>
@@ -115,6 +113,14 @@ export default {
                     return {
                         "name": null,
                         "file": null,
+                    }
+                }
+            },
+            "homework": {
+                "dialog": false,
+                initial: function(){
+                    return {
+                        "name": null,
                     }
                 }
             }
