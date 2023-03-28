@@ -2,6 +2,8 @@
 
 namespace App\Http\Resources\Model\Student;
 
+use App\Http\Resources\Model\EducationLevel\EducationLevelResource;
+use App\Http\Resources\Model\Nationality\NationalityResource;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 
@@ -23,8 +25,8 @@ class StudentBaseResource extends JsonResource
             'date_of_birth' => $this->date_of_birth,
             'address' => $this->address,
             'reference' => $this->reference,
-            'education_level' => $this->educationLevel->name,
-            'nationality' => $this->nationality->name,
+            'education_level' => EducationLevelResource::make($this->educationLevel),
+            'nationality' => NationalityResource::make($this->nationality),
             'number_of_login_attempts' => $this->number_of_login_attempts,
         ];
     }

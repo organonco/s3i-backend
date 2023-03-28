@@ -22,16 +22,18 @@ class ProfileController extends Controller
      */
     public function show(ShowProfileRequest $request)
     {
-        return new StudentBaseResource($request->user());
+        return StudentBaseResource::make($request->user());
     }
 
     /**
      * Update
+     * @responseFile app/Http/Responses/Samples/Profile/show.json
      * @responseFile 422 app/Http/Responses/Samples/validation-error.json
      */
     public function update(UpdateProfileRequest $request)
     {
         $request->user()->update($request->validated());
+        return StudentBaseResource::make($request->user());
     }
 
     /**
