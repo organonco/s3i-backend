@@ -7,8 +7,77 @@
         "image_url": "http://localhost/storage/12/YQpMczyk.jpg",
         "items": [
             {
+                "id": "grlQGkV0",
+                "type": "file",
+                "object": {
+                    "name": "course book",
+                    "file_url": "http://localhost/storage/1/OSAdminAssign2f2023.pdf"
+                }
+            },
+            {
+                "id": "wyamW95n",
                 "type": "section",
-                "name": "الوحدة الأولى"
+                "object": {
+                    "name": "unit 1"
+                }
+            },
+            {
+                "id": "nglg0axb",
+                "type": "video",
+                "object": {
+                    "name": "video - 1",
+                    "url": "https://www.youtube.com/watch?v=dQw4w9WgXcQ"
+                }
+            },
+            {
+                "id": "B3lJRlNj",
+                "type": "video",
+                "object": {
+                    "name": "video - 2",
+                    "url": "https://www.youtube.com/watch?v=dQw4w9WgXcQ"
+                }
+            },
+            {
+                "id": "z8ab5l4N",
+                "type": "meeting",
+                "object": {
+                    "name": "unit 1 final meeting",
+                    "url": "https://meet.google.com/nxg-bxjn-sgk",
+                    "time": "12:00:00",
+                    "date": "2023-05-04"
+                }
+            },
+            {
+                "id": "DwlXw9Gd",
+                "type": "file",
+                "object": {
+                    "name": "Homework file 1",
+                    "file_url": "http://localhost/storage/2/dummy.pdf"
+                }
+            },
+            {
+                "id": "ErkAv9Gw",
+                "type": "homework",
+                "object": {
+                    "name": "homework - 1"
+                }
+            },
+            {
+                "id": "P4aKnlYE",
+                "type": "section",
+                "object": {
+                    "name": "unit 2"
+                }
+            },
+            {
+                "id": "B8koVaMA",
+                "type": "meeting",
+                "object": {
+                    "name": "introduction to unit 2 meeting",
+                    "url": "https://meet.google.com/nxg-bxjn-sgk",
+                    "time": "10:00:00",
+                    "date": "2023-03-08"
+                }
             }
         ]
     }

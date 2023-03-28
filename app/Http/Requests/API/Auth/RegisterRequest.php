@@ -63,10 +63,10 @@ class RegisterRequest extends Request
                 'example' => '1998-01-01'
             ],
             'nationality_id' => [
-                'example' => 'VjKYd4ZL'
+                'example' => Nationality::first()->hash,
             ],
             'education_level_id' => [
-                'example' => 'RQK6d4ZL'
+                'example' => EducationLevel::first()->hash,
             ],
             'address' => [
                 'example' => 'New York'
