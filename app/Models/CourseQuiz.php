@@ -2,7 +2,7 @@
 
 namespace App\Models;
 
-use App\Http\Resources\CourseQuizResource;
+use App\Http\Resources\Model\Course\CourseItems\Quiz\CourseQuizResource;
 use App\Interfaces\HasCourseItemInterface;
 use App\Models\BaseModels\BaseModel;
 use App\Traits\HasCourseItem;
