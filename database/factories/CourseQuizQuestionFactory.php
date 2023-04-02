@@ -19,6 +19,7 @@ class CourseQuizQuestionFactory extends Factory
     public function definition(): array
     {
         return [
+            'text' => $this->faker->sentence(4),
             'type' => $this->faker->randomElement(CourseQuizQuestionTypes::cases()),
             'course_quiz_id' => CourseQuiz::factory(),
         ];
