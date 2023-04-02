@@ -29,6 +29,7 @@ class CourseItem extends BaseModel
             CourseMeeting::class => 'meeting',
             CourseFile::class => 'file',
             CourseHomework::class => 'homework',
+            CourseQuiz::class => 'quiz',
         };
     }
 
@@ -40,6 +41,7 @@ class CourseItem extends BaseModel
             'meeting' => CourseMeeting::class,
             'file' => CourseFile::class,
             'homework' => CourseHomework::class,
+            'quiz' => CourseQuiz::class,
         };
     }
 
