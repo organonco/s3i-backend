@@ -12,7 +12,7 @@
             <v-btn class="ma-1" color="primary" width="100%" @click="openDialog(-1, 'meeting')">Add Meeting</v-btn>
             <v-btn class="ma-1" color="primary" width="100%" @click="openDialog(-1, 'file')">Add File</v-btn>
             <v-btn class="ma-1" color="primary" width="100%" @click="openDialog(-1, 'homework')">Add Homework</v-btn>
-            <v-btn class="ma-1" color="primary" width="100%">Add Quiz</v-btn>
+            <v-btn class="ma-1" color="primary" width="100%" @click="openDialog(-1, 'quiz')">Add Quiz</v-btn>
         </v-col>
         <add-item-dialog title="Add Section" v-model="section.dialog" @save="saveDialog('section')" :index="index">
             <v-text-field label="Name" variant="solo" v-model="section.object.name"/>
@@ -39,15 +39,24 @@
             <v-text-field label="Name" variant="solo" v-model="homework.object.name"/>
         </add-item-dialog>
 
+        <add-item-dialog title="Add Quiz" v-model="quiz.dialog" @save="saveDialog('quiz')" :index="index">
+            <v-text-field label="Name" variant="solo" v-model="quiz.object.name"/>
+            <quiz-questions-input v-model="quiz.object.questions"></quiz-questions-input>
+            <quiz-preview :questions="quiz.object.questions" :title="quiz.object.name"></quiz-preview>
+        </add-item-dialog>
+
     </v-row>
 </template>
 
 <script setup>
 import CustomDraggable from "@/Components/CustomDraggable.vue";
 import AddItemDialog from "@/Components/Course/AddItemDialog.vue";
+import QuizQuestionsInput from "@/Components/Course/QuizQuestionsInput.vue";
+import QuizPreview from "@/Components/Course/QuizPreview.vue";
 
 </script>
 <script>
+
 export default {
     name: "CourseItemsInput",
     props: ['modelValue'],
@@ -72,7 +81,7 @@ export default {
                 return this.modelValue
             },
             set(value) {
-                this.$emit('update:modelValue', value)
+                this.$emit('update:modelValue', JSON.parse(JSON.stringify(value)))
             }
         },
     },
@@ -123,9 +132,18 @@ export default {
                         "name": null,
                     }
                 }
+            },
+            "quiz": {
+                "dialog": false,
+                initial: function(){
+                    return {
+                        "name": null,
+                        "questions": []
+                    }
+                }
             }
         }
-    }
+    },
 }
 </script>
 

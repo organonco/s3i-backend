@@ -10,23 +10,29 @@ defineProps({
 
 <script>
 import {useForm} from "@inertiajs/vue3";
+import _ from "lodash";
 
 export default {
     data: function () {
         return {
+            items: [],
             form: useForm({
                 name: "",
                 description: "",
                 introduction_video_url: "",
                 category_id: "",
                 image: "",
-                items: [],
             })
         }
     },
     methods: {
         submit: function () {
-            this.form.post(route('course.store'));
+            for(let i = 0; i < this.items.length; i++)
+                this.items[i] = _.cloneDeep(this.items[i])
+            this.form.transform((data) => ({
+                ...data,
+                items: this.items,
+            })).post(route('course.store'));
         }
     }
 }
@@ -66,7 +72,7 @@ export default {
                               :error-messages="form.errors.image"
                               @input="form.image = $event.target.files[0]"></v-file-input>
             </v-row>
-            <course-items-input v-model="form.items"/>
+            <course-items-input v-model="items"/>
             <save-button/>
         </v-form>
     </MainLayout>

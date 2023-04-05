@@ -21,7 +21,7 @@ export default {
                 return this.modelValue
             },
             set(value) {
-                this.$emit('update:modelValue', value)
+                this.$emit('update:modelValue', JSON.parse(JSON.stringify(value)))
             }
         },
         dragOptions() {
@@ -38,7 +38,7 @@ export default {
 
 <template>
     <v-list select-strategy="classic">
-        <draggable v-model="value" item-key="id" v-bind="dragOptions" handle=".handle">
+        <draggable :list="value" item-key="id" v-bind="dragOptions" handle=".handle">
             <template #item="{ element, index }">
                 <div class="bg-blue-grey-lighten-5 ma-1">
                     <v-list-item>
@@ -46,7 +46,7 @@ export default {
                             <v-icon class="handle">mdi-menu</v-icon>
                         </template>
                         <v-list-item-title @click="click(index)">{{ element.type }}</v-list-item-title>
-                        <v-list-item-subtitle @click="click(index)"> {{ element.object.name }} </v-list-item-subtitle>
+                        <v-list-item-subtitle @click="click(index)"> {{element.object.name}} {{ element.object.text }} </v-list-item-subtitle>
                         <template v-slot:append>
                             <v-icon @click="remove(index)">mdi-delete</v-icon>
                         </template>

@@ -55,7 +55,7 @@ export default {
                 return this.modelValue
             },
             set(value) {
-                this.$emit('update:modelValue', value)
+                this.$emit('update:modelValue', JSON.parse(JSON.stringify(value)))
             }
         },
     },

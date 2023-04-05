@@ -11,9 +11,12 @@ defineProps({
 
 <script>
 import {useForm} from "@inertiajs/vue3";
+import _ from 'lodash'
+
 export default {
     data: function () {
         return {
+            items: this.course.data.items,
             form: useForm({
                 _method: "put",
                 name: this.course.data.name,
@@ -21,13 +24,17 @@ export default {
                 introduction_video_url: this.course.data.introduction_video_url,
                 category_id: this.course.data.category_id,
                 image: "",
-                items: this.course.data.items,
             })
         }
     },
     methods: {
         submit: function() {
-            this.form.post(route('course.update', this.course.data.id));
+            for(let i = 0; i < this.items.length; i++)
+                this.items[i] = _.cloneDeep(this.items[i])
+            this.form.transform((data) => ({
+                ...data,
+                items: this.items,
+            })).post(route('course.update', this.course.data.id))
         }
     }
 }
@@ -53,7 +60,7 @@ export default {
                 </v-col>
                 <v-col cols="3"><v-img :src="course.data.image_url" width="500px"/></v-col>
             </v-row>
-            <course-items-input v-model="form.items"/>
+            <course-items-input v-model="items"/>
             <save-button/>
         </v-form>
     </MainLayout>
