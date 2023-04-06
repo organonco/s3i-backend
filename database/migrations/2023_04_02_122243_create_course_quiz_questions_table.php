@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('course_quiz_questions', function (Blueprint $table) {
             $table->id();
             $table->string('text');
-            $table->enum('type', array_column(\App\Enums\CourseQuizQuestionTypes::cases(), 'value'));
+            $table->string('type');
             $table->foreignId('course_quiz_id');
             $table->tinyInteger('order');
             $table->timestamps();

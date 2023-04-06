@@ -27,13 +27,16 @@ class CourseQuizQuestion extends BaseModel
         return $this->belongsTo(CourseQuiz::class, 'course_quiz_id');
     }
 
-    public static function createOrUpdateFromDataObject($dataObject, $order, $quizId) : self
+    public static function createOrUpdateFromDataObject($dataObject, $order, $quizId)
     {
         if(isset($dataObject['id'])) {
-            $question = self::byHash($dataObject['id']);
+            $question = static::byHash($dataObject['id']);
             $question->update(array_merge($dataObject['object'], ['order' => $order]));
         }else {
-            $question = self::create(array_merge($dataObject['object'], ['order' => $order, 'course_quiz_id' => $quizId]));
+            $question = self::create(array_merge($dataObject['object'], ['order' => $order, 'course_quiz_id' => $quizId, 'type' => $dataObject['type']]));
+            if(isset($dataObject['object']['options']))
+                foreach($dataObject['object']['options'] as $index => $option)
+                    $question->options()->create(array_merge(['order' => $index], $option['object']));
         }
         return $question;
     }

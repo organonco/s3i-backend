@@ -11,6 +11,7 @@
         </v-col>
         <add-item-dialog title="Add Option" v-model="option.dialog" @save="saveDialog('option')" :index="index">
             <v-text-field label="Option" variant="solo" v-model="option.object.text"/>
+            <v-checkbox label="Is Correct" variant="solo" v-model="option.object.is_correct" false-value="0"/>
         </add-item-dialog>
     </v-row>
 </template>
@@ -55,7 +56,8 @@ export default {
                 "dialog": false,
                 initial: function () {
                     return {
-                        "text": null
+                        "text": null,
+                        "is_correct": false,
                     }
                 }
             }

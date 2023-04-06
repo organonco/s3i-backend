@@ -14,7 +14,8 @@ return new class extends Migration
         Schema::create('course_quiz_question_options', function (Blueprint $table) {
             $table->id();
             $table->string('text');
-            $table->boolean('is_correct');
+            $table->tinyInteger('order');
+            $table->boolean('is_correct')->default(false);
             $table->foreignId('course_quiz_question_id');
             $table->timestamps();
             $table->softDeletes();

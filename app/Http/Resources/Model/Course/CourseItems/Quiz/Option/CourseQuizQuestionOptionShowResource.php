@@ -14,8 +14,11 @@ class CourseQuizQuestionOptionShowResource extends CourseQuizQuestionOptionBaseR
      */
     public function toArray(Request $request): array
     {
-        $base = parent::toArray($request);
-        $base['is_correct'] = $this->is_correct;
+        $base = [
+            'type' => 'option',
+            'object' => parent::toArray($request)
+        ];
+        $base['object']['is_correct'] = (bool)$this->is_correct;
         return $base;
     }
 }

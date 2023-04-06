@@ -3,7 +3,7 @@
 namespace App\Http\Resources\Model\Course\CourseItems\Quiz;
 
 use App\Enums\CourseQuizQuestionTypes;
-use App\Http\Resources\Model\Course\CourseItems\Quiz\Option\CourseQuizQuestionOptionBaseResource;
+use App\Http\Resources\Model\Course\CourseItems\Quiz\Option\CourseQuizQuestionOptionShowResource;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 
@@ -23,7 +23,7 @@ class CourseQuizQuestionShowResource extends JsonResource
             ],
         ];
         if($this->type != CourseQuizQuestionTypes::TEXT)
-            $resource['object']['options'] = CourseQuizQuestionOptionBaseResource::collection($this->options);
+            $resource['object']['options'] = CourseQuizQuestionOptionShowResource::collection($this->options);
         return $resource;
     }
 }
