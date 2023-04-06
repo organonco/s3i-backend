@@ -15,7 +15,7 @@ class CourseQuizQuestion extends BaseModel
     {
         return Attribute::make(
             get: fn (string $value) => CourseQuizQuestionTypes::from($value),
-            set: fn (CourseQuizQuestionTypes $value) => $value->value,
+            set: fn ($value) => $value,
         );
     }
     public function options() : HasMany

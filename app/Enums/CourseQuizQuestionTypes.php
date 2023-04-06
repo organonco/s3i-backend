@@ -4,7 +4,7 @@ namespace App\Enums;
 
 enum CourseQuizQuestionTypes : string
 {
-    case TEXT = 'TEXT';
-    case CHECK = 'CHECK';
-    case RADIO = 'RADIO';
+    case TEXT = 'text';
+    case CHECK = 'check';
+    case RADIO = 'radio';
 }

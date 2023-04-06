@@ -7,7 +7,7 @@ use App\Http\Resources\Model\Course\CourseItems\Quiz\Option\CourseQuizQuestionOp
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class CourseQuizQuestionResource extends JsonResource
+class CourseQuizQuestionShowResource extends JsonResource
 {
     /**
      * Transform the resource into an array.
@@ -17,11 +17,13 @@ class CourseQuizQuestionResource extends JsonResource
     public function toArray(Request $request): array
     {
         $resource = [
-            'text' => $this->text,
             'type' => $this->type,
+            'object' => [
+                'text' => $this->text,
+            ],
         ];
         if($this->type != CourseQuizQuestionTypes::TEXT)
-            $resource['options'] = CourseQuizQuestionOptionBaseResource::collection($this->options);
+            $resource['object']['options'] = CourseQuizQuestionOptionBaseResource::collection($this->options);
         return $resource;
     }
 }

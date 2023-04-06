@@ -8,7 +8,7 @@
                 <v-list lines="two">
                     <v-list-item v-for="question in questions">
                         <v-row class="pa-4">
-                            {{ question.object.name }}
+                            {{ question.object.text }}
                         </v-row>
                         <v-row class="pa-4" v-if="question.type === 'text'">
                             <v-textarea v-if="question.type === 'text'"></v-textarea>
