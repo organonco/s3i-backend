@@ -44,16 +44,16 @@ class CourseItem extends BaseModel
             'quiz' => CourseQuiz::class,
         };
     }
-
     public static function createOrUpdateFromDataObject($dataObject, $order, $courseId) : self
     {
-        if(!isset($dataObject['id'])) {
+        if(isset($dataObject['id'])) {
+            $courseItem = self::byHash($dataObject['id']);
+            $courseItem->item->update($dataObject['object']);
+            $courseItem->update(['order' => $order]);
+        }else{
             $courseItemDetails = self::typeToClass($dataObject['type'])::create($dataObject['object']);
-            return $courseItemDetails->courseItem()->create(['course_id' => $courseId, 'order' => $order]);
+            $courseItem = $courseItemDetails->courseItem()->create(['course_id' => $courseId, 'order' => $order]);
         }
-        $courseItem = CourseItem::byHash($dataObject['id']);
-        $courseItem->update(['order' => $order]);
-        $courseItem->item->update($dataObject['object']);
         return $courseItem;
     }
 }

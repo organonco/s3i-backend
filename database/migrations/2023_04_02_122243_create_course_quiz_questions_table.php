@@ -16,6 +16,7 @@ return new class extends Migration
             $table->string('text');
             $table->enum('type', array_column(\App\Enums\CourseQuizQuestionTypes::cases(), 'value'));
             $table->foreignId('course_quiz_id');
+            $table->tinyInteger('order');
             $table->timestamps();
             $table->softDeletes();
         });

@@ -17,9 +17,20 @@ class CourseQuiz extends BaseModel implements HasCourseItemInterface
     {
         /** @var self $model */
         $model = static::query()->create($attributes);
-        foreach($attributes['questions'] as $question)
-            $model->questions()->create(array_merge(['type' => $question['type']], $question['object']));
+        foreach($attributes['questions']  as $index => $question)
+            $model->questions()->create(array_merge(['type' => $question['type'], 'order' => $index], $question['object']));
         return $model;
+    }
+
+    public function update(array $attributes = [], $options = [])
+    {
+        parent::update($attributes, $options);
+        $remainingIds = collect($attributes['questions'])->whereNotNull('id')->pluck(['id'])->transform(function($hash){
+            return CourseItem::hashToId($hash);
+        });
+        $this->questions()->whereNotIn('id', $remainingIds)->delete();
+        foreach($attributes['questions'] as $index => $question)
+            CourseQuizQuestion::createOrUpdateFromDataObject($question, $index, $this->id);
     }
 
     public function getResourceClass(): string

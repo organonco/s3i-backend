@@ -10,7 +10,7 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class CourseQuizQuestion extends BaseModel
 {
-    protected $fillable = ['text', 'type', 'course_quiz_id'];
+    protected $fillable = ['text', 'type', 'order', 'course_quiz_id'];
     protected function type(): Attribute
     {
         return Attribute::make(
@@ -25,5 +25,16 @@ class CourseQuizQuestion extends BaseModel
     public function quiz() : BelongsTo
     {
         return $this->belongsTo(CourseQuiz::class, 'course_quiz_id');
+    }
+
+    public static function createOrUpdateFromDataObject($dataObject, $order, $quizId) : self
+    {
+        if(isset($dataObject['id'])) {
+            $question = self::byHash($dataObject['id']);
+            $question->update(array_merge($dataObject['object'], ['order' => $order]));
+        }else {
+            $question = self::create(array_merge($dataObject['object'], ['order' => $order, 'course_quiz_id' => $quizId]));
+        }
+        return $question;
     }
 }
