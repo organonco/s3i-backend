@@ -9,15 +9,15 @@
             <v-btn class="ma-1 mt-4" color="primary" width="100%" @click="openDialog(-1, 'radio')">Add Single Choice Question</v-btn>
         </v-col>
         <add-item-dialog title="Add Text Question" v-model="text.dialog" @save="saveDialog('text')" :index="index">
-            <v-text-field label="Question" variant="solo" v-model="text.object.text"/>
+            <v-text-field label="Question" variant="solo" v-model="text.object.text" :rules="requiredRule"/>
         </add-item-dialog>
         <add-item-dialog title="Add Multiple Choice Question" v-model="check.dialog" @save="saveDialog('check')" :index="index">
-            <v-text-field label="Question" variant="solo" v-model="check.object.text"/>
+            <v-text-field label="Question" variant="solo" v-model="check.object.text" :rules="requiredRule"/>
             <quiz-question-options-input v-model="check.object.options"></quiz-question-options-input>
         </add-item-dialog>
 
         <add-item-dialog title="Add Single Choice Question" v-model="radio.dialog" @save="saveDialog('radio')" :index="index">
-            <v-text-field label="Question" variant="solo" v-model="radio.object.text"/>
+            <v-text-field label="Question" variant="solo" v-model="radio.object.text" :rules="requiredRule"/>
             <quiz-question-options-input v-model="radio.object.options"></quiz-question-options-input>
         </add-item-dialog>
     </v-row>
@@ -54,6 +54,9 @@ export default {
         }
     },
     computed: {
+        requiredRule: function(){
+            return [v => !!v || 'Required'];
+        },
         value: {
             get() {
                 return this.modelValue

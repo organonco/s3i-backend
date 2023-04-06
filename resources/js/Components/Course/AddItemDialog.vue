@@ -9,28 +9,31 @@
                 <span class="text-h5">{{ title }}</span>
             </v-card-title>
             <v-divider/>
-            <v-card-text>
-                <v-container>
-                    <slot/>
-                </v-container>
-            </v-card-text>
-            <v-card-actions>
-                <v-spacer></v-spacer>
-                <v-btn
-                    color="blue-darken-1"
-                    variant="text"
-                    @click="close"
-                >
-                    Close
-                </v-btn>
-                <v-btn
-                    color="blue-darken-1"
-                    variant="text"
-                    @click="save"
-                >
-                    Save
-                </v-btn>
-            </v-card-actions>
+            <v-form ref="form" v-model="isFormValid">
+                <v-card-text>
+                    <v-container>
+                        <slot/>
+                    </v-container>
+                </v-card-text>
+                <v-card-actions>
+                    <v-spacer></v-spacer>
+                    <v-btn
+                        color="blue-darken-1"
+                        variant="text"
+                        @click="close"
+                    >
+                        Close
+                    </v-btn>
+                    <v-btn
+                        color="blue-darken-1"
+                        variant="text"
+                        @click="save"
+                        :disabled="!isFormValid"
+                    >
+                        Save
+                    </v-btn>
+                </v-card-actions>
+            </v-form>
         </v-card>
     </v-dialog>
 </template>
@@ -40,6 +43,11 @@ export default {
     name: "AddSectionPopup",
     props: ['modelValue', "title"],
     emits: ['update:modelValue'],
+    data() {
+        return {
+            isFormValid: false,
+        }
+    },
     methods: {
         close: function(){
             this.value = false;

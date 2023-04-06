@@ -10,7 +10,7 @@
             <v-btn class="ma-1 mt-4" color="primary" width="100%" @click="openDialog(-1, 'option')">Add Option</v-btn>
         </v-col>
         <add-item-dialog title="Add Option" v-model="option.dialog" @save="saveDialog('option')" :index="index">
-            <v-text-field label="Option" variant="solo" v-model="option.object.text"/>
+            <v-text-field label="Option" variant="solo" v-model="option.object.text" :rules="requiredRule"/>
             <v-checkbox label="Is Correct" variant="solo" v-model="option.object.is_correct" false-value="0"/>
         </add-item-dialog>
     </v-row>
@@ -40,6 +40,9 @@ export default {
         }
     },
     computed: {
+        requiredRule: function(){
+            return [v => !!v || 'Required'];
+        },
         value: {
             get() {
                 return this.modelValue
