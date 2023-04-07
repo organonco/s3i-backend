@@ -6,7 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\API\Course\IndexCoursesRequest;
 use App\Http\Requests\API\Course\ShowCourseRequest;
 use App\Http\Resources\Model\Course\CourseIndexResource;
-use App\Http\Resources\Model\Course\CourseShowResource;
+use App\Http\Resources\Model\Course\CourseShowAPIResource;
 use App\Models\Course;
 
 /**
@@ -31,7 +31,7 @@ class CourseController extends Controller
      */
     public function show(Course $course, ShowCourseRequest $request)
     {
-        return new CourseShowResource($course);
+        return new CourseShowAPIResource($course);
     }
 
 }

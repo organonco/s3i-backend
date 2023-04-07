@@ -5,7 +5,7 @@ namespace App\Http\Resources\Model\Course\CourseItems\Quiz\Option;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class CourseQuizQuestionOptionBaseResource extends JsonResource
+class CourseQuizQuestionOptionAPIResource extends JsonResource
 {
     /**
      * Transform the resource into an array.

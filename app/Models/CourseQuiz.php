@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Http\Resources\Model\Course\CourseItems\Quiz\CourseQuizAPIResource;
 use App\Http\Resources\Model\Course\CourseItems\Quiz\CourseQuizResource;
 use App\Interfaces\HasCourseItemInterface;
 use App\Models\BaseModels\BaseModel;
@@ -36,6 +37,11 @@ class CourseQuiz extends BaseModel implements HasCourseItemInterface
     public function getResourceClass(): string
     {
         return CourseQuizResource::class;
+    }
+
+    public function getAPIResourceClass(): string
+    {
+        return CourseQuizAPIResource::class;
     }
 
     public function questions() : HasMany
