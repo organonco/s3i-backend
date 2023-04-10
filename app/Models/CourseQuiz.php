@@ -19,7 +19,7 @@ class CourseQuiz extends BaseModel implements HasCourseItemInterface
         /** @var self $model */
         $model = static::query()->create($attributes);
         foreach($attributes['questions']  as $index => $question)
-            $model->questions()->create(array_merge(['type' => $question['type'], 'order' => $index], $question['object']));
+            CourseQuizQuestion::createOrUpdateFromDataObject($question, $index, $model->id);
         return $model;
     }
 
