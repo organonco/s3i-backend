@@ -1,0 +1,51 @@
+{
+    "data": {
+        "id": "z8ab5l4N",
+        "type": "quiz",
+        "object": {
+            "name": "quiz - 1",
+            "questions": [
+                {
+                    "type": "text",
+                    "object": {
+                        "text": "question 1"
+                    }
+                },
+                {
+                    "type": "check",
+                    "object": {
+                        "text": "question 2",
+                        "options": [
+                            {
+                                "text": "option 1"
+                            },
+                            {
+                                "text": "option 2"
+                            },
+                            {
+                                "text": "option 3"
+                            }
+                        ]
+                    }
+                },
+                {
+                    "type": "radio",
+                    "object": {
+                        "text": "question 3",
+                        "options": [
+                            {
+                                "text": "option 1"
+                            },
+                            {
+                                "text": "option 2"
+                            },
+                            {
+                                "text": "option 3"
+                            }
+                        ]
+                    }
+                }
+            ]
+        }
+    }
+}

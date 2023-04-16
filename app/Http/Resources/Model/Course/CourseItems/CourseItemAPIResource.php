@@ -10,7 +10,7 @@ class CourseItemAPIResource extends JsonResource
     public function toArray(Request $request) : array
     {
         return [
-            'id' => $this->hash,
+            'id' => $this->item->hash,
             'type' => $this->type,
             'object' => $this->getCourseItemObjectResource($this->item),
         ];
