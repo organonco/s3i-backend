@@ -26,8 +26,9 @@ Route::group(['middleware' => 'auth:sanctum'], function(){
         Route::put('/profile', 'update');
         Route::post('/reset-password', 'resetPassword');
     });
+    Route::resource('/quiz', \App\Http\Controllers\API\Course\QuizController::class)->only(['show']);
+    Route::resource('/homework', \App\Http\Controllers\API\Course\HomeworkController::class)->only(['store']);
 });
 
 Route::resource('/category', \App\Http\Controllers\API\Course\CategoryController::class)->only(['index']);
 Route::resource('/course', \App\Http\Controllers\API\Course\CourseController::class)->only(['index', 'show']);
-Route::resource('/quiz', \App\Http\Controllers\API\Course\QuizController::class)->only(['show']);

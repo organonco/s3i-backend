@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Requests\API\Course;
+namespace App\Http\Requests\API\Course\Quiz;
 
 use App\Http\Requests\API\Request;
 
