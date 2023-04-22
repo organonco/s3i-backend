@@ -1,0 +1,26 @@
+<?php
+
+namespace App\Models;
+
+use App\Models\BaseModels\BaseModel;
+use App\Traits\HasUUID;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasOne;
+
+class CourseToken extends BaseModel
+{
+    use HasUUID;
+
+    public function batch() : HasOne
+    {
+        return $this->hasOne(CourseTokenBatch::class);
+    }
+    public function course() : BelongsTo
+    {
+        return $this->batch->course();
+    }
+    public function student()
+    {
+        return $this->belongsTo(Student::class);
+    }
+}
