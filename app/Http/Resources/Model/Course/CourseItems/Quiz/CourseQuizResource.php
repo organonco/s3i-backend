@@ -16,6 +16,7 @@ class CourseQuizResource extends JsonResource
     {
         return [
             'name' => $this->name,
+            'type' => $this->type,
             'questions' => CourseQuizQuestionResource::collection($this->questions)
         ];
     }

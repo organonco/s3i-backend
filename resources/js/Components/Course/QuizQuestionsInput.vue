@@ -4,21 +4,18 @@
             <custom-draggable v-model="value" @clickOnItem="openDialog"></custom-draggable>
         </v-col>
         <v-col cols="4">
-            <v-btn class="ma-1 mt-4" color="primary" width="100%" @click="openDialog(-1, 'text')">Add Text Question</v-btn>
-            <v-btn class="ma-1 mt-4" color="primary" width="100%" @click="openDialog(-1, 'check')">Add Multiple Choice Question</v-btn>
-            <v-btn class="ma-1 mt-4" color="primary" width="100%" @click="openDialog(-1, 'radio')">Add Single Choice Question</v-btn>
+            <v-btn v-if="quiz_type === 'text'" class="ma-1 mt-4" color="primary" width="100%" @click="openDialog(-1, 'text')">Add Question</v-btn>
+            <v-btn v-if="quiz_type === 'multiple_choice'" class="ma-1 mt-4" color="primary" width="100%" @click="openDialog(-1, 'multiple_choice')">Add Question</v-btn>
         </v-col>
-        <add-item-dialog title="Add Text Question" v-model="text.dialog" @save="saveDialog('text')" :index="index">
+
+        <add-item-dialog title="Add Question" v-model="text.dialog" @save="saveDialog('text')" :index="index">
             <v-text-field label="Question" variant="solo" v-model="text.object.text" :rules="requiredRule"/>
         </add-item-dialog>
-        <add-item-dialog title="Add Multiple Choice Question" v-model="check.dialog" @save="saveDialog('check')" :index="index">
-            <v-text-field label="Question" variant="solo" v-model="check.object.text" :rules="requiredRule"/>
-            <quiz-question-options-input v-model="check.object.options"></quiz-question-options-input>
-        </add-item-dialog>
 
-        <add-item-dialog title="Add Single Choice Question" v-model="radio.dialog" @save="saveDialog('radio')" :index="index">
-            <v-text-field label="Question" variant="solo" v-model="radio.object.text" :rules="requiredRule"/>
-            <quiz-question-options-input v-model="radio.object.options"></quiz-question-options-input>
+        <add-item-dialog title="Add Question" v-model="multiple_choice.dialog" @save="saveDialog('multiple_choice')" :index="index">
+            <v-text-field label="Question" variant="solo" v-model="multiple_choice.object.text" :rules="requiredRule"/>
+            <v-checkbox label="Student Can Select Multiple Answers" variant="solo" v-model="multiple_choice.object.type" true-value="check" false-value="radio"/>
+            <quiz-question-options-input v-model="multiple_choice.object.options"></quiz-question-options-input>
         </add-item-dialog>
     </v-row>
 
@@ -35,7 +32,7 @@ import QuizQuestionOptionsInput from "@/Components/Course/QuizQuestionOptionsInp
 import _ from 'lodash'
 export default {
     name: "QuizQuestionsInput",
-    props: ['modelValue', 'title'],
+    props: ['modelValue', 'title', 'quiz_type'],
     emits: ['update:modelValue'],
     methods: {
         saveDialog: function (type) {
@@ -73,28 +70,21 @@ export default {
                 "dialog": false,
                 initial: function(){
                     return {
-                        "text": null
+                        "text": null,
+                        "type": "text"
                     }
                 }
             },
-            "check": {
+            "multiple_choice": {
                 "dialog": false,
                 initial: function(){
                     return {
                         "text": null,
+                        "type": null,
                         "options": []
                     }
                 }
             },
-            "radio": {
-                "dialog": false,
-                initial: function(){
-                    return {
-                        "text": null,
-                        "options": []
-                    }
-                }
-            }
         }
     }
 }

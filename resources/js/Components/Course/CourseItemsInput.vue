@@ -41,7 +41,8 @@
 
         <add-item-dialog title="Add Quiz" v-model="quiz.dialog" @save="saveDialog('quiz')" :index="index">
             <v-text-field label="Name" variant="solo" v-model="quiz.object.name" :rules="requiredRule"/>
-            <quiz-questions-input v-model="quiz.object.questions"></quiz-questions-input>
+            <v-select label="Type" variant="solo" v-model="quiz.object.type" :rules="requiredRule" :items="quiz_types" item-title="name" item-value="value" :disabled="quiz.object.questions.length !== 0"/>
+            <quiz-questions-input v-model="quiz.object.questions" :quiz_type="quiz.object.type"></quiz-questions-input>
             <quiz-preview :questions="quiz.object.questions" :title="quiz.object.name"></quiz-preview>
         </add-item-dialog>
 
@@ -87,6 +88,18 @@ export default {
                 this.$emit('update:modelValue', JSON.parse(JSON.stringify(value)))
             }
         },
+        quiz_types: function(){
+            return [
+                {
+                    "name": "text",
+                    "value": "text"
+                },
+                {
+                    "name": "multiple choice",
+                    "value": "multiple_choice"
+                }
+            ]
+        }
     },
     data: () => {
         return {
@@ -141,6 +154,7 @@ export default {
                 initial: function(){
                     return {
                         "name": null,
+                        "type": null,
                         "questions": []
                     }
                 }

@@ -13,15 +13,13 @@
                         <v-row class="pa-4" v-if="question.type === 'text'">
                             <v-textarea v-if="question.type === 'text'"></v-textarea>
                         </v-row>
-                        <v-row class="pa-4 ml-2" v-if="question.type === 'check'">
-                            <v-col cols="12">
+                        <v-row class="pa-4 ml-2" v-if="question.type === 'multiple_choice'">
+                            <v-col v-if="question.object.type === 'check'" cols="12">
                                 <v-row v-for="option in question.object.options" >
                                     <v-checkbox-btn density="compact" :label="option.object.text" :class="option.object.is_correct ? 'text-green' : 'text-red'"/>
                                 </v-row>
                             </v-col>
-                        </v-row>
-                        <v-row class="pl-4 ml-2" v-if="question.type === 'radio'">
-                            <v-radio-group v-if="question.type === 'radio'">
+                            <v-radio-group v-else>
                                 <v-radio v-for="option in question.object.options" :value="option.object.text" :label="option.object.text" density="compact" :class="option.object.is_correct ? 'text-green' : 'text-red'"/>
                             </v-radio-group>
                         </v-row>

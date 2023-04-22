@@ -33,7 +33,7 @@ class CourseQuizQuestion extends BaseModel
             $question = static::byHash($dataObject['id']);
             $question->update(array_merge($dataObject['object'], ['order' => $order]));
         }else {
-            $question = self::create(array_merge($dataObject['object'], ['order' => $order, 'course_quiz_id' => $quizId, 'type' => $dataObject['type']]));
+            $question = self::create(array_merge($dataObject['object'], ['order' => $order, 'course_quiz_id' => $quizId]));
             if(isset($dataObject['object']['options']))
                 foreach($dataObject['object']['options'] as $index => $option)
                     $question->options()->create(array_merge(['order' => $index], $option['object']));
