@@ -45,4 +45,8 @@ class Student extends BaseUser
     {
         return $this->number_of_login_attempts < 3;
     }
+    public function classrooms()
+    {
+        return $this->belongsToMany(Classroom::class);
+    }
 }
