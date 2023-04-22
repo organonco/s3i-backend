@@ -9,7 +9,7 @@ use Spatie\MediaLibrary\InteractsWithMedia;
 class Course extends BaseModel implements HasMedia
 {
     use InteractsWithMedia;
-    protected $fillable = ['name', 'description', 'introduction_video_url', 'category_id'];
+    protected $fillable = ['name', 'description', 'introduction_video_url', 'category_id', 'students_limit'];
     public function getImageUrlAttribute() : string
     {
         return $this->getFirstMediaUrl('image');
