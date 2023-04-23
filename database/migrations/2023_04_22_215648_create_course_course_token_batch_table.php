@@ -11,7 +11,7 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('course_tokens_batch_course', function (Blueprint $table) {
+        Schema::create('course_course_token_batch', function (Blueprint $table) {
             $table->id();
             $table->foreignId('course_id');
             $table->foreignId('course_token_batch_id');
@@ -24,6 +24,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('course_tokens_batch_course');
+        Schema::dropIfExists('course_course_token_batch');
     }
 };

@@ -9,7 +9,6 @@ use App\Http\Resources\Model\Course\CourseShowResource;
 use App\Models\Category;
 use App\Models\Course;
 use App\Models\CourseItem;
-use App\Models\CourseSection;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 use Inertia\Response;
@@ -51,15 +50,15 @@ class CourseController extends Controller
             'items.*.object' => 'required',
         ]);
         $course->update(array_merge($request->all(), ['category_id' => Category::hashToId($request->category_id)]));
-        if($request->hasFile('image'))
+        if ($request->hasFile('image'))
             $course->addMediaFromRequest('image')->toMediaCollection("image");
 
-        $remainingIds = collect($request->items)->whereNotNull('id')->pluck(['id'])->transform(function($hash){
+        $remainingIds = collect($request->items)->whereNotNull('id')->pluck(['id'])->transform(function ($hash) {
             return CourseItem::hashToId($hash);
         });
         $course->courseItems()->whereNotIn('id', $remainingIds)->delete();
 
-        foreach($request->items as $order => $item)
+        foreach ($request->items as $order => $item)
             CourseItem::createOrUpdateFromDataObject($item, $order, $course->id);
 
         return redirect()->route('course.index');
@@ -88,7 +87,7 @@ class CourseController extends Controller
             'category_id' => Category::hashToId($request->category_id)
         ]));
 
-        foreach($request->items as $order => $item)
+        foreach ($request->items as $order => $item)
             CourseItem::createOrUpdateFromDataObject($item, $order, $course->id);
 
         $course->addMediaFromRequest('image')->toMediaCollection('image');

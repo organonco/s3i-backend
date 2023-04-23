@@ -22,6 +22,7 @@ export default {
                 introduction_video_url: "",
                 category_id: "",
                 image: "",
+                students_limit: "",
             })
         }
     },
@@ -55,6 +56,10 @@ export default {
             <v-row>
                 <v-text-field label="Introduction Video URL" variant="solo" v-model="form.introduction_video_url"
                               :error-messages="form.errors.introduction_video_url"></v-text-field>
+            </v-row>
+            <v-row>
+                <v-text-field label="Students Per Class" type="number" variant="solo" v-model="form.students_limit"
+                              :error-messages="form.errors.students_limit"></v-text-field>
             </v-row>
             <v-row>
                 <v-select

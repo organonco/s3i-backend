@@ -6,9 +6,11 @@ use App\Models\BaseModels\BaseModel;
 
 class CourseTokenBatch extends BaseModel
 {
-    public function course()
+    public $fillable = ['expires_at'];
+
+    public function courses()
     {
-        return $this->belongsTo(Course::class);
+        return $this->belongsToMany(Course::class);
     }
     public function tokens()
     {

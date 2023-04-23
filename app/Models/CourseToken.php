@@ -9,6 +9,8 @@ use Illuminate\Database\Eloquent\Relations\HasOne;
 
 class CourseToken extends BaseModel
 {
+    protected $fillable = ['course_token_batch_id'];
+
     use HasUUID;
 
     public function batch() : HasOne

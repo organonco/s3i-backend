@@ -21,6 +21,7 @@ class CourseBaseResource extends JsonResource
             'introduction_video_url' => $this->introduction_video_url,
             'category_id' => $this->category->hash,
             'image_url' => $this->image_url,
+            'students_limit' => $this->students_limit,
         ];
     }
 }

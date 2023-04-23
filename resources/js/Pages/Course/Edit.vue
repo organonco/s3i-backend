@@ -23,6 +23,7 @@ export default {
                 description: this.course.data.description,
                 introduction_video_url: this.course.data.introduction_video_url,
                 category_id: this.course.data.category_id,
+                students_limit: this.course.data.students_limit,
                 image: "",
             })
         }
@@ -46,6 +47,7 @@ export default {
             <v-text-field label="Name" variant="solo" v-model="form.name" :error-messages="form.errors.name"></v-text-field>
             <v-textarea label="Description" variant="solo" v-model="form.description" :error-messages="form.errors.description"></v-textarea>
             <v-text-field label="Introduction Video URL" variant="solo" v-model="form.introduction_video_url" :error-messages="form.errors.introduction_video_url"></v-text-field>
+            <v-text-field label="Students Per Class" type="number" variant="solo" v-model="form.students_limit" :error-messages="form.errors.students_limit"></v-text-field>
             <v-autocomplete
                 label="Category"
                 variant="solo"
