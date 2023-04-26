@@ -10,7 +10,7 @@ class TokenResource extends JsonResource
     public function toArray(Request $request): array
     {
         return [
-            'token' => $this->uuid,
+            'token' => $this->hash,
             'student' => $this->student ? $this->student->name : 'Not Used',
         ];
     }

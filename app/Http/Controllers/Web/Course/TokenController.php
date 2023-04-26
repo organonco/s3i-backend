@@ -3,11 +3,11 @@
 namespace App\Http\Controllers\Web\Course;
 
 use App\Http\Controllers\Web\Controller;
+use App\Http\Resources\Model\Course\Token\BatchIndexResource;
 use App\Http\Resources\Model\Course\Token\BatchResource;
 use App\Http\Resources\SelectResource;
 use App\Models\Course;
 use App\Models\CourseTokenBatch;
-use Illuminate\Http\Request;
 use Inertia\Inertia;
 
 
@@ -16,7 +16,7 @@ class TokenController extends Controller
     public function index()
     {
         return Inertia::render('CourseToken/Index', [
-            'batches' => BatchResource::collection(CourseTokenBatch::all())
+            'batches' => BatchIndexResource::collection(CourseTokenBatch::all())
         ]);
     }
 
@@ -38,6 +38,14 @@ class TokenController extends Controller
     {
         return Inertia::render('CourseToken/Create', [
             'courses' => SelectResource::collection(Course::all())
+        ]);
+    }
+
+    public function show($courseTokenBatchId)
+    {
+        $courseTokenBatch = CourseTokenBatch::byHash($courseTokenBatchId);
+        return Inertia::render('CourseToken/Show', [
+            'batch' => BatchResource::make($courseTokenBatch)
         ]);
     }
 }

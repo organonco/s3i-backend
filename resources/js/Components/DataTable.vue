@@ -15,7 +15,8 @@ import {useForm} from "@inertiajs/vue3";
 
 export default {
     data() {
-        this.headers.push({ title: 'Actions', align: 'end', key: 'actions' })
+        if(this.showable || !this.uneditable)
+            this.headers.push({ title: 'Actions', align: 'end', key: 'actions' })
         return {
             itemsPerPage: 25,
             search: "",

@@ -1,0 +1,41 @@
+<script setup>
+import MainLayout from "@/Layouts/MainLayout.vue";
+import DataTable from "@/Components/DataTable.vue";
+defineProps({
+    batch: Object,
+});
+</script>
+
+
+<script>
+
+
+export default {
+    data() {
+        return {
+            headers: [
+                {title: 'Token', align: 'start', key: 'token'},
+                {title: 'Student', align: 'end', key: 'student'},
+            ],
+        }
+    },
+    computed: {
+        courses: function(){
+            return this.batch.data.courses.map(i => i['name'])
+        }
+    }
+}
+</script>
+
+<template>
+    <MainLayout title="Show Tokens">
+        <v-container>
+            <v-text-field v-model="batch.data.id" label="ID" readonly></v-text-field>
+            <v-text-field v-model="batch.data.expires_at" label="Expires At" readonly></v-text-field>
+            <v-text-field v-model="batch.data.number_of_tokens" label="Number Of Tokens" readonly></v-text-field>
+            <v-text-field v-model="batch.data.number_of_used_tokens" label="Number Of Used Tokens" readonly></v-text-field>
+            <v-autocomplete v-model="courses" chips readonly label="Courses"/>
+            <data-table :headers="headers" :data="batch.data.tokens" actions_route="token" uneditable></data-table>
+        </v-container>
+    </MainLayout>
+</template>

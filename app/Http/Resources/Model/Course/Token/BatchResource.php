@@ -11,9 +11,12 @@ class BatchResource extends JsonResource
     public function toArray(Request $request): array
     {
         return [
-            'expires_at' => date('d/m/Y H:i', strtotime($this->expires_at)),
+            'id' => $this->hash,
+            'expires_at' => date('d/m/Y', strtotime($this->expires_at)),
             'courses' => SelectResource::collection($this->courses),
-            'tokens' => TokenResource::collection($this->tokens)
+            'tokens' => TokenResource::collection($this->tokens),
+            'number_of_tokens' => $this->tokens->count(),
+            'number_of_used_tokens' => $this->tokens->whereNotNull('student_id')->count()
         ];
     }
 }

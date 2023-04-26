@@ -13,6 +13,7 @@
         "laravel/telescope": "^4.14",
         "laravel/tinker": "^2.8",
         "spatie/laravel-medialibrary": "^10.0.0",
+        "spatie/laravel-tags": "^4.3",
         "tightenco/ziggy": "^1.0",
         "veelasky/laravel-hashid": "^3.1"
     },

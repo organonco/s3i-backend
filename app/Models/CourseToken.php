@@ -3,15 +3,12 @@
 namespace App\Models;
 
 use App\Models\BaseModels\BaseModel;
-use App\Traits\HasUUID;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 
 class CourseToken extends BaseModel
 {
     protected $fillable = ['course_token_batch_id'];
-
-    use HasUUID;
 
     public function batch(): HasOne
     {
