@@ -16,6 +16,7 @@ export default {
                 {title: 'ID', align: 'start', key: 'id'},
                 {title: 'Expires At', align: 'middle', key: 'expires_at'},
                 {title: 'Courses', align: 'middle', key: 'courses'},
+                {title: 'Tags', align: 'middle', key: 'tags'},
                 {title: 'Number Of Tokens', align: 'middle', key: 'number_of_tokens'},
                 {title: 'Number Of Used Tokens', align: 'middle', key: 'number_of_used_tokens'},
             ],
