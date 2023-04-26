@@ -11,7 +11,7 @@ class ResetPasswordRequest extends Request
         return true;
     }
 
-    public function rules() : array
+    public function rules(): array
     {
         return [
             'old_password' => 'required',
@@ -19,6 +19,7 @@ class ResetPasswordRequest extends Request
             'new_password_confirmation' => 'required',
         ];
     }
+
     public function bodyParameters(): array
     {
         return [

@@ -10,14 +10,8 @@ use Laravel\Sanctum\HasApiTokens;
 class Student extends BaseUser
 {
     use HasApiTokens;
+
     public $fillable = ['phone', 'password', 'name_ar', 'name_en', 'email', 'date_of_birth', 'nationality_id', 'education_level_id', 'address', 'reference'];
-    protected function password(): Attribute
-    {
-        return Attribute::make(
-            get: fn (string $value) => $value,
-            set: fn (string $value) => Hash::make($value),
-        );
-    }
 
     public function nationality()
     {
@@ -41,12 +35,21 @@ class Student extends BaseUser
         $this->save();
     }
 
-    public function canLogin() : int
+    public function canLogin(): int
     {
         return $this->number_of_login_attempts < 3;
     }
+
     public function classrooms()
     {
         return $this->belongsToMany(Classroom::class);
+    }
+
+    protected function password(): Attribute
+    {
+        return Attribute::make(
+            get: fn(string $value) => $value,
+            set: fn(string $value) => Hash::make($value),
+        );
     }
 }

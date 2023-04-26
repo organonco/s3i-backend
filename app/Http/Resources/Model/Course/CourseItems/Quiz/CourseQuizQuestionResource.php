@@ -22,7 +22,7 @@ class CourseQuizQuestionResource extends JsonResource
                 'text' => $this->text,
             ],
         ];
-        if($this->type != CourseQuizQuestionTypes::TEXT)
+        if ($this->type != CourseQuizQuestionTypes::TEXT)
             $resource['object']['options'] = CourseQuizQuestionOptionResource::collection($this->options);
         return $resource;
     }

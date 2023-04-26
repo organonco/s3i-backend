@@ -64,13 +64,6 @@ class CourseController extends Controller
         return redirect()->route('course.index');
     }
 
-    public function create(Course $course, Request $request)
-    {
-        return Inertia::render('Course/Create', [
-            "categories" => CategoryResource::collection(Category::all())
-        ]);
-    }
-
     public function store(Request $request)
     {
         $request->validate([
@@ -92,5 +85,12 @@ class CourseController extends Controller
 
         $course->addMediaFromRequest('image')->toMediaCollection('image');
         return redirect()->route('course.index');
+    }
+
+    public function create(Course $course, Request $request)
+    {
+        return Inertia::render('Course/Create', [
+            "categories" => CategoryResource::collection(Category::all())
+        ]);
     }
 }

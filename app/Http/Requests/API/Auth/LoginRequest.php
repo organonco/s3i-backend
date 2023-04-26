@@ -11,13 +11,14 @@ class LoginRequest extends Request
         return true;
     }
 
-    public function rules() : array
+    public function rules(): array
     {
         return [
             'phone' => 'required',
             'password' => 'required',
         ];
     }
+
     public function bodyParameters(): array
     {
         return [

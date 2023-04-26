@@ -4,7 +4,6 @@ namespace App\Http\Controllers\Web\User;
 
 use App\Http\Controllers\Web\Controller;
 use App\Http\Requests\Web\ProfileUpdateRequest;
-use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;

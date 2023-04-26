@@ -15,12 +15,12 @@ class IndexCoursesRequest extends Request
         return true;
     }
 
-    public function hasCategoryId() : bool
+    public function hasCategoryId(): bool
     {
         return $this->has('category_id');
     }
 
-    public function getCategoryId() : ?string
+    public function getCategoryId(): ?string
     {
         return Category::hashToId($this->input('category_id'));
     }

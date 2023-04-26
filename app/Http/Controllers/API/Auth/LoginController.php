@@ -21,12 +21,12 @@ class LoginController extends Controller
      */
     public function __invoke(LoginRequest $request)
     {
-        if(!Auth::guard('api')->attempt($request->validated()))
+        if (!Auth::guard('api')->attempt($request->validated()))
             throw new InvalidCredentials;
 
         /** @var Student $user */
-        $user = Student::where('phone' , $request->phone)->first();
-        if(!$user->canLogin())
+        $user = Student::where('phone', $request->phone)->first();
+        if (!$user->canLogin())
             throw new AccountIsFrozen;
 
         $user->tokens()->delete();

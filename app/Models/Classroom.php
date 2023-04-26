@@ -10,6 +10,7 @@ class Classroom extends BaseModel
     {
         return $this->hasOne(Course::class);
     }
+
     public function students()
     {
         return $this->belongsToMany(Student::class);

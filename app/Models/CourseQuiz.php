@@ -17,14 +17,6 @@ class CourseQuiz extends BaseModel implements HasCourseItemInterface
 
     protected $fillable = ['name', 'type'];
 
-    protected function type(): Attribute
-    {
-        return Attribute::make(
-            get: fn(string $value) => CourseQuizTypes::from($value),
-            set: fn($value) => $value,
-        );
-    }
-
     public static function create(array $attributes = [])
     {
         /** @var self $model */
@@ -45,6 +37,11 @@ class CourseQuiz extends BaseModel implements HasCourseItemInterface
             CourseQuizQuestion::createOrUpdateFromDataObject($question, $index, $this->id);
     }
 
+    public function questions(): HasMany
+    {
+        return $this->hasMany(CourseQuizQuestion::class);
+    }
+
     public function getResourceClass(): string
     {
         return CourseQuizResource::class;
@@ -55,8 +52,11 @@ class CourseQuiz extends BaseModel implements HasCourseItemInterface
         return CourseQuizAPIResource::class;
     }
 
-    public function questions(): HasMany
+    protected function type(): Attribute
     {
-        return $this->hasMany(CourseQuizQuestion::class);
+        return Attribute::make(
+            get: fn(string $value) => CourseQuizTypes::from($value),
+            set: fn($value) => $value,
+        );
     }
 }

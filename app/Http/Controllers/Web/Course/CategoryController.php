@@ -38,15 +38,15 @@ class CategoryController extends Controller
         return redirect()->route('category.index');
     }
 
-    public function create()
-    {
-        return Inertia::render('Category/Create');
-    }
-
     public function store(Request $request)
     {
         $request->validate(['name' => 'required']);
         Category::create($request->all());
         return redirect()->route('category.index');
+    }
+
+    public function create()
+    {
+        return Inertia::render('Category/Create');
     }
 }

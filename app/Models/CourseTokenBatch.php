@@ -12,6 +12,7 @@ class CourseTokenBatch extends BaseModel
     {
         return $this->belongsToMany(Course::class);
     }
+
     public function tokens()
     {
         return $this->hasMany(CourseToken::class);

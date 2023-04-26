@@ -3,7 +3,6 @@
 namespace App\Http\Resources\Model\Course\CourseItems\Quiz\Option;
 
 use Illuminate\Http\Request;
-use Illuminate\Http\Resources\Json\JsonResource;
 
 class CourseQuizQuestionOptionResource extends CourseQuizQuestionOptionAPIResource
 {

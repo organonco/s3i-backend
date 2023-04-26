@@ -11,7 +11,7 @@ class TokenResource extends JsonResource
     {
         return [
             'token' => $this->uuid,
-            'student' => $this->student? $this->student->name : 'Not Used',
+            'student' => $this->student ? $this->student->name : 'Not Used',
         ];
     }
 }

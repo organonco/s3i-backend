@@ -7,7 +7,7 @@ use Illuminate\Http\Resources\Json\JsonResource;
 
 class CourseSectionResource extends JsonResource
 {
-    public function toArray(Request $request) : array
+    public function toArray(Request $request): array
     {
         return [
             'name' => $this->name,

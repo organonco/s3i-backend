@@ -13,14 +13,16 @@ class CourseToken extends BaseModel
 
     use HasUUID;
 
-    public function batch() : HasOne
+    public function batch(): HasOne
     {
         return $this->hasOne(CourseTokenBatch::class);
     }
-    public function course() : BelongsTo
+
+    public function course(): BelongsTo
     {
         return $this->batch->course();
     }
+
     public function student()
     {
         return $this->belongsTo(Student::class);

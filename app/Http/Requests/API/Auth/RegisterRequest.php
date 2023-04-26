@@ -22,7 +22,7 @@ class RegisterRequest extends Request
         ]);
     }
 
-    public function rules() : array
+    public function rules(): array
     {
         return [
             'phone' => 'required|min:8|max:8|unique:students',
@@ -32,12 +32,13 @@ class RegisterRequest extends Request
             'name_ar' => 'required',
             'email' => 'required|email|unique:students',
             'date_of_birth' => 'required|date',
-            'nationality_id' =>  ['required', new ExistsByHash(Nationality::class)],
-            'education_level_id' =>  ['required', new ExistsByHash(EducationLevel::class)],
+            'nationality_id' => ['required', new ExistsByHash(Nationality::class)],
+            'education_level_id' => ['required', new ExistsByHash(EducationLevel::class)],
             'address' => 'required',
             'reference' => 'required'
         ];
     }
+
     public function bodyParameters(): array
     {
         return [

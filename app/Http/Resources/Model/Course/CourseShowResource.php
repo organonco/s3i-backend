@@ -10,7 +10,7 @@ class CourseShowResource extends CourseBaseResource
     public function toArray(Request $request): array
     {
         $base = parent::toArray($request);
-        $base['items'] = $this->courseItems()->orderBy('order')->get()->transform(function ($item){
+        $base['items'] = $this->courseItems()->orderBy('order')->get()->transform(function ($item) {
             return new CourseItemResource($item);
         });
         return $base;

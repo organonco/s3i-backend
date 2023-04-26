@@ -2,7 +2,7 @@
 
 namespace App\Enums;
 
-enum CourseQuizQuestionTypes : string
+enum CourseQuizQuestionTypes: string
 {
     case TEXT = 'text';
     case CHECK = 'check';

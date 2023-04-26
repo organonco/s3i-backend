@@ -20,7 +20,7 @@ class CourseController extends Controller
      */
     public function index(IndexCoursesRequest $request)
     {
-        if($request->hasCategoryId())
+        if ($request->hasCategoryId())
             return CourseIndexResource::collection(Course::query()->where('category_id', $request->getCategoryId())->get());
         return CourseIndexResource::collection(Course::all());
     }

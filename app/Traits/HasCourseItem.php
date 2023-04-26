@@ -11,10 +11,12 @@ trait HasCourseItem
     {
         return $this->morphOne(CourseItem::class, 'item');
     }
+
     public function course()
     {
         return $this->hasOneThrough(Course::class, CourseItem::class);
     }
+
     public function getAPIResourceClass(): string
     {
         return $this->getResourceClass();

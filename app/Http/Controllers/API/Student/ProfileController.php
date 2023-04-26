@@ -26,6 +26,18 @@ class ProfileController extends Controller
     }
 
     /**
+     * Reset Password
+     * @responseFile 422 app/Http/Responses/Samples/Profile/invalid-password.json
+     * @responseFile 422 app/Http/Responses/Samples/validation-error.json
+     */
+    public function resetPassword(ResetPasswordRequest $request)
+    {
+        if (!Auth::guard('api')->attempt(['phone' => $request->user()->phone, 'password' => $request->old_password]))
+            throw new InvalidPassword();
+        $request->user()->update(['password' => $request->new_password]);
+    }
+
+    /**
      * Update
      * @responseFile app/Http/Responses/Samples/Profile/show.json
      * @responseFile 422 app/Http/Responses/Samples/validation-error.json
@@ -34,17 +46,5 @@ class ProfileController extends Controller
     {
         $request->user()->update($request->validated());
         return StudentBaseResource::make($request->user());
-    }
-
-    /**
-     * Reset Password
-     * @responseFile 422 app/Http/Responses/Samples/Profile/invalid-password.json
-     * @responseFile 422 app/Http/Responses/Samples/validation-error.json
-     */
-    public function resetPassword(ResetPasswordRequest $request)
-    {
-        if(!Auth::guard('api')->attempt(['phone' => $request->user()->phone, 'password' => $request->old_password]))
-            throw new InvalidPassword();
-        $request->user()->update(['password' => $request->new_password]);
     }
 }

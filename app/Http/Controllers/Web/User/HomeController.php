@@ -10,11 +10,12 @@ use Inertia\Response;
 
 class HomeController extends Controller
 {
-    public function home(Request $request) : RedirectResponse
+    public function home(Request $request): RedirectResponse
     {
         return redirect()->route('dashboard');
     }
-    public function dashboard(Request $request) : Response
+
+    public function dashboard(Request $request): Response
     {
         return Inertia::render('Dashboard');
     }

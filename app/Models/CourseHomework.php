@@ -10,7 +10,9 @@ use App\Traits\HasCourseItem;
 class CourseHomework extends BaseModel implements HasCourseItemInterface
 {
     use HasCourseItem;
+
     protected $fillable = ['name'];
+
     public function getResourceClass(): string
     {
         return CourseHomeworkResource::class;

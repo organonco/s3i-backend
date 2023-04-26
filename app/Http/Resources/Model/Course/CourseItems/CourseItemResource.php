@@ -1,12 +1,14 @@
 <?php
 
 namespace App\Http\Resources\Model\Course\CourseItems;
+
 use App\Interfaces\HasCourseItemInterface;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
+
 class CourseItemResource extends JsonResource
 {
-    public function toArray(Request $request) : array
+    public function toArray(Request $request): array
     {
         return [
             'id' => $this->hash,

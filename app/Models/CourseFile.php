@@ -12,6 +12,7 @@ use Spatie\MediaLibrary\InteractsWithMedia;
 class CourseFile extends BaseModel implements HasCourseItemInterface, HasMedia
 {
     use HasCourseItem, InteractsWithMedia;
+
     protected $fillable = ['name'];
 
     public static function create(array $attributes = [])
@@ -27,7 +28,7 @@ class CourseFile extends BaseModel implements HasCourseItemInterface, HasMedia
         return CourseFileResource::class;
     }
 
-    public function getFileUrlAttribute() : string
+    public function getFileUrlAttribute(): string
     {
         return $this->getFirstMediaUrl('file');
     }
