@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Web\Course;
 use App\Http\Controllers\Web\Controller;
 use App\Http\Resources\Model\Course\Token\BatchIndexResource;
 use App\Http\Resources\Model\Course\Token\BatchResource;
+use App\Http\Resources\Model\Course\Token\TokenResource;
 use App\Http\Resources\SelectResource;
 use App\Http\Resources\TagResource;
 use App\Models\Course;
@@ -56,5 +57,11 @@ class TokenController extends Controller
             'batch' => BatchResource::make($courseTokenBatch),
             'tags' => TagResource::collection(Tag::all())
         ]);
+    }
+
+    public function export($courseTokenBatchId)
+    {
+        $tokens = CourseTokenBatch::byHash($courseTokenBatchId)->tokens;
+        TokenResource::exportCSV($tokens, 'hot noodles.csv');
     }
 }

@@ -27,6 +27,7 @@ Route::middleware('auth')->group(function () {
     Route::resource('course', \App\Http\Controllers\Web\Course\CourseController::class);
     Route::resource('student', \App\Http\Controllers\Web\Student\StudentController::class);
     Route::resource('course_token', \App\Http\Controllers\Web\Course\TokenController::class);
+    Route::get('course_token/{id}/export', [\App\Http\Controllers\Web\Course\TokenController::class, 'export'])->name('course_token.export');
     Route::put('student/{student}/unfreeze', [\App\Http\Controllers\Web\Student\StudentController::class, 'unfreeze'])->name('student.unfreeze');
 });
 
