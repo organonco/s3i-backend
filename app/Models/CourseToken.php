@@ -24,4 +24,15 @@ class CourseToken extends BaseModel
     {
         return $this->belongsTo(Student::class);
     }
+
+    public function isUsed()
+    {
+        return !is_null($this->student()->first());
+    }
+
+    public function setStudent(Student $student) : void
+    {
+        $this->student()->associate($student);
+        $this->save();
+    }
 }

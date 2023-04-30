@@ -13,7 +13,7 @@ class TokenResource extends JsonResource
     {
         return [
             'token' => $this->hash,
-            'student' => $this->student ? $this->student->name : 'Not Used',
+            'student' => $this->student ? $this->student->name_en : 'Not Used',
         ];
     }
 }
