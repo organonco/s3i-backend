@@ -38,4 +38,29 @@ class Course extends BaseModel implements HasMedia
     {
         return $this->hasMany(Classroom::class);
     }
+
+    public function getStudentsAttribute()
+    {
+        $collection = collect([]);
+        foreach($this->classrooms as $classroom)
+            $collection = $collection->merge($classroom->students);
+        return $collection;
+    }
+
+    private function addClassroom() : Classroom
+    {
+        return $this->classrooms()->create(['name' => $this->name . " - " . $this->classrooms()->count() + 1]);
+    }
+
+    public function addStudent(Student $student)
+    {
+        if($this->students->pluck('id')->contains($student->id))
+            return;
+
+        /** @var Classroom $latestClassroom */
+        $classroom = $this->classrooms()->orderBy('id', 'desc')->first();
+        if(is_null($classroom) || $classroom->isFull())
+            $classroom = $this->addClassroom();
+        $classroom->students()->syncWithoutDetaching([$student->id]);
+    }
 }

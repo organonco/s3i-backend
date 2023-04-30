@@ -10,9 +10,9 @@ class CourseToken extends BaseModel
 {
     protected $fillable = ['course_token_batch_id'];
 
-    public function batch(): HasOne
+    public function batch(): BelongsTo
     {
-        return $this->hasOne(CourseTokenBatch::class);
+        return $this->belongsTo(CourseTokenBatch::class, 'course_token_batch_id');
     }
 
     public function course(): BelongsTo
@@ -34,5 +34,11 @@ class CourseToken extends BaseModel
     {
         $this->student()->associate($student);
         $this->save();
+
+        /** @var Course $course */
+        foreach($this->batch->courses as $course)
+        {
+            $course->addStudent($student);
+        }
     }
 }

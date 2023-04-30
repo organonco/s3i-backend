@@ -6,13 +6,20 @@ use App\Models\BaseModels\BaseModel;
 
 class Classroom extends BaseModel
 {
-    public function coures()
+    protected $fillable = ['name'];
+
+    public function course()
     {
-        return $this->hasOne(Course::class);
+        return $this->belongsTo(Course::class);
     }
 
     public function students()
     {
         return $this->belongsToMany(Student::class);
+    }
+
+    public function isFull()
+    {
+        return $this->students()->count() >= $this->course->students_limit;
     }
 }
