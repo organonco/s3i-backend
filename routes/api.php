@@ -29,6 +29,7 @@ Route::group(['middleware' => 'auth:sanctum'], function(){
     Route::resource('/quiz', \App\Http\Controllers\API\Course\QuizController::class)->only(['show']);
     Route::resource('/homework', \App\Http\Controllers\API\Course\HomeworkController::class)->only(['store']);
     Route::resource('/token', \App\Http\Controllers\API\Course\TokenController::class)->only(['store']);
+    Route::get('/course/my-courses', [\App\Http\Controllers\API\Course\CourseController::class, 'indexMyCourses'])->name('course.my-courses');
 });
 
 Route::resource('/category', \App\Http\Controllers\API\Course\CategoryController::class)->only(['index']);

@@ -52,4 +52,9 @@ class Student extends BaseUser
             set: fn(string $value) => Hash::make($value),
         );
     }
+
+    public function getCoursesAttribute()
+    {
+        return $this->classrooms()->with('course')->get()->pluck('course');
+    }
 }
