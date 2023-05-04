@@ -3,11 +3,10 @@
 namespace App\Http\Controllers\Web\Course;
 
 use App\Http\Controllers\Web\Controller;
-use App\Http\Resources\Model\Course\Token\BatchIndexResource;
-use App\Http\Resources\Model\Course\Token\BatchResource;
-use App\Http\Resources\Model\Course\Token\TokenResource;
-use App\Http\Resources\SelectResource;
-use App\Http\Resources\TagResource;
+use App\Http\Resources\Base\SelectResource;
+use App\Http\Resources\Base\TagResource;
+use App\Http\Resources\Dashboard\Index\Course\Token\TokenBatchDashboardIndexResource;
+use App\Http\Resources\Dashboard\Show\Course\Token\TokenBatchDashboardShowResource;
 use App\Models\Course;
 use App\Models\CourseTokenBatch;
 use Illuminate\Http\Request;
@@ -20,7 +19,7 @@ class TokenController extends Controller
     public function index()
     {
         return Inertia::render('CourseToken/Index', [
-            'batches' => BatchIndexResource::collection(CourseTokenBatch::all())
+            'batches' => TokenBatchDashboardIndexResource::collection(CourseTokenBatch::all())
         ]);
     }
 
@@ -54,7 +53,7 @@ class TokenController extends Controller
     {
         $courseTokenBatch = CourseTokenBatch::byHash($courseTokenBatchId);
         return Inertia::render('CourseToken/Show', [
-            'batch' => BatchResource::make($courseTokenBatch),
+            'batch' => TokenBatchDashboardShowResource::make($courseTokenBatch->load('courses', 'tags', 'tokens')),
             'tags' => TagResource::collection(Tag::all())
         ]);
     }
@@ -62,6 +61,6 @@ class TokenController extends Controller
     public function export($courseTokenBatchId)
     {
         $tokens = CourseTokenBatch::byHash($courseTokenBatchId)->tokens;
-        TokenResource::exportCSV($tokens, 'hot noodles.csv');
+        TokenBatchDashboardShowResource::exportCSV($tokens, 'data.csv');
     }
 }

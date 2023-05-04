@@ -2,7 +2,7 @@
 
 namespace App\Models;
 
-use App\Http\Resources\Model\Course\CourseItems\CourseVideoResource;
+use App\Http\Resources\Base\Course\Items\CourseVideoResource;
 use App\Interfaces\HasCourseItemInterface;
 use App\Models\BaseModels\BaseModel;
 use App\Traits\HasCourseItem;

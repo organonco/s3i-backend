@@ -2,7 +2,7 @@
 
 namespace App\Models;
 
-use App\Http\Resources\Model\Course\CourseItems\CourseHomeworkResource;
+use App\Http\Resources\Base\Course\Items\CourseHomeworkResource;
 use App\Interfaces\HasCourseItemInterface;
 use App\Models\BaseModels\BaseModel;
 use App\Traits\HasCourseItem;

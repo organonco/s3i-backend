@@ -3,10 +3,19 @@
 namespace App\Models;
 
 use App\Models\BaseModels\BaseModel;
+use Illuminate\Database\Eloquent\Builder;
 
 class CourseItem extends BaseModel
 {
     protected $fillable = ['order', 'item_id', 'item_type', 'course_id'];
+
+    protected static function boot()
+    {
+        parent::boot();
+        static::addGlobalScope('order', function (Builder $builder) {
+            $builder->orderBy('order');
+        });
+    }
 
     public static function createOrUpdateFromDataObject($dataObject, $order, $courseId): self
     {

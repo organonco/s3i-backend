@@ -3,9 +3,9 @@
 namespace App\Http\Controllers\Web\Course;
 
 use App\Http\Controllers\Web\Controller;
-use App\Http\Resources\Model\Category\CategoryResource;
-use App\Http\Resources\Model\Course\CourseBaseResource;
-use App\Http\Resources\Model\Course\CourseShowResource;
+use App\Http\Resources\Base\SelectResource;
+use App\Http\Resources\Dashboard\Index\Course\CourseDashboardIndexResource;
+use App\Http\Resources\Dashboard\Show\Course\CourseDashboardShowResource;
 use App\Models\Category;
 use App\Models\Course;
 use App\Models\CourseItem;
@@ -19,7 +19,7 @@ class CourseController extends Controller
     public function index(Request $request): Response
     {
         return Inertia::render('Course/Index', [
-            'courses' => CourseBaseResource::collection(Course::all())
+            'courses' => CourseDashboardIndexResource::collection(Course::all())
         ]);
     }
 
@@ -32,8 +32,8 @@ class CourseController extends Controller
     public function edit(Course $course)
     {
         return Inertia::render('Course/Edit', [
-            "categories" => CategoryResource::collection(Category::all()),
-            'course' => new CourseShowResource($course)
+            "categories" => SelectResource::collection(Category::all()),
+            'course' => new CourseDashboardShowResource($course->load('category', 'courseItems', 'courseItems.item'))
         ]);
     }
 
@@ -90,7 +90,7 @@ class CourseController extends Controller
     public function create(Course $course, Request $request)
     {
         return Inertia::render('Course/Create', [
-            "categories" => CategoryResource::collection(Category::all())
+            "categories" => SelectResource::collection(Category::all())
         ]);
     }
 }

@@ -3,7 +3,8 @@
 namespace App\Http\Controllers\Web\Student;
 
 use App\Http\Controllers\Web\Controller;
-use App\Http\Resources\Model\Nationality\NationalityResource;
+use App\Http\Resources\Dashboard\Index\Student\NationalityDashboardIndexResource;
+use App\Http\Resources\Dashboard\Show\Student\NationalityDashboardShowResource;
 use App\Models\Nationality;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
@@ -14,7 +15,7 @@ class NationalityController extends Controller
     public function index(): Response
     {
         return Inertia::render('Nationality/Index', [
-            'nationalities' => NationalityResource::collection(Nationality::all())
+            'nationalities' => NationalityDashboardIndexResource::collection(Nationality::all())
         ]);
     }
 
@@ -27,7 +28,7 @@ class NationalityController extends Controller
     public function edit(Nationality $nationality)
     {
         return Inertia::render('Nationality/Edit', [
-            'nationality' => new NationalityResource($nationality)
+            'nationality' => new NationalityDashboardShowResource($nationality)
         ]);
     }
 

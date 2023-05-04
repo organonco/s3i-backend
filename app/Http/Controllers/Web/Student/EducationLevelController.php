@@ -3,7 +3,8 @@
 namespace App\Http\Controllers\Web\Student;
 
 use App\Http\Controllers\Web\Controller;
-use App\Http\Resources\Model\EducationLevel\EducationLevelResource;
+use App\Http\Resources\Dashboard\Index\Student\EducationLevelDashboardIndexResource;
+use App\Http\Resources\Dashboard\Show\Student\EducationLevelDashboardShowResource;
 use App\Models\EducationLevel;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
@@ -14,7 +15,7 @@ class EducationLevelController extends Controller
     public function index(): Response
     {
         return Inertia::render('EducationLevels/Index', [
-            'education_levels' => EducationLevelResource::collection(EducationLevel::all())
+            'education_levels' => EducationLevelDashboardIndexResource::collection(EducationLevel::all())
         ]);
     }
 
@@ -27,7 +28,7 @@ class EducationLevelController extends Controller
     public function edit(EducationLevel $educationLevel)
     {
         return Inertia::render('EducationLevels/Edit', [
-            'education_level' => new EducationLevelResource($educationLevel)
+            'education_level' => new EducationLevelDashboardShowResource($educationLevel)
         ]);
     }
 

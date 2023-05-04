@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Web\Course;
 
 use App\Http\Controllers\Web\Controller;
-use App\Http\Resources\Model\Category\CategoryResource;
+use App\Http\Resources\Base\Course\CategoryResource;
 use App\Models\Category;
 use Illuminate\Http\Request;
 use Inertia\Inertia;

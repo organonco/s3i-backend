@@ -3,8 +3,8 @@
 namespace App\Models;
 
 use App\Enums\CourseQuizTypes;
+use App\Http\Resources\Base\Course\Items\Quiz\CourseQuizResource;
 use App\Http\Resources\Model\Course\CourseItems\Quiz\CourseQuizAPIResource;
-use App\Http\Resources\Model\Course\CourseItems\Quiz\CourseQuizResource;
 use App\Interfaces\HasCourseItemInterface;
 use App\Models\BaseModels\BaseModel;
 use App\Traits\HasCourseItem;
@@ -16,6 +16,7 @@ class CourseQuiz extends BaseModel implements HasCourseItemInterface
     use HasCourseItem;
 
     protected $fillable = ['name', 'type'];
+    protected $with = ['questions'];
 
     public static function create(array $attributes = [])
     {

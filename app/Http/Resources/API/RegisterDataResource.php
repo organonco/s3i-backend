@@ -2,8 +2,8 @@
 
 namespace App\Http\Resources\API;
 
-use App\Http\Resources\Model\EducationLevel\EducationLevelResource;
-use App\Http\Resources\Model\Nationality\NationalityResource;
+use App\Http\Resources\Base\Student\EducationLevelDashboardIndexResource;
+use App\Http\Resources\Base\Student\NationalityResource;
 use App\Models\EducationLevel;
 use App\Models\Nationality;
 use Illuminate\Http\Request;
@@ -19,7 +19,7 @@ class RegisterDataResource extends JsonResource
     public function toArray(Request $request): array
     {
         return [
-            'education_levels' => EducationLevelResource::collection(EducationLevel::all()),
+            'education_levels' => EducationLevelDashboardIndexResource::collection(EducationLevel::all()),
             'nationalities' => NationalityResource::collection(Nationality::all()),
         ];
     }

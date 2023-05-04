@@ -22,7 +22,7 @@ export default {
                 name: this.course.data.name,
                 description: this.course.data.description,
                 introduction_video_url: this.course.data.introduction_video_url,
-                category_id: this.course.data.category_id,
+                category_id: this.course.data.category.id,
                 students_limit: this.course.data.students_limit,
                 image: "",
             })

@@ -11,6 +11,7 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 class CourseQuizQuestion extends BaseModel
 {
     protected $fillable = ['text', 'type', 'order', 'course_quiz_id'];
+    protected $with = ['options'];
 
     public static function createOrUpdateFromDataObject($dataObject, $order, $quizId)
     {
