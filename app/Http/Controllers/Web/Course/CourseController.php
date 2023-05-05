@@ -39,7 +39,6 @@ class CourseController extends Controller
 
     public function update(Course $course, Request $request)
     {
-        dd($request->all());
         $request->validate([
             'name' => 'required',
             'description' => 'required',
