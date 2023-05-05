@@ -35,7 +35,7 @@ class CategoryController extends Controller
     {
         $request->validate(['name' => 'required']);
         $category->update($request->all());
-        $category->addMediaFromRequest('icon')->usingFileName($category->id)->toMediaCollection('icon');
+        $category->addMediaFromRequest('icon')->usingFileName($category->hash)->toMediaCollection('icon');
         return redirect()->route('category.index');
     }
 
@@ -43,7 +43,7 @@ class CategoryController extends Controller
     {
         $request->validate(['name' => 'required']);
         $category = Category::create($request->all());
-        $category->addMediaFromRequest('icon')->usingFileName($category->id)->toMediaCollection('icon');
+        $category->addMediaFromRequest('icon')->usingFileName($category->hash)->toMediaCollection('icon');
         return redirect()->route('category.index');
     }
 
