@@ -26,6 +26,7 @@ class StudentResource extends JsonResource
             'number_of_login_attempts' => $this->number_of_login_attempts,
             'education_level' => EducationLevelResource::make($this->whenLoaded('educationLevel')),
             'nationality' => NationalityResource::make($this->whenLoaded('nationality')),
+            'is_verified' => $this->is_verified,
         ];
     }
 }

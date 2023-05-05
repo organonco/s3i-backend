@@ -26,6 +26,10 @@ Route::group(['middleware' => 'auth:sanctum'], function(){
         Route::put('/profile', 'update');
         Route::post('/reset-password', 'resetPassword');
     });
+    Route::post('/verify/send', [\App\Http\Controllers\API\Auth\VerifyController::class, 'send'])->middleware('throttle:5,1')->name('verify.send');
+    Route::post('/verify/{verification_hash}/verify', [\App\Http\Controllers\API\Auth\VerifyController::class, 'verify'])->middleware('throttle:5,1')->name('verify.verify');
+
+
     Route::resource('/quiz', \App\Http\Controllers\API\Course\QuizController::class)->only(['show']);
     Route::resource('/homework', \App\Http\Controllers\API\Course\HomeworkController::class)->only(['store']);
     Route::resource('/token', \App\Http\Controllers\API\Course\TokenController::class)->only(['store']);

@@ -4,6 +4,8 @@ namespace App\Models;
 
 use App\Models\BaseModels\BaseUser;
 use Illuminate\Database\Eloquent\Casts\Attribute;
+use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Hash;
 use Laravel\Sanctum\HasApiTokens;
 
@@ -11,7 +13,7 @@ class Student extends BaseUser
 {
     use HasApiTokens;
 
-    public $fillable = ['phone', 'password', 'name_ar', 'name_en', 'email', 'date_of_birth', 'nationality_id', 'education_level_id', 'address', 'reference'];
+    public $fillable = ['phone', 'password', 'name_ar', 'name_en', 'email', 'date_of_birth', 'nationality_id', 'education_level_id', 'address', 'reference', 'phone_verified_at'];
 
     public function nationality()
     {
@@ -56,5 +58,21 @@ class Student extends BaseUser
             get: fn(string $value) => $value,
             set: fn(string $value) => Hash::make($value),
         );
+    }
+
+    public function verifications() : HasMany
+    {
+        return $this->hasMany(Verification::class);
+    }
+
+    public function getIsVerifiedAttribute()
+    {
+        return !is_null($this->phone_verified_at);
+    }
+
+    public function markAsVerified()
+    {
+        $this->phone_verified_at = Carbon::now();
+        $this->save();
     }
 }
