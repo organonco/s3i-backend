@@ -35,13 +35,15 @@ class CategoryController extends Controller
     {
         $request->validate(['name' => 'required']);
         $category->update($request->all());
+        $category->addMediaFromRequest('icon')->usingFileName($category->id)->toMediaCollection('icon');
         return redirect()->route('category.index');
     }
 
     public function store(Request $request)
     {
         $request->validate(['name' => 'required']);
-        Category::create($request->all());
+        $category = Category::create($request->all());
+        $category->addMediaFromRequest('icon')->usingFileName($category->id)->toMediaCollection('icon');
         return redirect()->route('category.index');
     }
 

@@ -10,7 +10,8 @@ export default {
     data: function () {
         return {
             form: useForm({
-                name: ""
+                name: "",
+                icon: ""
             })
         }
     },
@@ -26,6 +27,9 @@ export default {
     <MainLayout title="Create Category">
         <v-form @submit.prevent="submit">
             <v-text-field label="Name" variant="solo" v-model="form.name" :error-messages="form.errors.name"></v-text-field>
+            <v-file-input prepend-icon="mdi-image" name="icon" label="Icon" variant="solo"
+                          :error-messages="form.errors.icon"
+                          @input="form.icon = $event.target.files[0]"></v-file-input>
             <save-button/>
         </v-form>
     </MainLayout>
