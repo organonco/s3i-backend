@@ -3,7 +3,6 @@
 namespace App\Http\Controllers\Web\Student;
 
 use App\Http\Controllers\Web\Controller;
-use App\Http\Resources\Base\Student\StudentResource;
 use App\Http\Resources\Dashboard\Index\Student\StudentDashboardIndexResource;
 use App\Http\Resources\Dashboard\Show\Student\StudentDashboardShowResource;
 use App\Models\Student;

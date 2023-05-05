@@ -25,7 +25,7 @@ class TokenController extends Controller
     public function store(StoreTokenRequest $request)
     {
         $token = CourseToken::byHash($request->getToken());
-        if(is_null($token) || $token->isUsed())
+        if (is_null($token) || $token->isUsed())
             throw new InvalidToken;
         $token->setStudent($request->user());
     }

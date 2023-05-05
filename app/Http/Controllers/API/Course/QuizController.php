@@ -4,7 +4,7 @@ namespace App\Http\Controllers\API\Course;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\API\Course\Quiz\ShowQuizRequest;
-use App\Http\Resources\Model\Course\CourseItems\Quiz\CourseQuizAPIResource;
+use App\Http\Resources\API\Course\Items\Quiz\CourseQuizAPIResource;
 use App\Models\CourseQuiz;
 
 /**

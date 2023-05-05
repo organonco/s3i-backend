@@ -4,7 +4,6 @@ namespace App\Models;
 
 use App\Models\BaseModels\BaseModel;
 use Spatie\Tags\HasTags;
-use Spatie\Tags\Tag;
 
 class CourseTokenBatch extends BaseModel
 {

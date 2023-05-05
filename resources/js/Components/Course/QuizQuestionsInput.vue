@@ -80,7 +80,7 @@ export default {
                 initial: function(){
                     return {
                         "text": null,
-                        "type": null,
+                        "type": 'radio',
                         "options": []
                     }
                 }

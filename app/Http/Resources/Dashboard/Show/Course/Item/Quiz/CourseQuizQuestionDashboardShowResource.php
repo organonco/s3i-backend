@@ -16,10 +16,12 @@ class CourseQuizQuestionDashboardShowResource extends CourseQuizQuestionResource
     {
         $base = parent::toArray($request);
         $base['object'] = [
-            'text' => $base['text']
+            'text' => $base['text'],
+            'options' => CourseQuizQuestionOptionDashboardShowResource::collection($this->options)
         ];
-        $base['options'] = CourseQuizQuestionOptionDashboardShowResource::collection($this->whenLoaded('options'));
+        $base['type'] = $this->quiz->type;
         unset($base['text']);
+        unset($base['options']);
         return $base;
     }
 }

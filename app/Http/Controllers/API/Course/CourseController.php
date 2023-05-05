@@ -6,8 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\API\Course\IndexCoursesRequest;
 use App\Http\Requests\API\Course\IndexMyCoursesRequest;
 use App\Http\Requests\API\Course\ShowCourseRequest;
-use App\Http\Resources\Model\Course\CourseIndexResource;
-use App\Http\Resources\Model\Course\CourseShowAPIResource;
+use App\Http\Resources\API\Course\CourseAPIResource;
 use App\Models\Course;
 
 /**
@@ -22,8 +21,8 @@ class CourseController extends Controller
     public function index(IndexCoursesRequest $request)
     {
         if ($request->hasCategoryId())
-            return CourseIndexResource::collection(Course::query()->where('category_id', $request->getCategoryId())->get());
-        return CourseIndexResource::collection(Course::all());
+            return CourseAPIResource::collection(Course::query()->where('category_id', $request->getCategoryId())->get());
+        return CourseAPIResource::collection(Course::all());
     }
 
     /**
@@ -33,16 +32,17 @@ class CourseController extends Controller
      */
     public function IndexMyCourses(IndexMyCoursesRequest $request)
     {
-        return CourseIndexResource::collection($request->user()->courses);
+        return CourseAPIResource::collection($request->user()->courses);
     }
 
     /**
      * Show
+     * @authenticated
      * @responseFile app/Http/Responses/Samples/Course/show.json
      */
     public function show(Course $course, ShowCourseRequest $request)
     {
-        return new CourseShowAPIResource($course);
+        return CourseAPIResource::make($course->load('courseItems'));
     }
 
 }

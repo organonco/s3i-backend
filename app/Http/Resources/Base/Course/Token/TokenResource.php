@@ -9,6 +9,7 @@ use Illuminate\Http\Resources\Json\JsonResource;
 class TokenResource extends JsonResource
 {
     use Exportable;
+
     public function toArray(Request $request): array
     {
         return [

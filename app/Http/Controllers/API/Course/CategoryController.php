@@ -3,7 +3,6 @@
 namespace App\Http\Controllers\API\Course;
 
 use App\Http\Controllers\Controller;
-use App\Http\Resources\Base\Course\CategoryResource;
 use App\Http\Resources\Dashboard\Index\Course\CategoryDashboardIndexResource;
 use App\Models\Category;
 

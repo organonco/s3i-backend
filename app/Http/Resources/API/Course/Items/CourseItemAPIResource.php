@@ -1,8 +1,9 @@
 <?php
 
-namespace App\Http\Resources\Base\Course\Items;
+namespace App\Http\Resources\API\Course\Items;
 
-use App\Http\Resources\Base\Course\Items\Quiz\CourseQuizResource;
+use App\Http\Resources\API\Course\Items\Quiz\CourseQuizAPIResource;
+use App\Http\Resources\Base\Course\Items\CourseItemResource;
 use App\Interfaces\HasCourseItemInterface;
 use App\Models\CourseFile;
 use App\Models\CourseHomework;
@@ -11,9 +12,8 @@ use App\Models\CourseQuiz;
 use App\Models\CourseSection;
 use App\Models\CourseVideo;
 use Illuminate\Http\Request;
-use Illuminate\Http\Resources\Json\JsonResource;
 
-class CourseItemResource extends JsonResource
+class CourseItemAPIResource extends CourseItemResource
 {
     public function toArray(Request $request): array
     {
@@ -27,12 +27,12 @@ class CourseItemResource extends JsonResource
     private function getCourseItemObjectResource(HasCourseItemInterface $item)
     {
         return (match (get_class($item)) {
-            CourseVideo::class => CourseVideoResource::class,
-            CourseSection::class => CourseSectionResource::class,
-            CourseMeeting::class => CourseMeetingResource::class,
-            CourseHomework::class => CourseHomeworkResource::class,
-            CourseFile::class => CourseFileResource::class,
-            CourseQuiz::class => CourseQuizResource::class,
+            CourseVideo::class => CourseVideoAPIResource::class,
+            CourseSection::class => CourseSectionAPIResource::class,
+            CourseMeeting::class => CourseMeetingAPIResource::class,
+            CourseHomework::class => CourseHomeworkAPIResource::class,
+            CourseFile::class => CourseFileAPIResource::class,
+            CourseQuiz::class => CourseQuizAPIResource::class,
         })::make($item);
     }
 }

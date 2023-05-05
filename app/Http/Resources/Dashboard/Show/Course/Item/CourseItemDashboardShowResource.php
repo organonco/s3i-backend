@@ -5,6 +5,12 @@ namespace App\Http\Resources\Dashboard\Show\Course\Item;
 use App\Http\Resources\Base\Course\Items\CourseItemResource;
 use App\Http\Resources\Dashboard\Show\Course\Item\Quiz\CourseQuizDashboardShowResource;
 use App\Interfaces\HasCourseItemInterface;
+use App\Models\CourseFile;
+use App\Models\CourseHomework;
+use App\Models\CourseMeeting;
+use App\Models\CourseQuiz;
+use App\Models\CourseSection;
+use App\Models\CourseVideo;
 use Illuminate\Http\Request;
 
 class CourseItemDashboardShowResource extends CourseItemResource
@@ -19,12 +25,12 @@ class CourseItemDashboardShowResource extends CourseItemResource
     private function getCourseItemObjectResource(HasCourseItemInterface $item)
     {
         return (match (get_class($item)) {
-            \App\Models\CourseVideo::class => CourseVideoDashboardShowResource::class,
-            \App\Models\CourseSection::class => CourseSectionDashboardShowResource::class,
-            \App\Models\CourseMeeting::class => CourseMeetingDashboardShowResource::class,
-            \App\Models\CourseHomework::class => CourseHomeworkDashboardShowResource::class,
-            \App\Models\CourseFile::class => CourseFileDashboardShowResource::class,
-            \App\Models\CourseQuiz::class => CourseQuizDashboardShowResource::class,
+            CourseVideo::class => CourseVideoDashboardShowResource::class,
+            CourseSection::class => CourseSectionDashboardShowResource::class,
+            CourseMeeting::class => CourseMeetingDashboardShowResource::class,
+            CourseHomework::class => CourseHomeworkDashboardShowResource::class,
+            CourseFile::class => CourseFileDashboardShowResource::class,
+            CourseQuiz::class => CourseQuizDashboardShowResource::class,
         })::make($item);
     }
 }

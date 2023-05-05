@@ -13,13 +13,13 @@ class Classroom extends BaseModel
         return $this->belongsTo(Course::class);
     }
 
-    public function students()
-    {
-        return $this->belongsToMany(Student::class);
-    }
-
     public function isFull()
     {
         return $this->students()->count() >= $this->course->students_limit;
+    }
+
+    public function students()
+    {
+        return $this->belongsToMany(Student::class);
     }
 }

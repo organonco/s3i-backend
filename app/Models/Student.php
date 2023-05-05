@@ -40,6 +40,11 @@ class Student extends BaseUser
         return $this->number_of_login_attempts < 3;
     }
 
+    public function getCoursesAttribute()
+    {
+        return $this->classrooms()->with('course')->get()->pluck('course');
+    }
+
     public function classrooms()
     {
         return $this->belongsToMany(Classroom::class);
@@ -51,10 +56,5 @@ class Student extends BaseUser
             get: fn(string $value) => $value,
             set: fn(string $value) => Hash::make($value),
         );
-    }
-
-    public function getCoursesAttribute()
-    {
-        return $this->classrooms()->with('course')->get()->pluck('course');
     }
 }

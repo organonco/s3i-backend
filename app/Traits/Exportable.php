@@ -3,7 +3,9 @@
 namespace App\Traits;
 
 use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
+use League\Csv\CannotInsertRecord;
 use League\Csv\Writer;
+use SplTempFileObject;
 
 trait Exportable
 {
@@ -12,13 +14,13 @@ trait Exportable
      * @param mixed $resource
      * @param string $filename
      * @return int
-     * @throws \League\Csv\CannotInsertRecord
+     * @throws CannotInsertRecord
      */
     public static function exportCSV($resource, $filename = 'export.csv'): int
     {
         $resourceCollection = new AnonymousResourceCollection($resource, static::class);
         $data = $resourceCollection->toArray(request());
-        $csv = Writer::createFromFileObject(new \SplTempFileObject());
+        $csv = Writer::createFromFileObject(new SplTempFileObject());
 
         $i = 0;
         // Build the CSV

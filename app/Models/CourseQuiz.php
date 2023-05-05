@@ -3,8 +3,8 @@
 namespace App\Models;
 
 use App\Enums\CourseQuizTypes;
+use App\Http\Resources\API\Course\Items\Quiz\CourseQuizAPIResource;
 use App\Http\Resources\Base\Course\Items\Quiz\CourseQuizResource;
-use App\Http\Resources\Model\Course\CourseItems\Quiz\CourseQuizAPIResource;
 use App\Interfaces\HasCourseItemInterface;
 use App\Models\BaseModels\BaseModel;
 use App\Traits\HasCourseItem;
