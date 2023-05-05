@@ -2,8 +2,8 @@
 
 namespace App\Http\Resources\API;
 
-use App\Http\Resources\Base\Student\EducationLevelDashboardIndexResource;
 use App\Http\Resources\Base\Student\NationalityResource;
+use App\Http\Resources\Dashboard\Index\Student\EducationLevelDashboardIndexResource;
 use App\Models\EducationLevel;
 use App\Models\Nationality;
 use Illuminate\Http\Request;
