@@ -33,7 +33,13 @@ class TokenController extends Controller
         ]);
 
         $batch = CourseTokenBatch::create(['expires_at' => $request['expiry_date']]);
-        $batch->courses()->sync($request['courses']);
+
+        $courses = $request['courses'];
+        foreach($courses as $index => $course)
+            $courses[$index] = Course::hashToId($course);
+
+        $batch->courses()->sync($courses);
+
         for ($i = 0; $i < $request['count']; $i++)
             $batch->tokens()->create();
 
@@ -45,7 +51,7 @@ class TokenController extends Controller
     {
         return Inertia::render('CourseToken/Create', [
             'courses' => SelectResource::collection(Course::all()),
-            'tags' => TagResource::collection(Tag::all())
+            'tags' => Tag::all()->pluck('name')
         ]);
     }
 
@@ -54,7 +60,7 @@ class TokenController extends Controller
         $courseTokenBatch = CourseTokenBatch::byHash($courseTokenBatchId);
         return Inertia::render('CourseToken/Show', [
             'batch' => TokenBatchDashboardShowResource::make($courseTokenBatch->load('courses', 'tags', 'tokens')),
-            'tags' => TagResource::collection(Tag::all())
+            'tags' => Tag::all()->pluck('name')
         ]);
     }
 

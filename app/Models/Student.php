@@ -42,7 +42,7 @@ class Student extends BaseUser
 
     public function getCoursesAttribute()
     {
-        return $this->classrooms()->with('course')->get()->pluck('course');
+        return $this->classrooms()->with('course')->get()->whereNotNull('course')->pluck('course');
     }
 
     public function classrooms()
