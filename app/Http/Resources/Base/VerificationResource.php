@@ -11,7 +11,7 @@ class VerificationResource extends JsonResource
     {
         return [
             'id' => $this->hash,
-            'sent_to' => $this->student->phone,
+            'sent_to' => $this->student->full_phone_number,
         ];
     }
 }

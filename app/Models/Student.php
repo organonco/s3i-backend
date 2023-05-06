@@ -75,4 +75,9 @@ class Student extends BaseUser
         $this->phone_verified_at = Carbon::now();
         $this->save();
     }
+
+    public function getFullPhoneNumberAttribute()
+    {
+        return '+963' . $this->phone;
+    }
 }
