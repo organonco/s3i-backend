@@ -7,7 +7,7 @@ use App\Http\Controllers\API\Controller;
 use App\Http\Requests\API\Student\Profile\ResetPasswordRequest;
 use App\Http\Requests\API\Student\Profile\ShowProfileRequest;
 use App\Http\Requests\API\Student\Profile\UpdateProfileRequest;
-use App\Http\Resources\Base\Student\StudentResource;
+use App\Http\Resources\API\Student\StudentAPIResource;
 use Illuminate\Support\Facades\Auth;
 
 /**
@@ -22,7 +22,7 @@ class ProfileController extends Controller
      */
     public function show(ShowProfileRequest $request)
     {
-        return StudentResource::make($request->user());
+        return StudentAPIResource::make($request->user());
     }
 
     /**
@@ -45,6 +45,6 @@ class ProfileController extends Controller
     public function update(UpdateProfileRequest $request)
     {
         $request->user()->update($request->validated());
-        return StudentResource::make($request->user());
+        return StudentAPIResource::make($request->user());
     }
 }
