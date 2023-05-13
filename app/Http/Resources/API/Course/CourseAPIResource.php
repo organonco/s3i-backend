@@ -19,6 +19,7 @@ class CourseAPIResource extends CourseResource
             $isSubscribed = auth('sanctum')->user()->can('viewDetails', [Course::class, $this->id]);
 
         $base['items'] = $this->when($isSubscribed, CourseItemAPIResource::collection($this->whenLoaded('courseItems')));
+        $base['is_subscribed'] = $isSubscribed;
         return $base;
     }
 }

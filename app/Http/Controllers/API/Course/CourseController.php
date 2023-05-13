@@ -16,6 +16,7 @@ class CourseController extends Controller
 {
     /**
      * Index
+     * @authenticated
      * @responseFile app/Http/Responses/Samples/Course/index.json
      */
     public function index(IndexCoursesRequest $request)
