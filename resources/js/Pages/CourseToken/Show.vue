@@ -49,9 +49,9 @@ export default {
             <v-text-field v-model="batch.data.expires_at" label="Expires At" readonly></v-text-field>
             <v-text-field v-model="batch.data.number_of_tokens" label="Number Of Tokens" readonly></v-text-field>
             <v-text-field v-model="batch.data.number_of_used_tokens" label="Number Of Used Tokens" readonly></v-text-field>
-            <Link as="div" :href="route('course_token.export', batch.data.id)" class="my-4">
+            <a target="_blank" :href="route('course_token.export', batch.data.id)" class="my-4">
                 <v-btn color="primary"> Export To CSV </v-btn>
-            </link>
+            </a>
             <data-table :headers="headers" :data="batch.data.tokens" actions_route="token" uneditable></data-table>
         </v-container>
     </MainLayout>

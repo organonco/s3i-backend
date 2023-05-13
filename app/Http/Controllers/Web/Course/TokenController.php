@@ -3,12 +3,16 @@
 namespace App\Http\Controllers\Web\Course;
 
 use App\Http\Controllers\Web\Controller;
+use App\Http\Resources\Base\Course\Token\TokenResource;
 use App\Http\Resources\Base\SelectResource;
 use App\Http\Resources\Base\TagResource;
 use App\Http\Resources\Dashboard\Index\Course\Token\TokenBatchDashboardIndexResource;
+use App\Http\Resources\Dashboard\Index\Course\Token\TokenDashboardIndexResource;
 use App\Http\Resources\Dashboard\Show\Course\Token\TokenBatchDashboardShowResource;
+use App\Http\Resources\Dashboard\Show\Course\Token\TokenDashboardShowResource;
 use App\Models\Course;
 use App\Models\CourseTokenBatch;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 use Spatie\Tags\Tag;
@@ -66,7 +70,8 @@ class TokenController extends Controller
 
     public function export($courseTokenBatchId)
     {
-        $tokens = CourseTokenBatch::byHash($courseTokenBatchId)->tokens;
-        TokenBatchDashboardShowResource::exportCSV($tokens, 'data.csv');
+        $batch = CourseTokenBatch::byHash($courseTokenBatchId);
+        $tokens = $batch->tokens;
+        TokenDashboardIndexResource::exportCSV($tokens, $batch->hash . ' (' . Carbon::now()->format('d-m-Y') . ').csv');
     }
 }
