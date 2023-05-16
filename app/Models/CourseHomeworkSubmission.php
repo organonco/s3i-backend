@@ -9,7 +9,7 @@ use Spatie\MediaLibrary\InteractsWithMedia;
 class CourseHomeworkSubmission extends BaseModel implements HasMedia
 {
     use InteractsWithMedia;
-    protected $fillable = ['student_id', 'course_homework_id'];
+    protected $fillable = ['student_id', 'course_homework_id', 'feedback'];
 
     public function getFileUrlAttribute(): string
     {

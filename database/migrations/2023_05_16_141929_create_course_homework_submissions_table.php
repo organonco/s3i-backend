@@ -15,6 +15,7 @@ return new class extends Migration
             $table->id();
             $table->foreignId('student_id');
             $table->foreignId('course_homework_id');
+            $table->text('feedback')->nullable();
             $table->timestamps();
             $table->softDeletes();
         });
