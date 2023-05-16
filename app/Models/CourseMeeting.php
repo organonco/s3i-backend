@@ -11,7 +11,7 @@ class CourseMeeting extends BaseModel implements HasCourseItemInterface
 {
     use HasCourseItem;
 
-    protected $fillable = ['name', 'url', 'time', 'date'];
+    protected $fillable = ['name'];
 
     public function getResourceClass(): string
     {
