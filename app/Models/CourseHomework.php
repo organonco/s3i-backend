@@ -17,4 +17,9 @@ class CourseHomework extends BaseModel implements HasCourseItemInterface
     {
         return CourseHomeworkResource::class;
     }
+
+    public function courseHomeworkSubmissions()
+    {
+        return $this->hasMany(CourseHomeworkSubmission::class);
+    }
 }
