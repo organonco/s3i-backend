@@ -12,6 +12,11 @@ trait HasCourseItem
         return $this->morphOne(CourseItem::class, 'item');
     }
 
+    public function getCourseIdAttribute()
+    {
+        return $this->courseItem->course_id;
+    }
+
     public function course()
     {
         return $this->hasOneThrough(Course::class, CourseItem::class);

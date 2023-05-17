@@ -11,9 +11,6 @@ class CourseMeetingResource extends JsonResource
     {
         return [
             'name' => $this->name,
-            'url' => $this->url,
-            'time' => $this->time,
-            'date' => $this->date
         ];
     }
 }
