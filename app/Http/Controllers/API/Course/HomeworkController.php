@@ -21,16 +21,12 @@ class HomeworkController extends Controller
     /**
      * Submit Homework
      * @authenticated
-     * @throws NotFound
-     * @throws AlreadySubmitted
+     * @response {}
+     * @responseFile 409 app/Http/Responses/Samples/Course/already-submitted.json
      */
-    public function store(StoreHomeworkRequest $request)
+    public function submit(string $itemId, StoreHomeworkRequest $request)
     {
-        $item = CourseItem::byHash($request->getItemId());
-        $homework = $item->item;
-
-        if (!($request->user()->can('viewDetails', [Course::class, $item->course_id]) && $homework instanceof CourseHomework))
-            throw new NotFound;
+        $homework = CourseItem::byHash($itemId)->item;
         if ($homework->courseHomeworkSubmissions()->byStudent($request->user()->id)->count() > 0)
             throw new AlreadySubmitted;
 

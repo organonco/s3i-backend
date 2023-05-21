@@ -8,6 +8,11 @@ use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
+/**
+ * @property $text,
+ * @property $type,
+ * @property $order,
+ */
 class CourseQuizQuestion extends BaseModel
 {
     protected $fillable = ['text', 'type', 'order', 'course_quiz_id'];

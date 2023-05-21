@@ -15,6 +15,7 @@ class CourseQuizQuestionResource extends JsonResource
     public function toArray(Request $request): array
     {
         return [
+            'id' => $this->hash,
             'type' => $this->type,
             'text' => $this->text,
             'options' => CourseQuizQuestionOptionResource::collection($this->whenLoaded('options'))

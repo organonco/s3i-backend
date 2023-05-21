@@ -3,25 +3,22 @@
 namespace App\Http\Requests\API\Course\Homework;
 
 use App\Http\Requests\API\Request;
-use Illuminate\Validation\Rules\File;
+use App\Models\Course;
+use App\Models\CourseHomework;
+use App\Models\CourseItem;
 
 class StoreHomeworkRequest extends Request
 {
     public function authorize(): bool
     {
-        return true;
+        $item = CourseItem::byHash($this->id);
+        return $this->user()->can('viewDetails', [Course::class, $item->course_id]) && $item->item instanceof CourseHomework;
     }
 
     public function rules(): array
     {
         return [
-            'homework_id' => 'required|string',
             'file' => 'required|file|mimes:jpeg,jpg,png,pdf',
         ];
-    }
-
-    public function getItemId()
-    {
-        return $this->input('homework_id');
     }
 }

@@ -26,14 +26,15 @@ Route::group(['middleware' => 'auth:sanctum'], function(){
         Route::put('/profile', 'update');
         Route::post('/reset-password', 'resetPassword');
     });
+    Route::resource('/token', \App\Http\Controllers\API\Course\TokenController::class)->only(['store']);
+    Route::get('/course/my-courses', [\App\Http\Controllers\API\Course\CourseController::class, 'indexMyCourses'])->name('course.my-courses');
+
     Route::post('/verify/send', [\App\Http\Controllers\API\Auth\VerifyController::class, 'send'])->middleware('throttle:5,1')->name('verify.send');
     Route::post('/verify/{verification_hash}/verify', [\App\Http\Controllers\API\Auth\VerifyController::class, 'verify'])->middleware('throttle:5,1')->name('verify.verify');
 
-
-    Route::resource('/quiz', \App\Http\Controllers\API\Course\QuizController::class)->only(['show']);
-    Route::resource('/homework', \App\Http\Controllers\API\Course\HomeworkController::class)->only(['store']);
-    Route::resource('/token', \App\Http\Controllers\API\Course\TokenController::class)->only(['store']);
-    Route::get('/course/my-courses', [\App\Http\Controllers\API\Course\CourseController::class, 'indexMyCourses'])->name('course.my-courses');
+    Route::post('/homework/{id}', [\App\Http\Controllers\API\Course\HomeworkController::class, 'submit']);
+    Route::get('/quiz/{id}', [\App\Http\Controllers\API\Course\QuizController::class, 'show']);
+    Route::post('/quiz/{id}', [\App\Http\Controllers\API\Course\QuizController::class, 'submit']);
 });
 
 Route::resource('/category', \App\Http\Controllers\API\Course\CategoryController::class)->only(['index']);
