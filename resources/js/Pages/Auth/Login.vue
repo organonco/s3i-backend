@@ -9,7 +9,7 @@
                     </v-toolbar>
                     <v-card-text>
                         <v-form @submit.prevent="submit">
-                            <v-text-field v-model="form.email" label="Email" type="email" required :error-messages="form.errors.email"></v-text-field>
+                            <v-text-field v-model="form.username" label="Username" type="text" required :error-messages="form.errors.username "></v-text-field>
                             <v-text-field v-model="form.password" label="Password" type="password" required :error-messages="form.errors.password"></v-text-field>
                             <v-btn :disabled="form.processing" color="black" block type="submit">Login</v-btn>
                         </v-form>
@@ -31,7 +31,7 @@ defineProps({
 });
 
 const form = useForm({
-    email: '',
+    username: '',
     password: '',
     remember: false,
 });

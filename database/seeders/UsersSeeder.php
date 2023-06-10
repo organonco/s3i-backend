@@ -12,7 +12,14 @@ class UsersSeeder extends Seeder
     {
         User::factory()->create([
             'name' => 'Super Admin',
-            'email' => 'super@admin.com',
+            'username' => 'admin',
+            'super_admin' => true,
+        ]);
+
+        User::factory()->create([
+            'name' => 'Example Teacher',
+            'username' => 'teacher',
+            'super_admin' => false,
         ]);
     }
 }

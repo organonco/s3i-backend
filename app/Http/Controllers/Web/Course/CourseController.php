@@ -10,6 +10,7 @@ use App\Models\Category;
 use App\Models\Course;
 use App\Models\CourseItem;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Gate;
 use Inertia\Inertia;
 use Inertia\Response;
 use Veelasky\LaravelHashId\Rules\ExistsByHash;
@@ -31,6 +32,7 @@ class CourseController extends Controller
 
     public function edit(Course $course)
     {
+        Gate::authorize('supervise', [Course::class, $course->id]);
         return Inertia::render('Course/Edit', [
             "categories" => SelectResource::collection(Category::all()),
             'course' => new CourseDashboardShowResource($course->load('category', 'courseItems', 'courseItems.item'))

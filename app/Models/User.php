@@ -8,7 +8,7 @@ class User extends BaseUser
 {
     protected $fillable = [
         'name',
-        'email',
+        'username',
         'password',
     ];
 
