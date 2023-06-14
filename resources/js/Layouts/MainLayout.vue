@@ -1,26 +1,18 @@
-
 <script setup>
-import { Link } from '@inertiajs/vue3';
-import { Head } from '@inertiajs/vue3';
-
+import {Head, Link} from '@inertiajs/vue3';
+import {adminMenuItems, teacherMenuItems} from "@/Menus/NavMenu";
 </script>
 <script>
+import {teacherMenuItems} from "@/Menus/NavMenu";
+
 export default {
     props: {
         'title': String
     },
     data() {
+        let is_admin = this.$page.props.auth.user.super_admin;
         return {
-            listItems: [
-                { icon: "mdi-view-dashboard-outline", title: "Home", 'route': 'dashboard', 'value': 'dashboard' },
-                { icon: "mdi-account-outline", title: "Profile", 'route': 'profile.edit', 'value': 'profile' },
-                { icon: "mdi-folder-multiple-outline", title: "Categories", 'route': 'category.index', 'value': 'category' },
-                { icon: "mdi-folder-multiple-outline", title: "Nationalities", 'route': 'nationality.index', 'value': 'nationality' },
-                { icon: "mdi-folder-multiple-outline", title: "Education Levels", 'route': 'education_level.index', 'value': 'education_level' },
-                { icon: "mdi-folder-multiple-outline", title: "Courses", 'route': 'course.index', 'value': 'course' },
-                { icon: "mdi-folder-multiple-outline", title: "Students", 'route': 'student.index', 'value': 'student' },
-                { icon: "mdi-folder-multiple-outline", title: "Tokens", 'route': 'course_token.index', 'value': 'course_token' },
-            ]
+            listItems: is_admin ? adminMenuItems : teacherMenuItems
         }
     }
 }
@@ -32,15 +24,19 @@ export default {
     <v-layout>
         <v-navigation-drawer permanent location="left">
             <template v-slot:prepend>
-                <v-list-item lines="two" prepend-avatar="https://www.citypng.com/public/uploads/small/11640168385jtmh7kpmvna5ddyynoxsjy5leb1nmpvqooaavkrjmt9zs7vtvuqi4lcwofkzsaejalxn7ggpim4hkg0wbwtzsrp1ldijzbdbsj5z.png" :title="$page.props.auth.user.name">
-                    <Link as="div" :href="route('logout')" method="post" class="underline"> Log Out </Link>
+                <v-list-item lines="two"
+                             prepend-avatar="https://www.citypng.com/public/uploads/small/11640168385jtmh7kpmvna5ddyynoxsjy5leb1nmpvqooaavkrjmt9zs7vtvuqi4lcwofkzsaejalxn7ggpim4hkg0wbwtzsrp1ldijzbdbsj5z.png"
+                             :title="$page.props.auth.user.name">
+                    <Link as="div" :href="route('logout')" method="post" class="underline"> Log Out</Link>
                 </v-list-item>
             </template>
             <v-divider></v-divider>
             <v-list density="compact" nav>
                 <template v-for="listItem in listItems">
                     <Link as="div" :href="route(listItem.route)">
-                        <v-list-item  as="v-list-item" :prepend-icon="listItem.icon" :title="listItem.title" :value="listItem.value" :active="listItem.value === $page.props.metadata.route"></v-list-item>
+                        <v-list-item as="v-list-item" :prepend-icon="listItem.icon" :title="listItem.title"
+                                     :value="listItem.value"
+                                     :active="listItem.value === $page.props.metadata.route"></v-list-item>
                     </Link>
                 </template>
             </v-list>
