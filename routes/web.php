@@ -21,14 +21,16 @@ Route::middleware('auth')->group(function () {
     Route::get('/profile', [\App\Http\Controllers\Web\User\ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [\App\Http\Controllers\Web\User\ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [\App\Http\Controllers\Web\User\ProfileController::class, 'destroy'])->name('profile.destroy');
-    Route::resource('category', \App\Http\Controllers\Web\Course\CategoryController::class);
-    Route::resource('nationality', \App\Http\Controllers\Web\Student\NationalityController::class);
-    Route::resource('education_level', \App\Http\Controllers\Web\Student\EducationLevelController::class);
-    Route::resource('course', \App\Http\Controllers\Web\Course\CourseController::class);
-    Route::resource('student', \App\Http\Controllers\Web\Student\StudentController::class);
-    Route::resource('course_token', \App\Http\Controllers\Web\Course\TokenController::class);
-    Route::get('course_token/{id}/export', [\App\Http\Controllers\Web\Course\TokenController::class, 'export'])->name('course_token.export');
-    Route::put('student/{student}/unfreeze', [\App\Http\Controllers\Web\Student\StudentController::class, 'unfreeze'])->name('student.unfreeze');
+    Route::middleware('can:edit-settings')->group(function(){
+        Route::resource('category', \App\Http\Controllers\Web\Course\CategoryController::class);
+        Route::resource('nationality', \App\Http\Controllers\Web\Student\NationalityController::class);
+        Route::resource('education_level', \App\Http\Controllers\Web\Student\EducationLevelController::class);
+        Route::resource('course', \App\Http\Controllers\Web\Course\CourseController::class);
+        Route::resource('student', \App\Http\Controllers\Web\Student\StudentController::class);
+        Route::resource('course_token', \App\Http\Controllers\Web\Course\TokenController::class);
+        Route::get('course_token/{id}/export', [\App\Http\Controllers\Web\Course\TokenController::class, 'export'])->name('course_token.export');
+        Route::put('student/{student}/unfreeze', [\App\Http\Controllers\Web\Student\StudentController::class, 'unfreeze'])->name('student.unfreeze');
+    });
 });
 
 require __DIR__.'/auth.php';

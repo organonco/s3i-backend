@@ -6,13 +6,15 @@ use App\Http\Requests\API\Request;
 use App\Models\Course;
 use App\Models\CourseHomework;
 use App\Models\CourseItem;
+use App\Traits\ChecksSubscription;
 
 class StoreHomeworkRequest extends Request
 {
+    use ChecksSubscription;
     public function authorize(): bool
     {
         $item = CourseItem::byHash($this->id);
-        return $this->user()->can('viewDetails', [Course::class, $item->course_id]) && $item->item instanceof CourseHomework;
+        return $item && $this->isSubscribedToCourse($item->course_id) && $item->item instanceof CourseHomework;
     }
 
     public function rules(): array

@@ -9,7 +9,7 @@ trait ChecksSubscription
 {
     public function isSubscribedToCourse($courseId): bool
     {
-        return auth('sanctum')->check() && auth('sanctum')->user()->can('viewDetails', [Course::class, $courseId]);
+        return auth('sanctum')->check() && auth('sanctum')->user()->can('view', [Course::class, $courseId]);
     }
     public function getAuthenticatedStudent(): Student
     {

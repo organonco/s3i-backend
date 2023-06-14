@@ -4,6 +4,12 @@ namespace App\Models;
 
 use App\Models\BaseModels\BaseUser;
 
+/**
+ * @property string $name
+ * @property string $hash
+ * @property string $username
+ * @property bool $super_admin
+ */
 class User extends BaseUser
 {
     protected $fillable = [
@@ -20,4 +26,9 @@ class User extends BaseUser
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    public function isSuperAdmin(): bool
+    {
+        return $this->super_admin;
+    }
 }
