@@ -63,4 +63,10 @@ class Course extends BaseModel implements HasMedia
     {
         return $this->classrooms()->create(['name' => $this->name . " - " . $this->classrooms()->count() + 1]);
     }
+
+    public function users()
+    {
+        return $this->belongsToMany(User::class);
+    }
+
 }

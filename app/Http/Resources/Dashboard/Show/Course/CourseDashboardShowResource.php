@@ -13,6 +13,7 @@ class CourseDashboardShowResource extends CourseResource
         $base = parent::toArray($request);
         $base['items'] = CourseItemDashboardShowResource::collection($this->whenLoaded('courseItems'));
         $base['category'] = CategoryDashboardShowResource::make($this->whenLoaded('category'));
+        $base['user_ids'] = $this->users->plucK('hash');
         return $base;
     }
 }

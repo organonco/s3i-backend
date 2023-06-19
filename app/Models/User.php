@@ -31,4 +31,14 @@ class User extends BaseUser
     {
         return $this->super_admin;
     }
+
+    public function courses()
+    {
+        return $this->belongsToMany(Course::class);
+    }
+
+    public function scopeTeachers($query)
+    {
+        return $query->where('super_admin', false);
+    }
 }

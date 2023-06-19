@@ -6,6 +6,7 @@ import CourseItemsInput from "@/Components/Course/CourseItemsInput.vue";
 defineProps({
     course: Object,
     categories: Object,
+    teachers: Array,
 });
 </script>
 
@@ -24,6 +25,7 @@ export default {
                 introduction_video_url: this.course.data.introduction_video_url,
                 category_id: this.course.data.category.id,
                 students_limit: this.course.data.students_limit,
+                user_ids: this.course.data.user_ids,
                 image: "",
             })
         }
@@ -53,9 +55,20 @@ export default {
                 variant="solo"
                 v-model="form.category_id"
                 :items="categories.data"
+                :error-messages="form.errors.category_id"
                 item-title="name"
                 item-value="id"
             ></v-autocomplete>
+            <v-select
+                label="Teachers"
+                variant="solo"
+                v-model="form.user_ids"
+                :items="teachers.data"
+                :error-messages="form.errors.user_ids"
+                multiple
+                item-title="name"
+                item-value="id"
+            ></v-select>
             <v-row>
                 <v-col>
                     <v-file-input prepend-icon="mdi-image" label="Image" variant="solo" :error-messages="form.errors.image" @change="form.image = $event.target.files[0]"></v-file-input>

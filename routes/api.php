@@ -13,13 +13,13 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::group(['middleware' => 'guest'], function(){
+Route::group(['middleware' => 'guest'], function () {
     Route::post('/login', \App\Http\Controllers\API\Auth\LoginController::class)->name('login');
     Route::get('/register', [\App\Http\Controllers\API\Auth\RegisterController::class, 'show'])->name('register.show');
     Route::post('/register', [\App\Http\Controllers\API\Auth\RegisterController::class, 'store'])->name('register.store');
 });
 
-Route::group(['middleware' => 'auth:sanctum'], function(){
+Route::group(['middleware' => 'auth:sanctum'], function () {
     Route::post('/logout', \App\Http\Controllers\API\Auth\LogoutController::class)->name('logout');
     Route::controller(\App\Http\Controllers\API\Student\ProfileController::class)->group(function () {
         Route::get('/profile', 'show');

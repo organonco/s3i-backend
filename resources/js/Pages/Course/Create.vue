@@ -4,7 +4,8 @@ import SaveButton from "@/Components/SaveButton.vue";
 import CourseItemsInput from "@/Components/Course/CourseItemsInput.vue";
 
 defineProps({
-    categories: Array
+    categories: Array,
+    teachers: Array,
 });
 </script>
 
@@ -23,12 +24,13 @@ export default {
                 category_id: "",
                 image: "",
                 students_limit: "",
+                user_ids: [],
             })
         }
     },
     methods: {
         submit: function () {
-            for(let i = 0; i < this.items.length; i++)
+            for (let i = 0; i < this.items.length; i++)
                 this.items[i] = _.cloneDeep(this.items[i])
             this.form.transform((data) => ({
                 ...data,
@@ -42,7 +44,7 @@ export default {
 <template>
     <MainLayout title="Create Course">
         <v-form @submit.prevent="submit">
-            <v-row class="text-h5">
+            <v-row class="text-h5 mb-5">
                 Info
             </v-row>
             <v-row>
@@ -62,12 +64,24 @@ export default {
                               :error-messages="form.errors.students_limit"></v-text-field>
             </v-row>
             <v-row>
-                <v-select
+                <v-autocomplete
                     label="Category"
                     variant="solo"
                     v-model="form.category_id"
                     :items="categories.data"
                     :error-messages="form.errors.category_id"
+                    item-title="name"
+                    item-value="id"
+                ></v-autocomplete>
+            </v-row>
+            <v-row>
+                <v-select
+                    label="Teachers"
+                    variant="solo"
+                    v-model="form.user_ids"
+                    :items="teachers.data"
+                    :error-messages="form.errors.user_ids"
+                    multiple
                     item-title="name"
                     item-value="id"
                 ></v-select>
