@@ -1,5 +1,6 @@
 <script setup>
 import MainLayout from "@/Layouts/MainLayout.vue";
+import ChipWithBadge from "@/Components/ChipWithBadge.vue";
 
 defineProps({
     classrooms: Object,
@@ -15,14 +16,25 @@ export default {
     data: function () {
         return {
             selectedClassroomIndex: -1,
-            classroomLoading: false,
+            loading: {
+                classroom: false,
+                meetings: false,
+                homeworks: false,
+                quizzes: false,
+            },
+            classroomsData: {...this.$props.classrooms.data},
         }
     },
     methods: {
         selectClassroom: function (index) {
-            this.classroomLoading = true;
-            this.openClassroom(index)
+            this.openClassroom(index);
+            this.fetchClassroom(index);
         },
+
+        fetchClassroom: function (index) {
+            this.loading.classroom = true;
+        },
+
         openClassroom: function (index) {
             if (this.selectedClassroomIndex === -1) {
                 this.selectedClassroomIndex = index;
@@ -34,7 +46,7 @@ export default {
                 return new Promise(resolve => setTimeout(resolve, ms));
             }
 
-            sleep(500).then(() => {
+            sleep(700).then(() => {
                 this.selectedClassroomIndex = index;
             });
         },
@@ -44,7 +56,7 @@ export default {
     },
     computed: {
         selectedClassroom: function () {
-            return this.classrooms.data[this.selectedClassroomIndex]
+            return this.classroomsData[this.selectedClassroomIndex]
         }
     }
 }
@@ -56,45 +68,47 @@ export default {
             <v-row>
                 <v-col cols="12">
                     <v-expand-transition>
-                        <template v-if="selectedClassroomIndex !== -1">
-                            <v-card
+                        <v-card v-if="selectedClassroomIndex !== -1"
                                 width="100%"
                                 style="text-align: right"
-                                :loading="classroomLoading"
+                                :loading="loading.classroom"
                                 variant="elevated"
-                            >
-                                <v-card-title>
-                                    {{ this.selectedClassroom.name }}
-                                </v-card-title>
-                                <v-card-text>
+                        >
+                            <v-card-title class="pt-8 text-center text-h4">
+                                {{ this.selectedClassroom.name }}
+                            </v-card-title>
+                            <v-card-text>
 
-                                </v-card-text>
-                                <v-card-actions>
-                                    <v-btn variant="text" @click="closeClassroom"> Close</v-btn>
-                                </v-card-actions>
-                            </v-card>
-                        </template>
+                            </v-card-text>
+                            <v-card-actions>
+                                <v-btn variant="text" @click="closeClassroom"> Close</v-btn>
+                            </v-card-actions>
+                        </v-card>
                     </v-expand-transition>
                 </v-col>
             </v-row>
-            <v-row>
-                <template v-for="(classroom, index) in classrooms.data">
+            <v-row class="flex-row justify-center">
+                <template v-for="(classroom, index) in classroomsData">
                     <v-col cols="3">
                         <v-card
-                            style="text-align: right"
+                            class="text-center"
                             @click="selectClassroom(index)"
                             variant="outlined"
                         >
-                            <v-card-title>
-                                {{ classroom.course.category }} - {{ classroom.name }}
+                            <v-card-title class="text-h5 mt-2">
+                                {{ classroom.name }}
+                                <div class="text-subtitle-1">
+                                    {{ classroom.course.category }}
+                                </div>
                             </v-card-title>
+                            <v-card-subtitle>
+                                {{ classroom.number_of_students }} / {{ classroom.course.students_limit }}
+                                <v-icon icon="mdi-account" :color="isHovering ? 'primary' : undefined"></v-icon>
+                            </v-card-subtitle>
                             <v-card-text>
-                                <v-hover>
-                                    <template v-slot:default="{ isHovering, props }">
-                                        {{ classroom.number_of_students }} / {{ classroom.course.students_limit }}
-                                        <v-icon icon="mdi-account" :color="isHovering ? 'primary' : undefined"></v-icon>
-                                    </template>
-                                </v-hover>
+                                <chip-with-badge class="ma-1" :value="classroom.number_of_pending_quizzes" content="Quiz"/>
+                                <chip-with-badge class="ma-1" :value="classroom.number_of_pending_homeworks" content="Homework"/>
+                                <chip-with-badge class="ma-1" :value="classroom.number_of_pending_meetings" content="Meeting"/>
                             </v-card-text>
                         </v-card>
                     </v-col>
