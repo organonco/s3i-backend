@@ -56,18 +56,24 @@ export default {
             <v-row>
                 <v-col cols="12">
                     <v-expand-transition>
-                        <v-card v-if="selectedClassroomIndex !== -1" width="100%" style="text-align: right"
-                                :loading="classroomLoading">
-                            <v-card-title>
-                                {{ this.selectedClassroom.name }}
-                            </v-card-title>
-                            <v-card-text>
+                        <template v-if="selectedClassroomIndex !== -1">
+                            <v-card
+                                width="100%"
+                                style="text-align: right"
+                                :loading="classroomLoading"
+                                variant="elevated"
+                            >
+                                <v-card-title>
+                                    {{ this.selectedClassroom.name }}
+                                </v-card-title>
+                                <v-card-text>
 
-                            </v-card-text>
-                            <v-card-actions>
-                                <v-btn variant="text" @click="closeClassroom"> Close</v-btn>
-                            </v-card-actions>
-                        </v-card>
+                                </v-card-text>
+                                <v-card-actions>
+                                    <v-btn variant="text" @click="closeClassroom"> Close</v-btn>
+                                </v-card-actions>
+                            </v-card>
+                        </template>
                     </v-expand-transition>
                 </v-col>
             </v-row>
@@ -77,6 +83,7 @@ export default {
                         <v-card
                             style="text-align: right"
                             @click="selectClassroom(index)"
+                            variant="outlined"
                         >
                             <v-card-title>
                                 {{ classroom.course.category }} - {{ classroom.name }}
