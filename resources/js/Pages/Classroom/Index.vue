@@ -29,6 +29,7 @@ export default {
                 return
             }
             this.selectedClassroomIndex = -1;
+
             function sleep(ms) {
                 return new Promise(resolve => setTimeout(resolve, ms));
             }
@@ -71,24 +72,26 @@ export default {
                 </v-col>
             </v-row>
             <v-row>
-                <v-col cols="3" v-for="(classroom, index) in classrooms.data">
-                    <v-card
-                        style="text-align: right"
-                        @click="selectClassroom(index)"
-                    >
-                        <v-card-title>
-                            {{ classroom.course.category }} - {{ classroom.name }}
-                        </v-card-title>
-                        <v-card-text>
-                            <v-hover>
-                                <template v-slot:default="{ isHovering, props }">
-                                    {{ classroom.number_of_students }} / {{ classroom.course.students_limit }}
-                                    <v-icon icon="mdi-account" :color="isHovering ? 'primary' : undefined"></v-icon>
-                                </template>
-                            </v-hover>
-                        </v-card-text>
-                    </v-card>
-                </v-col>
+                <template v-for="(classroom, index) in classrooms.data">
+                    <v-col cols="3">
+                        <v-card
+                            style="text-align: right"
+                            @click="selectClassroom(index)"
+                        >
+                            <v-card-title>
+                                {{ classroom.course.category }} - {{ classroom.name }}
+                            </v-card-title>
+                            <v-card-text>
+                                <v-hover>
+                                    <template v-slot:default="{ isHovering, props }">
+                                        {{ classroom.number_of_students }} / {{ classroom.course.students_limit }}
+                                        <v-icon icon="mdi-account" :color="isHovering ? 'primary' : undefined"></v-icon>
+                                    </template>
+                                </v-hover>
+                            </v-card-text>
+                        </v-card>
+                    </v-col>
+                </template>
             </v-row>
         </v-container>
 
