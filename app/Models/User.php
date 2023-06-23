@@ -37,6 +37,11 @@ class User extends BaseUser
         return $this->belongsToMany(Course::class);
     }
 
+    public function getClassroomsAttribute()
+    {
+        return $this->courses()->with('classrooms')->get()->pluck('classrooms')->flatten(1);
+    }
+
     public function scopeTeachers($query)
     {
         return $query->where('super_admin', false);

@@ -43,15 +43,13 @@ export default {
         </v-navigation-drawer>
         <v-main>
             <v-container class="pa-16">
-                <v-row>
-                    <div class="text-h4 mb-8">
-                        {{ title }}
-                    </div>
-                    <v-divider
-                        :thickness="3"
-                        class="border-opacity-100 mb-8"
-                    ></v-divider>
-                </v-row>
+                <div class="text-h4 mb-8" >
+                    {{ title }}
+                </div>
+                <v-divider
+                    :thickness="3"
+                    class="border-opacity-100 mb-8"
+                ></v-divider>
                 <slot></slot>
             </v-container>
         </v-main>

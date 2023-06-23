@@ -12,5 +12,6 @@ export const adminMenuItems = [
 export const teacherMenuItems = [
     { icon: "mdi-view-dashboard-outline", title: "Home", 'route': 'dashboard', 'value': 'dashboard' },
     { icon: "mdi-account-outline", title: "Profile", 'route': 'profile.edit', 'value': 'profile' },
+    { icon: "mdi-account-outline", title: "Classrooms", 'route': 'classroom.index', 'value': 'classrooms' },
 ]
 

@@ -31,6 +31,7 @@ Route::middleware('auth')->group(function () {
         Route::get('course_token/{id}/export', [\App\Http\Controllers\Web\Course\TokenController::class, 'export'])->name('course_token.export');
         Route::put('student/{student}/unfreeze', [\App\Http\Controllers\Web\Student\StudentController::class, 'unfreeze'])->name('student.unfreeze');
     });
+    Route::resource('classroom', \App\Http\Controllers\Web\Course\ClassroomController::class);
 });
 
 require __DIR__.'/auth.php';
