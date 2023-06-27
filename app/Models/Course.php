@@ -34,6 +34,26 @@ class Course extends BaseModel implements HasMedia
         return $this->hasMany(CourseItem::class);
     }
 
+    public function getQuizzes()
+    {
+        return $this
+            ->courseItems()
+            ->where('item_type', CourseQuiz::class)
+            ->with('item')
+            ->get()
+            ->pluck('item');
+    }
+
+    public function getHomeworks()
+    {
+        return $this
+            ->courseItems()
+            ->where('item_type', CourseHomework::class)
+            ->with('item')
+            ->get()
+            ->pluck('item');
+    }
+
     public function getStudentsAttribute()
     {
         $collection = collect([]);

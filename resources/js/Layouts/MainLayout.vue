@@ -18,7 +18,6 @@ export default {
 }
 </script>
 
-
 <template>
     <Head><title> {{ title }} </title></Head>
     <v-layout>
@@ -43,7 +42,7 @@ export default {
         </v-navigation-drawer>
         <v-main>
             <v-container class="pa-16">
-                <div class="text-h4 mb-8" >
+                <div class="text-h4 mb-8">
                     {{ title }}
                 </div>
                 <v-divider

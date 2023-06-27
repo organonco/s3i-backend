@@ -27,4 +27,14 @@ class CourseHomeworkSubmission extends BaseModel implements HasMedia
     {
         return $query->where('student_id', $student_id);
     }
+
+    public function courseHomework()
+    {
+        return $this->belongsTo(CourseHomework::class);
+    }
+
+    public function student()
+    {
+        return $this->belongsTo(Student::class);
+    }
 }

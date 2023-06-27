@@ -37,6 +37,11 @@ const vuetify = createVuetify({
             myCustomLightTheme,
         },
     },
+    defaultAssets: {
+        font: {
+            family: 'cairo'
+        }
+    }
 })
 
 const appName = window.document.getElementsByTagName('title')[0]?.innerText || 'Laravel';

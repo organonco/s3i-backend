@@ -8,9 +8,16 @@ class QuizSubmission extends BaseModel
 {
 
     protected $fillable = ['student_id', 'quiz_id'];
+    protected $appends = ['quiz_hash'];
+
     public function courseQuiz()
     {
-        return $this->belongsTo(CourseQuiz::class);
+        return $this->belongsTo(CourseQuiz::class, 'quiz_id');
+    }
+
+    public function getQuizHashAttribute()
+    {
+        return $this->courseQuiz->hash;
     }
 
     public function student()

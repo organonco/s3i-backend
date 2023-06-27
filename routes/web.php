@@ -31,7 +31,10 @@ Route::middleware('auth')->group(function () {
         Route::get('course_token/{id}/export', [\App\Http\Controllers\Web\Course\TokenController::class, 'export'])->name('course_token.export');
         Route::put('student/{student}/unfreeze', [\App\Http\Controllers\Web\Student\StudentController::class, 'unfreeze'])->name('student.unfreeze');
     });
-    Route::resource('classroom', \App\Http\Controllers\Web\Course\ClassroomController::class);
+    Route::resource('classroom', \App\Http\Controllers\Web\Course\ClassroomController::class)->only('index');
+    Route::get('classroom/{hash}/students', [\App\Http\Controllers\Web\Course\ClassroomController::class, 'getStudents'])->name('classroom.students');
+    Route::get('classroom/{hash}/quizzes', [\App\Http\Controllers\Web\Course\ClassroomController::class, 'getQuizzes'])->name('classroom.quizzes');
+    Route::get('classroom/{hash}/homeworks', [\App\Http\Controllers\Web\Course\ClassroomController::class, 'getHomeworks'])->name('classroom.homeworks');
 });
 
 require __DIR__.'/auth.php';

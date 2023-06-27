@@ -60,4 +60,9 @@ class CourseQuiz extends BaseModel implements HasCourseItemInterface
             set: fn($value) => $value,
         );
     }
+
+    public function quizSubmissions()
+    {
+        return $this->hasMany(QuizSubmission::class, 'quiz_id');
+    }
 }
