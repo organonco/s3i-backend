@@ -19,6 +19,8 @@ class CourseHomeworkSubmissionResource extends JsonResource
             'student_name' => $this->student->name_ar,
             'homework_id' => $this->courseHomework->hash,
             'homework_name' => $this->courseHomework->name,
+            'has_feedback' => !is_null($this->feedback),
+            'feedback' => $this->feedback,
         ];
     }
 }

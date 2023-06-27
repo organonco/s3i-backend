@@ -19,18 +19,39 @@ export default {
             selectedClassroomIndex: -1,
             loading: {
                 students: 0,
+                feedback: false,
             },
             classroomsData: {...this.$props.classrooms.data},
             headers: {
                 students: [
-                    {title: 'الاسم', key: 'name_ar'},
+                    {title: 'الاسم', key: 'name_ar', align: 'end'},
                 ],
                 quizzes: [
                     {title: 'اسم الطالب', key: 'student_name', align: "end"},
                 ],
                 homeworks: [
+                    {title: '', align: 'end', key: 'actions'},
                     {title: 'اسم الطالب', key: 'student_name', align: "end"},
                 ],
+            },
+            dialogs: {
+                homework: false,
+                feedback: false,
+            },
+            selected: {
+                classroom: {
+                    index: null,
+                },
+                homework: {
+                    submission_id: null,
+                    homework_name: null,
+                    feedback: null,
+                },
+            },
+            forms: {
+                homework: {
+                    feedback: ""
+                }
             }
         }
     },
@@ -46,6 +67,7 @@ export default {
 
         fetchClassroom: function (index) {
             this.loading.classroom = 1;
+            this.selected.classroom.index = index;
             this.fetchStudents(index);
             this.fetchQuizzes(index);
             this.fetchHomeworks(index);
@@ -89,12 +111,45 @@ export default {
         },
         closeClassroom: function () {
             this.selectedClassroomIndex = -1;
-        }
+        },
+        openHomeworksDialog: function (item) {
+            this.selected.homework.submission_id = item.id
+            this.selected.homework.homework_name = item.homework_name
+            this.dialogs.homework = true
+        },
+        closeHomeworksDialog: function () {
+            this.forms.homework.feedback = ""
+            this.dialogs.homework = false
+        },
+        submitHomeworkFeedback: async function (event) {
+            this.loading.feedback = true;
+            var feedback = this.forms.homework.feedback;
+            axios.post(route('homework.feedback', this.selected.homework.submission_id), {
+                "feedback": feedback
+            }).then((response) => {
+                this.classroomsData[this.selected.classroom.index].homeworks.forEach((homework) => {
+                    if (homework.id == this.selected.homework.submission_id) {
+                        homework.has_feedback = true;
+                        homework.feedback = feedback
+                    }
+                });
+                this.loading.feedback = true;
+                this.closeHomeworksDialog();
+            })
+        },
+        openFeedbackDialog: function (item) {
+            this.selected.homework.feedback = item.feedback
+            this.selected.homework.homework_name = item.homework_name
+            this.dialogs.feedback = true
+        },
     },
     computed: {
         selectedClassroom: function () {
             return this.classroomsData[this.selectedClassroomIndex]
-        }
+        },
+        requiredRule: function () {
+            return [v => !!v || 'مطلوب'];
+        },
     }
 }
 </script>
@@ -107,7 +162,7 @@ export default {
                     <v-expand-transition>
                         <v-card v-if="selectedClassroomIndex !== -1"
                                 width="100%"
-                                style="text-align: right"
+                                class="text-right"
                                 :loading="loading.classroom"
                                 variant="elevated"
                         >
@@ -117,36 +172,23 @@ export default {
                             <v-card-text class="pa-12">
                                 <v-container>
                                     <v-row>
-                                        <v-col cols="3">
+                                        <v-col cols="4" sm="3">
                                             <v-card variant="outlined" class="text-center">
                                                 <v-card-title class="pt-4 text-center">
                                                     الطلاب
                                                 </v-card-title>
                                                 <v-card-text>
-                                                    <v-table
-                                                            fixed-header
-                                                            height="700px"
+                                                    <v-data-table
+                                                            density="compact"
+                                                            :headers="headers.students"
+                                                            :items="selectedClassroom.students"
                                                     >
-                                                        <thead>
-                                                        <tr>
-                                                            <th v-for="header in headers.students" class="text-right">
-                                                                {{ header.title }}
-                                                            </th>
-                                                        </tr>
-                                                        </thead>
-                                                        <tbody>
-                                                        <tr v-for="student in selectedClassroom.students">
-                                                            <td v-for="header in headers.students" class="text-right">
-                                                                {{ student[header.key] }}
-                                                            </td>
-                                                        </tr>
-                                                        </tbody>
-                                                    </v-table>
+                                                    </v-data-table>
                                                 </v-card-text>
                                             </v-card>
                                         </v-col>
 
-                                        <v-col cols="9">
+                                        <v-col cols="8">
                                             <v-row>
                                                 <v-col cols="12">
                                                     <v-card variant="outlined" class="text-left">
@@ -155,6 +197,7 @@ export default {
                                                         </v-card-title>
                                                         <v-card-text>
                                                             <v-data-table
+                                                                    density="compact"
                                                                     :group-by="[{key: 'quiz_name', order: 'asc', align: 'end'}]"
                                                                     :headers="headers.quizzes"
                                                                     :items="selectedClassroom.quizzes"
@@ -171,16 +214,37 @@ export default {
                                                         </v-card-title>
                                                         <v-card-text>
                                                             <v-data-table
+                                                                    density="compact"
                                                                     :group-by="[{key: 'homework_name', order: 'asc', align: 'end'}]"
                                                                     :headers="headers.homeworks"
                                                                     :items="selectedClassroom.homeworks"
-                                                            ></v-data-table>
+                                                                    item-value="name"
+                                                            >
+                                                                <template v-slot:item.actions="{ item }">
+                                                                    <v-btn v-if="!item.raw.has_feedback"
+                                                                           variant="text"
+                                                                           color="success"
+                                                                           @click="openHomeworksDialog(item.raw)">
+                                                                        تصحيح
+                                                                    </v-btn>
+                                                                    <v-btn v-else variant="text" color="success"
+                                                                           @click="openFeedbackDialog(item.raw)">
+                                                                        عرض التصحيح
+                                                                    </v-btn>
+                                                                </template>
+                                                            </v-data-table>
                                                         </v-card-text>
+                                                        <v-card-actions>
+                                                            <v-col>
+                                                                <v-btn variant="outlined" color="success"
+                                                                       @click="openHomeworksDialog"> تصحيح جميع الوظائف
+                                                                </v-btn>
+                                                            </v-col>
+                                                        </v-card-actions>
                                                     </v-card>
                                                 </v-col>
                                             </v-row>
                                         </v-col>
-
                                     </v-row>
                                 </v-container>
                             </v-card-text>
@@ -201,7 +265,7 @@ export default {
                         >
                             <v-card-title class="mt-2" style="font-size: larger; font-weight: bolder">
                                 {{ classroom.name }}
-                                <div style="font-size: smalle; font-weight: lighter">
+                                <div style="font-size: smaller; font-weight: lighter">
                                     {{ classroom.course.category }}
                                 </div>
                             </v-card-title>
@@ -222,6 +286,34 @@ export default {
                 </template>
             </v-row>
         </v-container>
+        <v-dialog v-model="dialogs.homework" width="auto" persistent>
+            <v-card width="800px">
+                <v-card-title class="text-center ma-6">
+                    {{ this.selected.homework.homework_name }}
+                </v-card-title>
+                <v-card-text class="text-center">
+                    <v-btn variant="outlined" color="primary" class="mb-12"> تحميل حل الطالب</v-btn>
+                    <v-form @submit.prevent="submitHomeworkFeedback">
+                        <v-textarea label="النتيجة" class="v-locale--is-rtl" variant="outlined" :rules="requiredRule"
+                                    name="submission" v-model="forms.homework.feedback"/>
+                        <v-btn variant="elevated" color="success" class="ma-2" type="submit">تصحيح</v-btn>
+                        <v-btn variant="elevated" color="warning" class="ma-4" @click="closeHomeworksDialog">
+                            إغلاق
+                        </v-btn>
+                    </v-form>
+                </v-card-text>
+            </v-card>
+        </v-dialog>
 
+        <v-dialog v-model="dialogs.feedback" width="auto">
+            <v-card width="800px">
+                <v-card-title class="text-center ma-6">
+                    {{ this.selected.homework.homework_name }}
+                </v-card-title>
+                <v-card-text class="text-center ma-6">
+                    {{ this.selected.homework.feedback }}
+                </v-card-text>
+            </v-card>
+        </v-dialog>
     </MainLayout>
 </template>

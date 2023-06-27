@@ -1,7 +1,6 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use Inertia\Inertia;
 
 /*
 |--------------------------------------------------------------------------
@@ -21,7 +20,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/profile', [\App\Http\Controllers\Web\User\ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [\App\Http\Controllers\Web\User\ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [\App\Http\Controllers\Web\User\ProfileController::class, 'destroy'])->name('profile.destroy');
-    Route::middleware('can:edit-settings')->group(function(){
+    Route::middleware('can:edit-settings')->group(function () {
         Route::resource('category', \App\Http\Controllers\Web\Course\CategoryController::class);
         Route::resource('nationality', \App\Http\Controllers\Web\Student\NationalityController::class);
         Route::resource('education_level', \App\Http\Controllers\Web\Student\EducationLevelController::class);
@@ -35,6 +34,7 @@ Route::middleware('auth')->group(function () {
     Route::get('classroom/{hash}/students', [\App\Http\Controllers\Web\Course\ClassroomController::class, 'getStudents'])->name('classroom.students');
     Route::get('classroom/{hash}/quizzes', [\App\Http\Controllers\Web\Course\ClassroomController::class, 'getQuizzes'])->name('classroom.quizzes');
     Route::get('classroom/{hash}/homeworks', [\App\Http\Controllers\Web\Course\ClassroomController::class, 'getHomeworks'])->name('classroom.homeworks');
+    Route::post('homework/{hash}/feedback', [\App\Http\Controllers\Web\Course\HomeworkController::class, 'submitFeedback'])->name('homework.feedback');
 });
 
-require __DIR__.'/auth.php';
+require __DIR__ . '/auth.php';
