@@ -1,17 +1,13 @@
 <template>
     <v-dialog v-model="value" persistent width="20%">
-        <v-card>
+        <v-card class="text-center">
             <v-card-title>
-                <span class="text-h5">{{ title }}</span>
+                <div class="ma-4">{{ title }}</div>
             </v-card-title>
             <v-divider/>
-            <v-card-text>
-                <slot/>
-            </v-card-text>
-            <v-divider/>
             <v-card-actions class="justify-space-between">
-                <v-btn variant="plain" @click="close">cancel</v-btn>
-                <v-btn variant="flat" @click="confirm" color="primary">Confirm</v-btn>
+                <v-btn variant="outlined" @click="close" color="error">لا</v-btn>
+                <v-btn variant="outlined" @click="confirm" color="success">نعم</v-btn>
             </v-card-actions>
         </v-card>
     </v-dialog>

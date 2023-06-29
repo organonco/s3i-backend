@@ -35,6 +35,7 @@ Route::middleware('auth')->group(function () {
     Route::get('classroom/{hash}/quizzes', [\App\Http\Controllers\Web\Course\ClassroomController::class, 'getQuizzes'])->name('classroom.quizzes');
     Route::get('classroom/{hash}/homeworks', [\App\Http\Controllers\Web\Course\ClassroomController::class, 'getHomeworks'])->name('classroom.homeworks');
     Route::post('homework/{hash}/feedback', [\App\Http\Controllers\Web\Course\HomeworkController::class, 'submitFeedback'])->name('homework.feedback');
+    Route::delete('homework/{hash}/feedback', [\App\Http\Controllers\Web\Course\HomeworkController::class, 'removeFeedback'])->name('homework.feedback.destroy');
 });
 
 require __DIR__ . '/auth.php';

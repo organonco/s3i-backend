@@ -1,6 +1,7 @@
 <script setup>
 import MainLayout from "@/Layouts/MainLayout.vue";
 import ChipWithBadge from "@/Components/ChipWithBadge.vue";
+import ConfirmationDialog from "@/Components/ConfirmationDialog.vue";
 
 defineProps({
     classrooms: Object,
@@ -20,6 +21,7 @@ export default {
             loading: {
                 students: 0,
                 feedback: false,
+                destroy_feedback: false,
             },
             classroomsData: {...this.$props.classrooms.data},
             headers: {
@@ -37,16 +39,13 @@ export default {
             dialogs: {
                 homework: false,
                 feedback: false,
+                destroy_feedback: false,
             },
             selected: {
                 classroom: {
                     index: null,
                 },
-                homework: {
-                    submission_id: null,
-                    homework_name: null,
-                    feedback: null,
-                },
+                homework: null,
             },
             forms: {
                 homework: {
@@ -113,8 +112,7 @@ export default {
             this.selectedClassroomIndex = -1;
         },
         openHomeworksDialog: function (item) {
-            this.selected.homework.submission_id = item.id
-            this.selected.homework.homework_name = item.homework_name
+            this.selected.homework = item
             this.dialogs.homework = true
         },
         closeHomeworksDialog: function () {
@@ -124,23 +122,39 @@ export default {
         submitHomeworkFeedback: async function (event) {
             this.loading.feedback = true;
             var feedback = this.forms.homework.feedback;
-            axios.post(route('homework.feedback', this.selected.homework.submission_id), {
+            axios.post(route('homework.feedback', this.selected.homework.id), {
                 "feedback": feedback
             }).then((response) => {
                 this.classroomsData[this.selected.classroom.index].homeworks.forEach((homework) => {
-                    if (homework.id == this.selected.homework.submission_id) {
+                    if (homework.id == this.selected.homework.id) {
                         homework.has_feedback = true;
                         homework.feedback = feedback
                     }
                 });
-                this.loading.feedback = true;
+                this.loading.feedback = false;
                 this.closeHomeworksDialog();
             })
         },
         openFeedbackDialog: function (item) {
-            this.selected.homework.feedback = item.feedback
-            this.selected.homework.homework_name = item.homework_name
+            this.selected.homework = item
             this.dialogs.feedback = true
+        },
+        confirmDestroyDialog: function () {
+            this.loading.destroy_feedback = true;
+            axios.delete(route('homework.feedback.destroy', {'hash': this.selected.homework.id})).then(() => {
+                this.classroomsData[this.selected.classroom.index].homeworks.forEach((homework) => {
+                    if (homework.id == this.selected.homework.id) {
+                        homework.has_feedback = false;
+                        homework.feedback = null;
+                        this.loading.destroy_feedback = false;
+                        this.dialogs.destroy_feedback = false;
+                        this.dialogs.feedback = false;
+                    }
+                });
+            })
+        },
+        activateDestroyDialog: function () {
+            this.dialogs.destroy_feedback = true;
         },
     },
     computed: {
@@ -292,7 +306,12 @@ export default {
                     {{ this.selected.homework.homework_name }}
                 </v-card-title>
                 <v-card-text class="text-center">
-                    <v-btn variant="outlined" color="primary" class="mb-12"> تحميل حل الطالب</v-btn>
+                    <a :href="this.selected.homework.file_url" download>
+                        <v-btn variant="outlined" color="primary" class="mb-12 mr-5"> تحميل حل الطالب</v-btn>
+                    </a>
+                    <a :href="this.selected.homework.file_url" target="_blank">
+                        <v-btn variant="outlined" color="primary" class="mb-12"> عرض حل الطالب</v-btn>
+                    </a>
                     <v-form @submit.prevent="submitHomeworkFeedback">
                         <v-textarea label="النتيجة" class="v-locale--is-rtl" variant="outlined" :rules="requiredRule"
                                     name="submission" v-model="forms.homework.feedback"/>
@@ -307,13 +326,27 @@ export default {
 
         <v-dialog v-model="dialogs.feedback" width="auto">
             <v-card width="800px">
-                <v-card-title class="text-center ma-6">
+                <v-card-title class="text-center mt-4">
                     {{ this.selected.homework.homework_name }}
                 </v-card-title>
+                <v-card-subtitle class="text-center">تم التصحيح</v-card-subtitle>
                 <v-card-text class="text-center ma-6">
-                    {{ this.selected.homework.feedback }}
+                    <a :href="this.selected.homework.file_url" download>
+                        <v-btn variant="outlined" color="primary" class="mb-12 mr-5"> تحميل حل الطالب</v-btn>
+                    </a>
+                    <a :href="this.selected.homework.file_url" target="_blank">
+                        <v-btn variant="outlined" color="primary" class="mb-12"> عرض حل الطالب</v-btn>
+                    </a>
+                    <v-textarea class="v-locale--is-rtl" readonly :value="this.selected.homework.feedback"/>
                 </v-card-text>
+                <v-card-actions class="ma-2">
+                    <v-btn color="error" variant="outlined" @click="activateDestroyDialog"> حذف التصحيح</v-btn>
+                </v-card-actions>
             </v-card>
         </v-dialog>
+
+        <confirmation-dialog v-model="dialogs.destroy_feedback" title="حذف التصحيح" @confirm="confirmDestroyDialog">
+        </confirmation-dialog>
+
     </MainLayout>
 </template>

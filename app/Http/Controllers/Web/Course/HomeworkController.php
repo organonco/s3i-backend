@@ -18,4 +18,12 @@ class HomeworkController extends Controller
             'feedback' => $request->input('feedback')
         ]);
     }
+
+    public function removeFeedback(string $hash, Request $request)
+    {
+        $submission = CourseHomeworkSubmission::byHash($hash);
+        $submission->update([
+            'feedback' => null
+        ]);
+    }
 }

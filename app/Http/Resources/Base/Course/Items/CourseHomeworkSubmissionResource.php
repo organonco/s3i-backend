@@ -21,6 +21,7 @@ class CourseHomeworkSubmissionResource extends JsonResource
             'homework_name' => $this->courseHomework->name,
             'has_feedback' => !is_null($this->feedback),
             'feedback' => $this->feedback,
+            'file_url' => $this->file_url,
         ];
     }
 }
