@@ -9,8 +9,6 @@ defineProps({
 </script>
 
 <script>
-import {useForm} from "@inertiajs/vue3";
-import _ from "lodash";
 import axios from "axios";
 
 
