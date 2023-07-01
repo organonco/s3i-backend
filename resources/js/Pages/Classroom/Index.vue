@@ -25,17 +25,18 @@ export default {
                     {title: 'الاسم', key: 'name_ar', align: 'end'},
                 ],
                 quizzes: [
-                    {title: '', align: 'end', key: 'actions'},
+                    {title: '', key: 'status', align: 'end'},
                     {title: 'نوع الاختبار', key: 'quiz_type', align: "end"},
                     {title: 'اسم الطالب', key: 'student_name', align: "end"},
                 ],
                 homeworks: [
-                    {title: '', align: 'end', key: 'actions'},
+                    {title: '', key: 'status', align: 'end'},
                     {title: 'اسم الطالب', key: 'student_name', align: "end"},
                 ],
             },
             dialogs: {
                 homework: false,
+                quiz: false,
                 destroy_feedback_confirmation: false,
             },
             selected: {
@@ -105,9 +106,10 @@ export default {
         closeClassroom: function () {
             this.selected.classroom = null;
         },
-        openHomeworksDialog: function (item) {
+        openHomeworksDialog: function (_, item) {
+            let selected_id = item.item.raw.id;
             this.selectedClassroom['homeworks'].forEach((value, index) => {
-                if (item.id === value.id)
+                if (selected_id === value.id)
                     this.selected.homework = index;
             });
             this.dialogs.homework = true
@@ -144,7 +146,17 @@ export default {
         previousHomework: function () {
             this.selected.homework = this.selected.homework === 0 ? this.selectedClassroom['homeworks'].length - 1 : this.selected.homework - 1
             this.forms.homework.feedback = this.selectedHomework.feedback
-        }
+        },
+        openQuizDialog: function (_, item) {
+            let selected_id = item.item.raw.id;
+            this.selectedClassroom['quizzes'].forEach((value, index) => {
+                if (selected_id === value.id)
+                    this.selected.quiz = index;
+            });
+            this.dialogs.quiz = true
+        },
+
+
     },
     computed: {
         selectedClassroom: function () {
@@ -207,6 +219,7 @@ export default {
                                                                         :group-by="[{key: 'quiz_name', order: 'asc', align: 'end'}]"
                                                                         :headers="headers.quizzes"
                                                                         :items="selectedClassroom.quizzes"
+                                                                        @click:row="openQuizDialog"
                                                                 ></v-data-table>
                                                             </v-card-text>
                                                         </v-card>
@@ -220,24 +233,15 @@ export default {
                                                             </v-card-title>
                                                             <v-card-text>
                                                                 <v-data-table
-                                                                        density="compact"
                                                                         :group-by="[{key: 'homework_name', order: 'asc', align: 'end'}]"
                                                                         :headers="headers.homeworks"
                                                                         :items="selectedClassroom.homeworks"
                                                                         item-value="name"
+                                                                        @click:row="openHomeworksDialog"
                                                                 >
-                                                                    <template v-slot:item.actions="{ item }">
-                                                                        <v-btn
-                                                                                variant="text"
-                                                                                color="success"
-                                                                                @click="openHomeworksDialog(item.raw)">
-                                                                            <template v-if="item.raw.has_feedback">
-                                                                                عرض التصحيح
-                                                                            </template>
-                                                                            <template v-else>
-                                                                                تصحيح
-                                                                            </template>
-                                                                        </v-btn>
+                                                                    <template v-slot:item.status="{ item }">
+                                                                        <v-chip color="success" v-if="item.raw.has_feedback"> تم التصحيح </v-chip>
+                                                                        <v-chip color="warning" v-else> بانتظار التصحيح </v-chip>
                                                                     </template>
                                                                 </v-data-table>
                                                             </v-card-text>
@@ -351,6 +355,11 @@ export default {
             </v-card>
         </v-dialog>
 
+        <v-dialog v-model="dialogs.quiz" width="auto" height="auto">
+            <v-card width="800px">
+
+            </v-card>
+        </v-dialog>
 
         <confirmation-dialog v-model="dialogs.destroy_feedback_confirmation" title="حذف التصحيح"
                              @confirm="confirmDestroyDialog">

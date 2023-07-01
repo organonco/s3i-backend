@@ -19,6 +19,7 @@ class CourseQuizSubmissionResource extends JsonResource
             'student_name' => $this->student->name_ar,
             'quiz_id' => $this->courseQuiz->hash,
             'quiz_name' => $this->courseQuiz->name,
+            'quiz_type' => $this->courseQuiz->type,
         ];
     }
 }
