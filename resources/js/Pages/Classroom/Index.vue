@@ -11,7 +11,6 @@ defineProps({
 <script>
 import axios from "axios";
 
-
 export default {
     data: function () {
         return {
@@ -121,7 +120,7 @@ export default {
                 this.selectedHomework.feedback = feedback;
                 this.loading.feedback = false;
                 this.forms.homework.feedback = null
-                this.selectedClassroom.number_of_pending_homeworks = this.selectedClassroom.number_of_pending_homeworks - 1;
+                this.selectedClassroom.number_of_pending_homeworks--;
             })
         },
         confirmDestroyDialog: function () {
@@ -130,6 +129,7 @@ export default {
                 this.selectedHomework.has_feedback = false;
                 this.selectedHomework.feedback = null;
                 this.loading.destroy_feedback_confirmation = false;
+                this.selectedClassroom.number_of_pending_homeworks++;
             })
         },
         activateDestroyDialog: function () {
@@ -348,6 +348,7 @@ export default {
                 </v-form>
             </v-card>
         </v-dialog>
+
 
         <confirmation-dialog v-model="dialogs.destroy_feedback_confirmation" title="حذف التصحيح"
                              @confirm="confirmDestroyDialog">
