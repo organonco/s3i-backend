@@ -28,6 +28,16 @@ class CourseHomeworkSubmission extends BaseModel implements HasMedia
         return $query->where('student_id', $student_id);
     }
 
+    public function scopeStudents($query, $student_ids)
+    {
+        return $query->whereIn('student_id', $student_ids);
+    }
+
+    public function scopeHomeworks($query, $homework_ids)
+    {
+        return $query->whereIn('course_homework_id', $homework_ids);
+    }
+
     public function courseHomework()
     {
         return $this->belongsTo(CourseHomework::class);

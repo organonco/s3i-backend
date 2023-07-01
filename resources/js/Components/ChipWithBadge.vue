@@ -1,5 +1,5 @@
 <template>
-    <v-badge v-if="value > 0" :content="value" color="success">
+    <v-badge v-if="value > 0" :content="value" color="warning">
         <v-chip color="secondary">{{ content }}</v-chip>
     </v-badge>
     <v-chip v-else color="secondary">{{ content }}</v-chip>

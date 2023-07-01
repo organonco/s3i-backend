@@ -30,4 +30,18 @@ class Classroom extends BaseModel
     {
         return $this->belongsToMany(Student::class);
     }
+
+    public function getHomeworkSubmissionsQuery() : \Illuminate\Database\Eloquent\Builder
+    {
+        $homework_ids = $this->course->getHomeworks()->pluck('id');
+        $student_ids = $this->students()->pluck('students.id');
+        return CourseHomeworkSubmission::query()->students($student_ids)->homeworks($homework_ids);
+    }
+
+    public function getQuizSubmissionsQuery() : \Illuminate\Database\Eloquent\Builder
+    {
+        $quiz_ids = $this->course->getQuizzes()->pluck('id');
+        $student_ids = $this->students()->pluck('students.id');
+        return QuizSubmission::query()->students($student_ids)->quizzes($quiz_ids);
+    }
 }

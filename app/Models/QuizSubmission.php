@@ -29,4 +29,16 @@ class QuizSubmission extends BaseModel
     {
         return self::query()->where('student_id', $studentId)->where('quiz_id', $quizId)->first();
     }
+
+    public function scopeStudents($query, $student_ids)
+    {
+        return $query->whereIn('student_id', $student_ids);
+    }
+
+    public function scopeQuizzes($query, $quiz_ids)
+    {
+        return $query->whereIn('quiz_id', $quiz_ids);
+    }
+
+
 }

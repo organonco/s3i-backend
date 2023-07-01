@@ -6,8 +6,8 @@
             </v-card-title>
             <v-divider/>
             <v-card-actions class="justify-space-between">
-                <v-btn variant="outlined" @click="close" color="error">لا</v-btn>
-                <v-btn variant="outlined" @click="confirm" color="success">نعم</v-btn>
+                <v-btn variant="text" @click="confirm" color="warning">نعم</v-btn>
+                <v-btn variant="text" @click="close" color="success">لا</v-btn>
             </v-card-actions>
         </v-card>
     </v-dialog>
