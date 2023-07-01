@@ -25,6 +25,8 @@ export default {
                     {title: 'الاسم', key: 'name_ar', align: 'end'},
                 ],
                 quizzes: [
+                    {title: '', align: 'end', key: 'actions'},
+                    {title: 'نوع الاختبار', key: 'quiz_type', align: "end"},
                     {title: 'اسم الطالب', key: 'student_name', align: "end"},
                 ],
                 homeworks: [
@@ -110,7 +112,7 @@ export default {
             });
             this.dialogs.homework = true
         },
-        submitHomeworkFeedback: async function (event) {
+        submitHomeworkFeedback: async function (_) {
             this.loading.feedback = true;
             var feedback = this.forms.homework.feedback;
             axios.post(route('homework.feedback', this.selectedHomework.id), {
