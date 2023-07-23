@@ -11,7 +11,7 @@
         </v-col>
         <add-item-dialog title="Add Option" v-model="option.dialog" @save="saveDialog('option')" :index="index">
             <v-text-field label="Option" variant="solo" v-model="option.object.text" :rules="requiredRule"/>
-            <v-checkbox label="Is Correct" variant="solo" v-model="option.object.is_correct" false-value="0"/>
+            <v-checkbox label="Is Correct" variant="solo" v-model="option.object.is_correct"/>
         </add-item-dialog>
     </v-row>
 </template>

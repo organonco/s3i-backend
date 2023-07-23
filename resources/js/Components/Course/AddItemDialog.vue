@@ -28,7 +28,6 @@
                         color="blue-darken-1"
                         variant="text"
                         @click="save"
-                        :disabled="!isFormValid"
                     >
                         Save
                     </v-btn>

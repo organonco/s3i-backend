@@ -23,12 +23,18 @@ class CourseQuizQuestion extends BaseModel
         if (isset($dataObject['id'])) {
             $question = static::byHash($dataObject['id']);
             $question->update(array_merge($dataObject['object'], ['order' => $order]));
+            $remainingIds = collect($dataObject['object']['options'])->whereNotNull('id')->pluck(['id'])->transform(function ($hash) {
+                return CourseItem::hashToId($hash);
+            });
+            $question->options()->whereNotIn('id', $remainingIds)->delete();
         } else {
             $question = self::create(array_merge($dataObject['object'], ['order' => $order, 'course_quiz_id' => $quizId]));
-            if (isset($dataObject['object']['options']))
-                foreach ($dataObject['object']['options'] as $index => $option)
-                    $question->options()->create(array_merge(['order' => $index], $option['object']));
         }
+
+        if (isset($dataObject['object']['options']))
+            foreach ($dataObject['object']['options'] as $index => $option)
+                CourseQuizQuestionOption::createOrUpdateFromDataObject($option, $question->id, $index);
+
         return $question;
     }
 

@@ -26,9 +26,6 @@
         <add-item-dialog title="Add Meeting" v-model="meeting.dialog" @save="saveDialog('meeting')" :index="index">
             <v-label>Meeting Time, Date, and URL are different for each classroom</v-label>
             <v-text-field label="Name" variant="solo" v-model="meeting.object.name" :rules="requiredRule"/>
-<!--            <v-text-field label="Meeting Link" variant="solo" v-model="meeting.object.url" :rules="requiredRule"/>-->
-<!--            <v-text-field label="Date" type="date" variant="solo" v-model="meeting.object.date" :rules="requiredRule"/>-->
-<!--            <v-text-field label="Time" type="time" variant="solo" v-model="meeting.object.time" :rules="requiredRule"/>-->
         </add-item-dialog>
 
         <add-item-dialog title="Add File" v-model="file.dialog" @save="saveDialog('file')" :index="index">
