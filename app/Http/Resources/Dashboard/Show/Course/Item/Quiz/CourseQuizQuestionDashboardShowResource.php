@@ -17,6 +17,7 @@ class CourseQuizQuestionDashboardShowResource extends CourseQuizQuestionResource
         $base = parent::toArray($request);
         $base['object'] = [
             'text' => $base['text'],
+            'type' => $base['type'],
             'options' => CourseQuizQuestionOptionDashboardShowResource::collection($this->options)
         ];
         $base['type'] = $this->quiz->type;
