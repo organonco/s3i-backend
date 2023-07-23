@@ -2,6 +2,7 @@
 import MainLayout from "@/Layouts/MainLayout.vue";
 import ChipWithBadge from "@/Components/ChipWithBadge.vue";
 import ConfirmationDialog from "@/Components/ConfirmationDialog.vue";
+import QuizSubmissionPreview from "@/Components/Course/QuizSubmissionPreview.vue";
 
 defineProps({
     classrooms: Object,
@@ -37,15 +38,21 @@ export default {
             dialogs: {
                 homework: false,
                 quiz: false,
-                destroy_feedback_confirmation: false,
+                destroy_homework_feedback_confirmation: false,
+                destroy_quiz_feedback_confirmation: false,
+                quiz_submission_preview: false,
             },
             selected: {
                 classroom: null,
                 homework: null,
+                quiz: null,
             },
             forms: {
                 homework: {
                     feedback: ""
+                },
+                quiz: {
+                    feedback: "",
                 }
             }
         }
@@ -127,17 +134,42 @@ export default {
                 this.selectedClassroom.number_of_pending_homeworks--;
             })
         },
-        confirmDestroyDialog: function () {
-            this.loading.destroy_feedback_confirmation = true;
+        submitQuizFeedback: async function (_) {
+            this.loading.feedback = true;
+            var feedback = this.forms.quiz.feedback;
+            axios.post(route('quiz.submission.feedback', this.selectedQuiz.id), {
+                "feedback": feedback
+            }).then((_) => {
+                this.selectedQuiz.has_feedback = true;
+                this.selectedQuiz.feedback = feedback;
+                this.loading.feedback = false;
+                this.forms.homework.feedback = null
+                this.selectedClassroom.number_of_pending_quizzes--;
+            })
+        },
+        confirmHomeworkDestroyDialog: function () {
+            this.loading.destroy_homework_feedback_confirmation = true;
             axios.delete(route('homework.feedback.destroy', {'hash': this.selectedHomework.id})).then(() => {
                 this.selectedHomework.has_feedback = false;
                 this.selectedHomework.feedback = null;
-                this.loading.destroy_feedback_confirmation = false;
+                this.loading.destroy_homework_feedback_confirmation = false;
                 this.selectedClassroom.number_of_pending_homeworks++;
             })
         },
-        activateDestroyDialog: function () {
-            this.dialogs.destroy_feedback_confirmation = true;
+        confirmQuizDestroyDialog: function () {
+            this.loading.destroy_quiz_feedback_confirmation = true;
+            axios.delete(route('quiz.submission.feedback.destroy', {'hash': this.selectedQuiz.id})).then(() => {
+                this.selectedQuiz.has_feedback = false;
+                this.selectedQuiz.feedback = null;
+                this.loading.destroy_quiz_feedback_confirmation = false;
+                this.selectedClassroom.number_of_pending_quizzes++;
+            })
+        },
+        activateDestroyHomeworkDialog: function () {
+            this.dialogs.destroy_homework_feedback_confirmation = true;
+        },
+        activateDestroyQuizDialog: function () {
+            this.dialogs.destroy_quiz_feedback_confirmation = true;
         },
         nextHomework: function () {
             this.selected.homework = (this.selected.homework + 1) % this.selectedClassroom['homeworks'].length
@@ -147,14 +179,43 @@ export default {
             this.selected.homework = this.selected.homework === 0 ? this.selectedClassroom['homeworks'].length - 1 : this.selected.homework - 1
             this.forms.homework.feedback = this.selectedHomework.feedback
         },
+
+        nextQuiz: function () {
+            this.selected.quiz = (this.selected.quiz + 1) % this.selectedClassroom['quizzes'].length
+            this.forms.quiz.feedback = this.selectedQuiz.feedback
+        },
+        previousQuiz: function () {
+            this.selected.quiz = this.selected.quiz === 0 ? this.selectedClassroom['quizzes'].length - 1 : this.selected.quiz - 1
+            this.forms.quiz.feedback = this.selectedQuiz.feedback
+        },
+
         openQuizDialog: function (_, item) {
             let selected_id = item.item.raw.id;
             this.selectedClassroom['quizzes'].forEach((value, index) => {
                 if (selected_id === value.id)
                     this.selected.quiz = index;
             });
+            this.dialogs.quiz_submission_preview = false;
             this.dialogs.quiz = true
         },
+
+        fetchQuizSubmission: function () {
+            var id = this.selectedClassroom['quizzes'][this.selected.quiz].id;
+            axios.get(route('quiz.submission.show', id)).then((response) => {
+                this.classroomsData[this.selected.classroom]['quizzes'][this.selected.quiz].answers = response.data.data.answers;
+                this.classroomsData[this.selected.classroom]['quizzes'][this.selected.quiz].answers_fetched = true;
+            })
+        },
+
+        openQuizSubmissionPreviewDialog: function () {
+            if (!this.selectedQuiz.answers_fetched)
+                this.fetchQuizSubmission();
+            this.dialogs.quiz_submission_preview = true
+        },
+
+        closeQuizSubmissionPreviewDialog: function () {
+            this.dialogs.quiz_submission_preview = false
+        }
 
 
     },
@@ -164,6 +225,9 @@ export default {
         },
         selectedHomework: function () {
             return this.selectedClassroom['homeworks'][this.selected.homework]
+        },
+        selectedQuiz: function () {
+            return this.selectedClassroom['quizzes'][this.selected.quiz];
         },
         requiredRule: function () {
             return [v => !!v || 'مطلوب'];
@@ -215,12 +279,36 @@ export default {
                                                             </v-card-title>
                                                             <v-card-text>
                                                                 <v-data-table
-                                                                        density="compact"
                                                                         :group-by="[{key: 'quiz_name', order: 'asc', align: 'end'}]"
                                                                         :headers="headers.quizzes"
                                                                         :items="selectedClassroom.quizzes"
                                                                         @click:row="openQuizDialog"
-                                                                ></v-data-table>
+                                                                >
+                                                                    <template v-slot:item.quiz_type="{ item }">
+                                                                        <template
+                                                                                v-if="item.raw.quiz_type === 'multiple_choice'">
+                                                                            اختيار من متعدد
+                                                                        </template>
+                                                                        <template v-else>
+                                                                            نصي
+                                                                        </template>
+                                                                    </template>
+
+                                                                    <template v-slot:item.status="{ item }">
+                                                                        <v-chip color="success"
+                                                                                v-if="item.raw.quiz_type === 'multiple_choice'">
+                                                                            تم التصحيح التلقائي
+                                                                        </v-chip>
+                                                                        <v-chip color="success"
+                                                                                v-else-if="item.raw.has_feedback"> تم
+                                                                            التصحيح
+                                                                        </v-chip>
+                                                                        <v-chip color="warning" v-else> بانتظار
+                                                                            التصحيح
+                                                                        </v-chip>
+                                                                    </template>
+
+                                                                </v-data-table>
                                                             </v-card-text>
                                                         </v-card>
                                                     </v-col>
@@ -240,8 +328,12 @@ export default {
                                                                         @click:row="openHomeworksDialog"
                                                                 >
                                                                     <template v-slot:item.status="{ item }">
-                                                                        <v-chip color="success" v-if="item.raw.has_feedback"> تم التصحيح </v-chip>
-                                                                        <v-chip color="warning" v-else> بانتظار التصحيح </v-chip>
+                                                                        <v-chip color="success"
+                                                                                v-if="item.raw.has_feedback"> تم التصحيح
+                                                                        </v-chip>
+                                                                        <v-chip color="warning" v-else> بانتظار
+                                                                            التصحيح
+                                                                        </v-chip>
                                                                     </template>
                                                                 </v-data-table>
                                                             </v-card-text>
@@ -297,13 +389,14 @@ export default {
             <v-card width="800px">
                 <v-form @submit.prevent="submitHomeworkFeedback">
                     <v-card-title class="text-center">
-                        <v-chip color="success" class="my-3" v-if="this.selectedHomework.has_feedback"> تم التصحيح </v-chip>
-                        <v-chip color="warning" class="my-3" v-else> بانتظار التصحيح </v-chip>
+                        <v-chip color="success" class="my-3" v-if="this.selectedHomework.has_feedback"> تم التصحيح
+                        </v-chip>
+                        <v-chip color="warning" class="my-3" v-else> بانتظار التصحيح</v-chip>
                         <br/>
                         {{ this.selectedHomework.homework_name }}
                     </v-card-title>
                     <v-card-subtitle class="text-center">
-                        {{this.selectedHomework.student_name}}
+                        {{ this.selectedHomework.student_name }}
                     </v-card-subtitle>
                     <v-divider class="my-4"/>
                     <v-card-text class="text-center">
@@ -338,7 +431,8 @@ export default {
                                 التالي
                             </v-btn>
                             <template v-if="this.selectedHomework.has_feedback">
-                                <v-btn color="error" width="250px" variant="outlined" @click="activateDestroyDialog"> حذف التصحيح
+                                <v-btn color="error" width="250px" variant="outlined" @click="activateDestroyHomeworkDialog">
+                                    حذف التصحيح
                                 </v-btn>
                             </template>
                             <template v-else>
@@ -356,13 +450,90 @@ export default {
         </v-dialog>
 
         <v-dialog v-model="dialogs.quiz" width="auto" height="auto">
-            <v-card width="800px">
-
+            <v-card width="800">
+                <v-form @submit.prevent="submitQuizFeedback">
+                    <v-card-title class="text-center">
+                        <div class="my-3">
+                            <v-chip color="success"
+                                    v-if="this.selectedQuiz.has_feedback"> تم
+                                التصحيح
+                            </v-chip>
+                            <v-chip color="success"
+                                    v-else-if="this.selectedQuiz.quiz_type === 'multiple_choice'">
+                                تم التصحيح التلقائي
+                            </v-chip>
+                            <v-chip color="warning" v-else> بانتظار
+                                التصحيح
+                            </v-chip>
+                        </div>
+                        {{ this.selectedQuiz.quiz_name }}
+                    </v-card-title>
+                    <v-card-subtitle class="text-center">
+                        {{ this.selectedQuiz.student_name }}
+                    </v-card-subtitle>
+                    <v-divider class="my-4"/>
+                    <v-card-text class="text-center">
+                        <div  v-if="dialogs.quiz_submission_preview" @click="closeQuizSubmissionPreviewDialog" class="mb-6">
+                            اخفاء حل الطالب
+                            <v-btn icon="mdi-chevron-up" variant="flat"></v-btn>
+                        </div>
+                        <div  v-else @click="openQuizSubmissionPreviewDialog" class="mb-6">
+                            عرض حل الطالب
+                            <v-btn icon="mdi-chevron-down" variant="flat"></v-btn>
+                        </div>
+                        <v-expand-transition>
+                            <div v-show="dialogs.quiz_submission_preview">
+                                <quiz-submission-preview :answers="this.selectedQuiz.answers"></quiz-submission-preview>
+                            </div>
+                        </v-expand-transition>
+                        <v-textarea
+                                v-if="this.selectedQuiz.has_feedback"
+                                class="v-locale--is-rtl text-success"
+                                variant="filled"
+                                v-model="this.selectedQuiz.feedback"
+                                readonly
+                        />
+                        <v-textarea
+                                v-else
+                                label="النتيجة"
+                                class="v-locale--is-rtl"
+                                variant="outlined"
+                                :rules="requiredRule"
+                                name="submission"
+                                v-model="forms.quiz.feedback"
+                        />
+                    </v-card-text>
+                    <v-divider/>
+                    <v-card-actions class="pa-8">
+                        <v-row class="justify-space-between">
+                            <v-btn variant="text" @click="nextQuiz">
+                                التالي
+                            </v-btn>
+                            <template v-if="this.selectedQuiz.has_feedback">
+                                <v-btn color="error" width="250px" variant="outlined"
+                                       @click="activateDestroyQuizDialog"> حذف التصحيح
+                                </v-btn>
+                            </template>
+                            <template v-else>
+                                <v-btn variant="outlined" width="250px" color="success" type="submit">
+                                    تصحيح
+                                </v-btn>
+                            </template>
+                            <v-btn variant="text" @click="previousQuiz">
+                                السابق
+                            </v-btn>
+                        </v-row>
+                    </v-card-actions>
+                </v-form>
             </v-card>
         </v-dialog>
 
-        <confirmation-dialog v-model="dialogs.destroy_feedback_confirmation" title="حذف التصحيح"
-                             @confirm="confirmDestroyDialog">
+        <confirmation-dialog v-model="dialogs.destroy_quiz_feedback_confirmation" title="حذف التصحيح"
+                             @confirm="confirmQuizDestroyDialog">
+        </confirmation-dialog>
+
+        <confirmation-dialog v-model="dialogs.destroy_homework_feedback_confirmation" title="حذف التصحيح"
+                             @confirm="confirmHomeworkDestroyDialog">
         </confirmation-dialog>
 
     </MainLayout>

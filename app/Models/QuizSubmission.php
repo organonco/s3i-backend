@@ -7,7 +7,7 @@ use App\Models\BaseModels\BaseModel;
 class QuizSubmission extends BaseModel
 {
 
-    protected $fillable = ['student_id', 'quiz_id'];
+    protected $fillable = ['student_id', 'quiz_id', 'feedback'];
     protected $appends = ['quiz_hash'];
 
     public function courseQuiz()
@@ -40,5 +40,14 @@ class QuizSubmission extends BaseModel
         return $query->whereIn('quiz_id', $quiz_ids);
     }
 
+    public function getHasFeedbackAttribute()
+    {
+        return !is_null($this->feedback);
+    }
+
+    public function quizQuestionSubmissions()
+    {
+        return $this->hasMany(QuizQuestionSubmission::class);
+    }
 
 }

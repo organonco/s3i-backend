@@ -2,10 +2,11 @@
 
 namespace App\Http\Resources\Base\Course\Items\Quiz;
 
+use App\Http\Resources\Dashboard\Show\Course\Item\Quiz\CourseQuizQuestionDashboardShowResource;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class CourseQuizSubmissionResource extends JsonResource
+class CourseQuizQuestionSubmissionResource extends JsonResource
 {
     /**
      * Transform the resource into an array.
@@ -16,12 +17,8 @@ class CourseQuizSubmissionResource extends JsonResource
     {
         return [
             'id' => $this->hash,
-            'student_name' => $this->student->name_ar,
-            'quiz_id' => $this->courseQuiz->hash,
-            'quiz_name' => $this->courseQuiz->name,
-            'quiz_type' => $this->courseQuiz->type,
-            'has_feedback' => $this->has_feedback,
-            'feedback' => $this->feedback,
+            'quiz_question' => CourseQuizQuestionDashboardShowResource::make($this->courseQuizQuestion),
+            'answer' => json_decode($this->answer),
         ];
     }
 }
