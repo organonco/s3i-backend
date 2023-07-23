@@ -296,12 +296,12 @@ export default {
 
                                                                     <template v-slot:item.status="{ item }">
                                                                         <v-chip color="success"
-                                                                                v-if="item.raw.quiz_type === 'multiple_choice'">
-                                                                            تم التصحيح التلقائي
+                                                                                v-if="item.raw.has_feedback"> تم
+                                                                            التصحيح
                                                                         </v-chip>
                                                                         <v-chip color="success"
-                                                                                v-else-if="item.raw.has_feedback"> تم
-                                                                            التصحيح
+                                                                                v-else-if="item.raw.quiz_type === 'multiple_choice'">
+                                                                            تم التصحيح التلقائي
                                                                         </v-chip>
                                                                         <v-chip color="warning" v-else> بانتظار
                                                                             التصحيح

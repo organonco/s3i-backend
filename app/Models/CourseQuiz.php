@@ -31,7 +31,7 @@ class CourseQuiz extends BaseModel implements HasCourseItemInterface
     {
         parent::update($attributes, $options);
         $remainingIds = collect($attributes['questions'])->whereNotNull('id')->pluck(['id'])->transform(function ($hash) {
-            return CourseItem::hashToId($hash);
+            return CourseQuizQuestion::hashToId($hash);
         });
         $this->questions()->whereNotIn('id', $remainingIds)->delete();
         foreach ($attributes['questions'] as $index => $question)

@@ -82,7 +82,7 @@ class QuizController extends Controller
                             $option = $question->options()->find($optionId);
                             if(is_null($option))
                                 throw new NotFound();
-                            $answers[] = $optionId;
+                            $answers[] = $selected_option;
                         }
                         $json = json_encode(['options' => $answers]);
                 }

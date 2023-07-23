@@ -24,7 +24,7 @@ class CourseQuizQuestion extends BaseModel
             $question = static::byHash($dataObject['id']);
             $question->update(array_merge($dataObject['object'], ['order' => $order]));
             $remainingIds = collect($dataObject['object']['options'])->whereNotNull('id')->pluck(['id'])->transform(function ($hash) {
-                return CourseItem::hashToId($hash);
+                return CourseQuizQuestionOption::hashToId($hash);
             });
             $question->options()->whereNotIn('id', $remainingIds)->delete();
         } else {

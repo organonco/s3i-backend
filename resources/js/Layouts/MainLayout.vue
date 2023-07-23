@@ -20,13 +20,13 @@ export default {
 
 <template>
     <Head><title> {{ title }} </title></Head>
-    <v-layout>
-        <v-navigation-drawer permanent location="left">
+    <v-layout class="v-locale--is-rtl">
+        <v-navigation-drawer permanent location="right">
             <template v-slot:prepend>
                 <v-list-item lines="two"
                              prepend-avatar="https://www.citypng.com/public/uploads/small/11640168385jtmh7kpmvna5ddyynoxsjy5leb1nmpvqooaavkrjmt9zs7vtvuqi4lcwofkzsaejalxn7ggpim4hkg0wbwtzsrp1ldijzbdbsj5z.png"
                              :title="$page.props.auth.user.name">
-                    <Link as="div" :href="route('logout')" method="post" class="underline"> Log Out</Link>
+                    <Link as="div" :href="route('logout')" method="post" class="underline"> تسحيل الخروح </Link>
                 </v-list-item>
             </template>
             <v-divider></v-divider>
