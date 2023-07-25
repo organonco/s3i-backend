@@ -3,6 +3,7 @@ import MainLayout from "@/Layouts/MainLayout.vue";
 import ChipWithBadge from "@/Components/ChipWithBadge.vue";
 import ConfirmationDialog from "@/Components/ConfirmationDialog.vue";
 import QuizSubmissionPreview from "@/Components/Course/QuizSubmissionPreview.vue";
+import CenterSheet from "@/Components/CenterSheet.vue";
 
 defineProps({
     classrooms: Object,
@@ -23,16 +24,16 @@ export default {
             classroomsData: {...this.$props.classrooms.data},
             headers: {
                 students: [
-                    {title: 'الاسم', key: 'name_ar', align: 'end'},
+                    {title: 'الاسم', key: 'name_ar', align: 'start'},
                 ],
                 quizzes: [
-                    {title: '', key: 'status', align: 'end'},
-                    {title: 'نوع الاختبار', key: 'quiz_type', align: "end"},
-                    {title: 'اسم الطالب', key: 'student_name', align: "end"},
+                    {title: 'نوع الاختبار', key: 'quiz_type', align: "start"},
+                    {title: 'اسم الطالب', key: 'student_name', align: "start"},
+                    {title: 'الحالة', key: 'status', align: 'start'},
                 ],
                 homeworks: [
-                    {title: '', key: 'status', align: 'end'},
-                    {title: 'اسم الطالب', key: 'student_name', align: "end"},
+                    {title: '', key: 'status', align: 'start'},
+                    {title: 'اسم الطالب', key: 'student_name', align: "start"},
                 ],
             },
             dialogs: {
@@ -237,153 +238,145 @@ export default {
 </script>
 
 <template>
-    <MainLayout title="Classrooms">
+    <MainLayout title="لوحة التحكم">
         <v-container>
             <v-row>
-                <v-col cols="12">
+                <v-col cols="9">
                     <v-expand-transition>
                         <template v-if="selected.classroom">
-                            <v-card
-                                    width="100%"
-                                    class="text-right"
-                                    variant="elevated"
-                            >
-                                <v-card-title class="pt-8 text-center" style="font-size: xx-large; font-weight: bold">
-                                    {{ this.selectedClassroom.name }}
-                                </v-card-title>
-                                <v-card-text class="pa-12">
-                                    <v-container>
+                            <center-sheet>
+                                <v-row justify="center">
+                                    <h1 class="pb-4">
+                                        {{ this.selectedClassroom.name }}
+                                    </h1>
+                                    <v-divider class="py-5"/>
+                                </v-row>
+                                <v-row justify="center">
+                                    <v-col cols="4" class="pa-6">
+                                        <h3 class="pb-4">
+                                            الطلاب
+                                        </h3>
+                                        <v-divider class="pb-4" length="40%"/>
+                                        <v-data-table-virtual :headers="headers.students"
+                                                              :items="selectedClassroom.students"
+                                                              class="pa-3 elevation-1"/>
+                                    </v-col>
+                                    <v-col cols="8" class="pa-6">
                                         <v-row>
-                                            <v-col cols="4" sm="3">
-                                                <v-card variant="outlined" class="text-center">
-                                                    <v-card-title class="pt-4 text-center">
-                                                        الطلاب
-                                                    </v-card-title>
-                                                    <v-card-text>
-                                                        <v-data-table
-                                                                density="compact"
-                                                                :headers="headers.students"
-                                                                :items="selectedClassroom.students"
-                                                        >
-                                                        </v-data-table>
-                                                    </v-card-text>
-                                                </v-card>
-                                            </v-col>
+                                            <v-col cols="12">
+                                                <h3 class="pb-4">
+                                                    الاختبارات
+                                                </h3>
+                                                <v-divider class="pb-4" length="40%"/>
+                                                <v-data-table-virtual
+                                                        :group-by="[{key: 'quiz_name', order: 'asc', align: 'end'}]"
+                                                        :headers="headers.quizzes"
+                                                        :items="selectedClassroom.quizzes"
+                                                        @click:row="openQuizDialog"
+                                                        class="pa-3 elevation-1">
+                                                    <template
+                                                            v-slot:item.quiz_type="{ item }">
+                                                        <template
+                                                                v-if="item.raw.quiz_type === 'multiple_choice'">
+                                                            اختيار من متعدد
+                                                        </template>
+                                                        <template v-else>
+                                                            نصي
+                                                        </template>
+                                                    </template>
 
-                                            <v-col cols="8">
-                                                <v-row>
-                                                    <v-col cols="12">
-                                                        <v-card variant="outlined" class="text-left">
-                                                            <v-card-title class="pt-4 text-center">
-                                                                الاختبارات
-                                                            </v-card-title>
-                                                            <v-card-text>
-                                                                <v-data-table
-                                                                        :group-by="[{key: 'quiz_name', order: 'asc', align: 'end'}]"
-                                                                        :headers="headers.quizzes"
-                                                                        :items="selectedClassroom.quizzes"
-                                                                        @click:row="openQuizDialog"
-                                                                >
-                                                                    <template v-slot:item.quiz_type="{ item }">
-                                                                        <template
-                                                                                v-if="item.raw.quiz_type === 'multiple_choice'">
-                                                                            اختيار من متعدد
-                                                                        </template>
-                                                                        <template v-else>
-                                                                            نصي
-                                                                        </template>
-                                                                    </template>
+                                                    <template
+                                                            v-slot:item.status="{ item }">
+                                                        <v-chip color="success"
+                                                                v-if="item.raw.has_feedback">
+                                                            تم
+                                                            التصحيح
+                                                        </v-chip>
+                                                        <v-chip color="success"
+                                                                v-else-if="item.raw.quiz_type === 'multiple_choice'">
+                                                            تم التصحيح التلقائي
+                                                        </v-chip>
+                                                        <v-chip color="warning"
+                                                                v-else> بانتظار
+                                                            التصحيح
+                                                        </v-chip>
+                                                    </template>
 
-                                                                    <template v-slot:item.status="{ item }">
-                                                                        <v-chip color="success"
-                                                                                v-if="item.raw.has_feedback"> تم
-                                                                            التصحيح
-                                                                        </v-chip>
-                                                                        <v-chip color="success"
-                                                                                v-else-if="item.raw.quiz_type === 'multiple_choice'">
-                                                                            تم التصحيح التلقائي
-                                                                        </v-chip>
-                                                                        <v-chip color="warning" v-else> بانتظار
-                                                                            التصحيح
-                                                                        </v-chip>
-                                                                    </template>
-
-                                                                </v-data-table>
-                                                            </v-card-text>
-                                                        </v-card>
-                                                    </v-col>
-                                                </v-row>
-                                                <v-row>
-                                                    <v-col cols="12">
-                                                        <v-card variant="outlined" class="text-left">
-                                                            <v-card-title class="pt-4 text-center">
-                                                                الوظائف
-                                                            </v-card-title>
-                                                            <v-card-text>
-                                                                <v-data-table
-                                                                        :group-by="[{key: 'homework_name', order: 'asc', align: 'end'}]"
-                                                                        :headers="headers.homeworks"
-                                                                        :items="selectedClassroom.homeworks"
-                                                                        item-value="name"
-                                                                        @click:row="openHomeworksDialog"
-                                                                >
-                                                                    <template v-slot:item.status="{ item }">
-                                                                        <v-chip color="success"
-                                                                                v-if="item.raw.has_feedback"> تم التصحيح
-                                                                        </v-chip>
-                                                                        <v-chip color="warning" v-else> بانتظار
-                                                                            التصحيح
-                                                                        </v-chip>
-                                                                    </template>
-                                                                </v-data-table>
-                                                            </v-card-text>
-                                                        </v-card>
-                                                    </v-col>
-                                                </v-row>
+                                                </v-data-table-virtual>
                                             </v-col>
                                         </v-row>
-                                    </v-container>
-                                </v-card-text>
+                                        <v-row>
+                                            <v-col cols="12">
+                                                <h3 class="pb-4">
+                                                    الوظائف
+                                                </h3>
+                                                <v-divider class="pb-4" length="40%"/>
+                                                <v-data-table-virtual
+                                                        :group-by="[{key: 'homework_name', order: 'asc', align: 'end'}]"
+                                                        :headers="headers.homeworks"
+                                                        :items="selectedClassroom.homeworks"
+                                                        item-value="name"
+                                                        @click:row="openHomeworksDialog"
+                                                        class="pa-3 elevation-1">
+                                                    <template
+                                                            v-slot:item.status="{ item }">
+                                                        <v-chip color="success"
+                                                                v-if="item.raw.has_feedback">
+                                                            تم التصحيح
+                                                        </v-chip>
+                                                        <v-chip color="warning"
+                                                                v-else> بانتظار
+                                                            التصحيح
+                                                        </v-chip>
+                                                    </template>
+                                                </v-data-table-virtual>
+                                            </v-col>
+                                        </v-row>
+                                    </v-col>
+                                </v-row>
                                 <v-card-actions>
                                     <v-btn variant="text" @click="closeClassroom"> اغلاق</v-btn>
                                 </v-card-actions>
-                            </v-card>
+                            </center-sheet>
                         </template>
                     </v-expand-transition>
                 </v-col>
-            </v-row>
-            <v-row class="flex-row justify-center">
-                <template v-for="(classroom, index) in classroomsData">
-                    <v-col cols="3">
-                        <v-card
-                                class="text-center"
-                                @click="selectClassroom(index)"
-                                variant="outlined"
-                        >
-                            <v-card-title class="mt-2" style="font-size: larger; font-weight: bolder">
-                                {{ classroom.name }}
-                                <div style="font-size: smaller; font-weight: lighter">
-                                    {{ classroom.course.category }}
-                                </div>
-                            </v-card-title>
-                            <v-card-subtitle>
-                                {{ classroom.number_of_students }} / {{ classroom.course.students_limit }}
-                                <v-icon icon="mdi-account"></v-icon>
-                            </v-card-subtitle>
-                            <v-card-text>
-                                <chip-with-badge class="ma-1" :value="classroom.number_of_pending_quizzes"
-                                                 content="Quiz"/>
-                                <chip-with-badge class="ma-1" :value="classroom.number_of_pending_homeworks"
-                                                 content="Homework"/>
-                                <chip-with-badge class="ma-1" :value="classroom.number_of_pending_meetings"
-                                                 content="Meeting"/>
-                            </v-card-text>
-                        </v-card>
-                    </v-col>
-                </template>
+                <v-col cols="3">
+                    <center-sheet>
+                        <v-row class="flex-row justify-center">
+                            <template v-for="(classroom, index) in classroomsData">
+                                <v-col cols="12">
+                                    <v-card
+                                            class="text-center"
+                                            @click="selectClassroom(index)"
+                                            variant="outlined"
+                                    >
+                                        <v-card-title class="mt-2" style="font-size: larger; font-weight: bolder">
+                                            {{ classroom.name }}
+                                            <div style="font-size: smaller; font-weight: lighter">
+                                                {{ classroom.course.category }}
+                                            </div>
+                                        </v-card-title>
+                                        <v-card-subtitle>
+                                            {{ classroom.number_of_students }} / {{ classroom.course.students_limit }}
+                                            <v-icon icon="mdi-account"></v-icon>
+                                        </v-card-subtitle>
+                                        <v-card-text>
+                                            <chip-with-badge class="ma-1" :value="classroom.number_of_pending_quizzes"
+                                                             content="Quiz"/>
+                                            <chip-with-badge class="ma-1" :value="classroom.number_of_pending_homeworks"
+                                                             content="Homework"/>
+                                            <chip-with-badge class="ma-1" :value="classroom.number_of_pending_meetings"
+                                                             content="Meeting"/>
+                                        </v-card-text>
+                                    </v-card>
+                                </v-col>
+                            </template>
+                        </v-row>
+                    </center-sheet>
+                </v-col>
             </v-row>
         </v-container>
-
 
         <v-dialog v-model="dialogs.homework" width="auto" height="auto">
             <v-card width="800px">
@@ -431,7 +424,8 @@ export default {
                                 التالي
                             </v-btn>
                             <template v-if="this.selectedHomework.has_feedback">
-                                <v-btn color="error" width="250px" variant="outlined" @click="activateDestroyHomeworkDialog">
+                                <v-btn color="error" width="250px" variant="outlined"
+                                       @click="activateDestroyHomeworkDialog">
                                     حذف التصحيح
                                 </v-btn>
                             </template>
@@ -473,11 +467,12 @@ export default {
                     </v-card-subtitle>
                     <v-divider class="my-4"/>
                     <v-card-text class="text-center">
-                        <div  v-if="dialogs.quiz_submission_preview" @click="closeQuizSubmissionPreviewDialog" class="mb-6">
+                        <div v-if="dialogs.quiz_submission_preview" @click="closeQuizSubmissionPreviewDialog"
+                             class="mb-6">
                             اخفاء حل الطالب
                             <v-btn icon="mdi-chevron-up" variant="flat"></v-btn>
                         </div>
-                        <div  v-else @click="openQuizSubmissionPreviewDialog" class="mb-6">
+                        <div v-else @click="openQuizSubmissionPreviewDialog" class="mb-6">
                             عرض حل الطالب
                             <v-btn icon="mdi-chevron-down" variant="flat"></v-btn>
                         </div>
