@@ -2,6 +2,7 @@
 import MainLayout from "@/Layouts/MainLayout.vue";
 import SaveButton from "@/Components/SaveButton.vue";
 import CourseItemsInput from "@/Components/Course/CourseItemsInput.vue";
+import SimpleFormSheet from "@/Components/SimpleFormSheet.vue";
 
 defineProps({
     categories: Array,
@@ -42,57 +43,53 @@ export default {
 </script>
 
 <template>
-    <MainLayout title="Create Course">
-        <v-form @submit.prevent="submit">
-            <v-row class="text-h5 mb-5">
-                Info
-            </v-row>
+    <MainLayout title="كورس جديد">
+        <simple-form-sheet cols="8" @save="submit">
             <v-row>
-                <v-text-field label="Name" variant="solo" v-model="form.name"
+                <v-text-field label="اسم الكورس" variant="solo" v-model="form.name"
                               :error-messages="form.errors.name"></v-text-field>
             </v-row>
             <v-row>
-                <v-text-field label="Description" variant="solo" v-model="form.description"
-                              :error-messages="form.errors.description"></v-text-field>
+                <v-textarea label="الوصف" variant="solo" v-model="form.description"
+                              :error-messages="form.errors.description"></v-textarea>
             </v-row>
             <v-row>
-                <v-text-field label="Introduction Video URL" variant="solo" v-model="form.introduction_video_url"
+                <v-text-field label="رابط الفيديو التعريفي" variant="solo" v-model="form.introduction_video_url"
                               :error-messages="form.errors.introduction_video_url"></v-text-field>
             </v-row>
             <v-row>
-                <v-text-field label="Students Per Class" type="number" variant="solo" v-model="form.students_limit"
+                <v-text-field label="عدد الطلاب في كل صف" type="number" variant="solo" v-model="form.students_limit"
                               :error-messages="form.errors.students_limit"></v-text-field>
             </v-row>
             <v-row>
                 <v-autocomplete
-                    label="Category"
-                    variant="solo"
-                    v-model="form.category_id"
-                    :items="categories.data"
-                    :error-messages="form.errors.category_id"
-                    item-title="name"
-                    item-value="id"
+                        label="القسم"
+                        variant="solo"
+                        v-model="form.category_id"
+                        :items="categories.data"
+                        :error-messages="form.errors.category_id"
+                        item-title="name"
+                        item-value="id"
                 ></v-autocomplete>
             </v-row>
             <v-row>
                 <v-select
-                    label="Teachers"
-                    variant="solo"
-                    v-model="form.user_ids"
-                    :items="teachers.data"
-                    :error-messages="form.errors.user_ids"
-                    multiple
-                    item-title="name"
-                    item-value="id"
+                        label="المعلمين"
+                        variant="solo"
+                        v-model="form.user_ids"
+                        :items="teachers.data"
+                        :error-messages="form.errors.user_ids"
+                        multiple
+                        item-title="name"
+                        item-value="id"
                 ></v-select>
             </v-row>
             <v-row>
-                <v-file-input prepend-icon="mdi-image" name="image" label="Image" variant="solo"
+                <v-file-input prepend-icon="mdi-image" name="image" label="الصورة" variant="solo"
                               :error-messages="form.errors.image"
                               @input="form.image = $event.target.files[0]"></v-file-input>
             </v-row>
             <course-items-input v-model="items"/>
-            <save-button/>
-        </v-form>
+        </simple-form-sheet>
     </MainLayout>
 </template>

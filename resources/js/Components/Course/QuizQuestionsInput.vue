@@ -1,20 +1,17 @@
 <template>
     <v-row>
-        <v-col cols="8">
-            <custom-draggable v-model="value" @clickOnItem="openDialog"></custom-draggable>
-        </v-col>
-        <v-col cols="4">
-            <v-btn v-if="quiz_type === 'text'" class="ma-1 mt-4" color="primary" width="100%" @click="openDialog(-1, 'text')">Add Question</v-btn>
-            <v-btn v-if="quiz_type === 'multiple_choice'" class="ma-1 mt-4" color="primary" width="100%" @click="openDialog(-1, 'multiple_choice')">Add Question</v-btn>
+        <v-col cols="12">
+            <questions-input v-model="value" @clickOnItem="openDialog" :type="quiz_type"></questions-input>
         </v-col>
 
-        <add-item-dialog title="Add Question" v-model="text.dialog" @save="saveDialog('text')" :index="index">
-            <v-text-field label="Question" variant="solo" v-model="text.object.text" :rules="requiredRule"/>
+        <add-item-dialog title="إضافة سؤال" v-model="text.dialog" @save="saveDialog('text')" :index="index">
+            <v-text-field label="نص السؤال" variant="solo" v-model="text.object.text" :rules="requiredRule"/>
         </add-item-dialog>
 
-        <add-item-dialog title="Add Question" v-model="multiple_choice.dialog" @save="saveDialog('multiple_choice')" :index="index">
-            <v-text-field label="Question" variant="solo" v-model="multiple_choice.object.text" :rules="requiredRule"/>
-            <v-checkbox label="Student Can Select Multiple Answers" variant="solo" v-model="multiple_choice.object.type" true-value="check" false-value="radio"/>
+        <add-item-dialog title="إضافة خيارات" v-model="multiple_choice.dialog" @save="saveDialog('multiple_choice')" :index="index">
+            <v-text-field label="نص السؤال" variant="solo" v-model="multiple_choice.object.text" :rules="requiredRule"/>
+            <v-checkbox label="تمكين الطالب من اختيار أكثر من إجابة" variant="solo" v-model="multiple_choice.object.type" true-value="check" false-value="radio"/>
+            <v-divider class="py-8"/>
             <quiz-question-options-input v-model="multiple_choice.object.options"></quiz-question-options-input>
         </add-item-dialog>
     </v-row>
@@ -25,6 +22,7 @@
 import CustomDraggable from "@/Components/CustomDraggable.vue";
 import AddItemDialog from "@/Components/Course/AddItemDialog.vue";
 import QuizQuestionOptionsInput from "@/Components/Course/QuizQuestionOptionsInput.vue";
+import QuestionsInput from "@/Components/QuestionsInput.vue";
 
 </script>
 <script>

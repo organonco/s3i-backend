@@ -1,6 +1,7 @@
 <script setup>
 import MainLayout from "@/Layouts/MainLayout.vue";
 import DataTable from "@/Components/DataTable.vue";
+import CenterSheet from "@/Components/CenterSheet.vue";
 
 defineProps({
     students: Object,
@@ -9,12 +10,12 @@ defineProps({
 
 <script>
 export default {
-    data () {
+    data() {
         return {
             headers: [
-                { title: 'ID', align: 'start', key: 'id' },
-                { title: 'Name', align: 'end', key: 'name_ar' },
-                { title: 'Phone', align: 'end', key: 'phone' },
+                {title: 'الرمز', align: 'start', key: 'id'},
+                {title: 'الاسم', align: 'start', key: 'name_ar'},
+                {title: 'رقم الهاتف', align: 'start', key: 'phone'},
             ],
         }
     },
@@ -24,9 +25,11 @@ export default {
 </script>
 
 <template>
-    <MainLayout title="Students">
-        <v-row class="pt-5">
-            <data-table uneditable showable :headers="headers" :data="students.data" actions_route="student"/>
-        </v-row>
+    <MainLayout title="الطلاب">
+        <center-sheet cols="12">
+            <v-row class="pt-5">
+                <data-table uneditable showable :headers="headers" :data="students.data" actions_route="student"/>
+            </v-row>
+        </center-sheet>
     </MainLayout>
 </template>

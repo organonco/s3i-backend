@@ -1,6 +1,7 @@
 <script setup>
 import MainLayout from "@/Layouts/MainLayout.vue";
 import SaveButton from "@/Components/SaveButton.vue";
+import SimpleFormSheet from "@/Components/SimpleFormSheet.vue";
 defineProps({});
 </script>
 
@@ -24,13 +25,12 @@ export default {
 </script>
 
 <template>
-    <MainLayout title="Create Category">
-        <v-form @submit.prevent="submit">
-            <v-text-field label="Name" variant="solo" v-model="form.name" :error-messages="form.errors.name"></v-text-field>
-            <v-file-input prepend-icon="mdi-image" name="icon" label="Icon" variant="solo"
+    <MainLayout title="قسم كورسات جديد">
+        <simple-form-sheet @save="submit">
+            <v-text-field label="اسم القسم" variant="solo" v-model="form.name" :error-messages="form.errors.name"></v-text-field>
+            <v-file-input prepend-icon="mdi-image" name="icon" label="أيقونة القسم" variant="solo"
                           :error-messages="form.errors.icon"
                           @input="form.icon = $event.target.files[0]"></v-file-input>
-            <save-button/>
-        </v-form>
+        </simple-form-sheet>
     </MainLayout>
 </template>

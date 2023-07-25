@@ -1,5 +1,5 @@
 <template>
-    <v-btn size="large" color="success" type="submit" width="100%" class="ma-4"> Save</v-btn>
+    <v-btn size="large" color="success" type="submit" width="100%" variant="elevated"> حفظ </v-btn>
 </template>
 
 <script>

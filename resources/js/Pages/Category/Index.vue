@@ -2,6 +2,8 @@
 import MainLayout from "@/Layouts/MainLayout.vue";
 import DataTable from "@/Components/DataTable.vue";
 import { Link } from '@inertiajs/vue3';
+import CreateButton from "@/Components/CreateButton.vue";
+import CenterSheet from "@/Components/CenterSheet.vue";
 
 defineProps({
     categories: Array,
@@ -13,8 +15,8 @@ export default {
     data () {
         return {
             headers: [
-                { title: 'ID', align: 'start', key: 'id' },
-                { title: 'Name', align: 'end', key: 'name' },
+                { title: 'الرمز', align: 'start', key: 'id' },
+                { title: 'الاسم', align: 'start', key: 'name' },
             ],
         }
     },
@@ -24,14 +26,12 @@ export default {
 </script>
 
 <template>
-    <MainLayout title="Categories">
-        <v-row>
-            <Link as="div" :href="route('category.create')">
-                <v-btn color="primary"> Create </v-btn>
-            </link>
-        </v-row>
-        <v-row class="pt-5">
-            <data-table :headers="headers" :data="categories.data" actions_route="category"/>
-        </v-row>
+    <MainLayout title="أقسام الكورسات">
+        <create-button :link="route('category.create')"/>
+        <center-sheet cols="12">
+            <v-row class="pt-5">
+                <data-table :headers="headers" :data="categories.data" actions_route="category"/>
+            </v-row>
+        </center-sheet>
     </MainLayout>
 </template>

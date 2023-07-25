@@ -1,6 +1,6 @@
 <script setup>
 import MainLayout from "@/Layouts/MainLayout.vue";
-import SaveButton from "@/Components/SaveButton.vue";
+import SimpleFormSheet from "@/Components/SimpleFormSheet.vue";
 
 defineProps({
     'courses': Array,
@@ -32,31 +32,35 @@ export default {
 </script>
 
 <template>
-    <MainLayout title="Create Tokens">
-        <v-form @submit.prevent="submit">
-            <v-autocomplete v-model="form.courses" label="Courses" :items="courses.data" multiple chips clearable item-value="id" item-title="name"></v-autocomplete>
+    <MainLayout title="مجموعة أكواد جديدة">
+        <simple-form-sheet cols="6" @save="submit">
+            <v-autocomplete v-model="form.courses" label="الكورسات" :items="courses.data"
+                            item-value="id" item-title="name"
+                            chips
+                            closable-chips
+                            multiple
+            >
+
+            </v-autocomplete>
             <v-combobox
-                v-model="form.tags"
-                v-model:search="search"
-                :hide-no-data="false"
-                :items="tags.data"
-                hide-selected
-                label="Tags"
-                multiple
-                persistent-hint
-                small-chips
+                    v-model="form.tags"
+                    v-model:search="search"
+                    :items="tags"
+                    label="الوسوم"
+                    multiple
+                    closable-chips
+                    chips
             >
                 <template v-slot:no-data>
                     <v-list-item>
                         <v-list-item-title>
-                            No results matching. Press <kbd>enter</kbd> to create a new one
+                            لإنشاء واحدة جديدة <kbd> Enter </kbd> لا توجد نتائج مطابقة. اضغط على
                         </v-list-item-title>
                     </v-list-item>
                 </template>
             </v-combobox>
-            <v-text-field v-model="form.expiry_date" label="Expiry Date" type="date"/>
-            <v-text-field v-model="form.count" label="Number Of Tokens" type="number"/>
-            <save-button/>
-        </v-form>
+            <v-text-field v-model="form.expiry_date" label="تاريخ الصلاحية" type="date"/>
+            <v-text-field v-model="form.count" label="عدد الأكواد" type="number"/>
+        </simple-form-sheet>
     </MainLayout>
 </template>

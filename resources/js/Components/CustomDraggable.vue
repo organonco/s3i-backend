@@ -1,17 +1,25 @@
 <script setup>
-import draggable from "vuedraggable";
+const types = {
+    'multiple_choice': 'اختيار من متعدد',
+    'text': 'نصي',
+    'quiz': 'اختبار',
+    'homework': 'وظيفة',
+    'section': 'قسم',
+    'file': 'ملف',
+    'video': 'فيديو',
+    'meeting': 'اجتماع',
+}
 </script>
 
 <script>
 export default {
-    components: [draggable],
     props: ['modelValue'],
     emits: ['update:modelValue'],
     methods: {
-        remove(index){
+        remove(index) {
             this.value.splice(index, 1)
         },
-        click(index){
+        click(index) {
             this.$emit("clickOnItem", index, this.value[index].type)
         }
     },
@@ -37,18 +45,27 @@ export default {
 </script>
 
 <template>
-    <v-list select-strategy="classic">
+    <v-list select-strategy="classic" class="bg-blue-grey-lighten-5">
         <draggable :list="value" item-key="id" v-bind="dragOptions" handle=".handle">
             <template #item="{ element, index }">
-                <div class="bg-blue-grey-lighten-5 ma-1">
-                    <v-list-item>
+                <div class="ma-1">
+                    <v-list-item style="border: gray solid 1px">
                         <template v-slot:prepend>
-                            <v-icon class="handle">mdi-menu</v-icon>
+                            <v-icon class="handle" color="primary">mdi-menu</v-icon>
                         </template>
-                        <v-list-item-title @click="click(index)">{{ element.type }}</v-list-item-title>
-                        <v-list-item-subtitle @click="click(index)"> {{element.object.name}} {{ element.object.text }} </v-list-item-subtitle>
+                        <v-list-item-title>{{ types[element.type] }}</v-list-item-title>
+                        <v-list-item-subtitle > {{ element.object.name }} {{
+                            element.object.text
+                            }}
+                        </v-list-item-subtitle>
                         <template v-slot:append>
-                            <v-icon @click="remove(index)">mdi-delete</v-icon>
+
+                            <v-btn @click="click(index)" append-icon="mdi-pencil" variant="text" color="primary">
+                                تعديل
+                            </v-btn>
+                            <v-btn append-icon="mdi-delete" variant="text" @click="remove(index)" color="error">
+                                حذف
+                            </v-btn>
                         </template>
                     </v-list-item>
                 </div>

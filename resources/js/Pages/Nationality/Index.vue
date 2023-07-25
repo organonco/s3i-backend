@@ -2,6 +2,8 @@
 import MainLayout from "@/Layouts/MainLayout.vue";
 import DataTable from "@/Components/DataTable.vue";
 import { Link } from '@inertiajs/vue3';
+import CreateButton from "@/Components/CreateButton.vue";
+import CenterSheet from "@/Components/CenterSheet.vue";
 
 defineProps({
     nationalities: Array,
@@ -13,8 +15,8 @@ export default {
     data () {
         return {
             headers: [
-                { title: 'ID', align: 'start', key: 'id' },
-                { title: 'Name', align: 'end', key: 'name' },
+                { title: 'الرمز', align: 'start', key: 'id' },
+                { title: 'الاسم', align: 'start', key: 'name' },
             ],
         }
     },
@@ -24,14 +26,12 @@ export default {
 </script>
 
 <template>
-    <MainLayout title="Nationalities">
-        <v-row>
-            <Link as="div" :href="route('nationality.create')">
-                <v-btn color="primary"> Create </v-btn>
-            </link>
-        </v-row>
-        <v-row class="pt-5">
-            <data-table :headers="headers" :data="nationalities.data" actions_route="nationality"/>
-        </v-row>
+    <MainLayout title="الجنسيات">
+        <create-button :link="route('nationality.create')"/>
+        <center-sheet cols="12">
+            <v-row class="pt-5">
+                <data-table :headers="headers" :data="nationalities.data" actions_route="nationality"/>
+            </v-row>
+        </center-sheet>
     </MainLayout>
 </template>

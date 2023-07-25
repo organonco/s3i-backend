@@ -10,6 +10,10 @@ import 'vuetify/styles'
 
 import '@mdi/font/css/materialdesignicons.css' // Ensure you are using css-loader
 import {VDataTable} from 'vuetify/labs/VDataTable'
+import {VDataTableVirtual} from 'vuetify/labs/VDataTable'
+import '../assets/variables.scss'
+import draggable from "vuedraggable";
+
 
 const myCustomLightTheme = {
     dark: false,
@@ -29,7 +33,7 @@ const myCustomLightTheme = {
 
 
 const vuetify = createVuetify({
-    components: {...components, VDataTable},
+    components: {...components, VDataTable, VDataTableVirtual, draggable},
     directives,
     theme: {
         defaultTheme: 'myCustomLightTheme',
@@ -41,7 +45,13 @@ const vuetify = createVuetify({
         font: {
             family: 'cairo'
         }
-    }
+    },
+    locale: {
+        locale: 'ar',
+        rtl: {
+            ar: true,
+        },
+    },
 })
 
 const appName = window.document.getElementsByTagName('title')[0]?.innerText || 'Laravel';

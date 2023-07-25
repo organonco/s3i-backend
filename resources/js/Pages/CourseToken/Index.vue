@@ -2,6 +2,8 @@
 import MainLayout from "@/Layouts/MainLayout.vue";
 import DataTable from "@/Components/DataTable.vue";
 import {Link} from '@inertiajs/vue3';
+import CreateButton from "@/Components/CreateButton.vue";
+import CenterSheet from "@/Components/CenterSheet.vue";
 
 defineProps({
     batches: Array,
@@ -13,12 +15,12 @@ export default {
     data() {
         return {
             headers: [
-                {title: 'ID', align: 'start', key: 'id'},
-                {title: 'Expires At', align: 'middle', key: 'expires_at'},
-                {title: 'Courses', align: 'middle', key: 'courses'},
-                {title: 'Tags', align: 'middle', key: 'tags'},
-                {title: 'Number Of Tokens', align: 'middle', key: 'number_of_tokens'},
-                {title: 'Number Of Used Tokens', align: 'middle', key: 'number_of_used_tokens'},
+                {title: 'الرمز', align: 'start', key: 'id'},
+                {title: 'تاريخ الصلاحية', align: 'start', key: 'expires_at'},
+                {title: 'الكورسات', align: 'start', key: 'courses'},
+                {title: 'الوسوم', align: 'start', key: 'tags'},
+                {title: 'عدد الأكواد', align: 'start', key: 'number_of_tokens'},
+                {title: 'عدد الأكواد المستعملة', align: 'start', key: 'number_of_used_tokens'},
             ],
         }
     },
@@ -28,14 +30,10 @@ export default {
 </script>
 
 <template>
-    <MainLayout title="Tokens">
-        <v-row>
-            <Link as="div" :href="route('course_token.create')">
-                <v-btn color="primary"> Create</v-btn>
-            </link>
-        </v-row>
-        <v-row class="pt-5">
+    <MainLayout title="الأكواد">
+        <create-button :link="route('course_token.create')"/>
+        <center-sheet cols="12">
             <data-table :headers="headers" :data="batches.data" actions_route="course_token" uneditable showable/>
-        </v-row>
+        </center-sheet>
     </MainLayout>
 </template>

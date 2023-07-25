@@ -1,7 +1,9 @@
 <script setup>
 import MainLayout from "@/Layouts/MainLayout.vue";
 import DataTable from "@/Components/DataTable.vue";
-import {Link} from "@inertiajs/vue3";
+import CenterSheet from "@/Components/CenterSheet.vue";
+import CreateButton from "@/Components/CreateButton.vue";
+
 defineProps({
     batch: Object,
     tags: Array,
@@ -11,18 +13,17 @@ defineProps({
 
 <script>
 
-
 export default {
     data() {
         return {
             headers: [
-                {title: 'Token', align: 'start', key: 'token'},
-                {title: 'Student', align: 'end', key: 'student'},
+                {title: 'الكود', align: 'start', key: 'token'},
+                {title: 'الطالب', align: 'start', key: 'student'},
             ],
         }
     },
     computed: {
-        courses: function(){
+        courses: function () {
             return this.batch.data.courses.map(i => i['name'])
         }
     }
@@ -30,29 +31,28 @@ export default {
 </script>
 
 <template>
-    <MainLayout title="Show Tokens">
-        <v-container>
-            <v-text-field v-model="batch.data.id" label="ID" readonly></v-text-field>
-            <v-autocomplete v-model="courses" chips readonly label="Courses"/>
+    <MainLayout title="عرض الأكواد">
+        <center-sheet cols="6">
+            <v-text-field v-model="batch.data.id" label="الرمز" readonly></v-text-field>
+            <v-autocomplete v-model="courses" chips readonly label="الكورسات"/>
             <v-combobox
-                v-model="batch.data.tags"
-                :hide-no-data="false"
-                :items="tags.data"
-                hide-selected
-                label="Tags"
-                multiple
-                persistent-hint
-                small-chips
-                readonly
+                    v-model="batch.data.tags"
+                    :hide-no-data="false"
+                    :items="tags.data"
+                    hide-selected
+                    label="الوسوم"
+                    multiple
+                    persistent-hint
+                    small-chips
+                    readonly
             >
             </v-combobox>
-            <v-text-field v-model="batch.data.expires_at" label="Expires At" readonly></v-text-field>
-            <v-text-field v-model="batch.data.number_of_tokens" label="Number Of Tokens" readonly></v-text-field>
-            <v-text-field v-model="batch.data.number_of_used_tokens" label="Number Of Used Tokens" readonly></v-text-field>
-            <a target="_blank" :href="route('course_token.export', batch.data.id)" class="my-4">
-                <v-btn color="primary"> Export To CSV </v-btn>
-            </a>
+            <v-text-field v-model="batch.data.expires_at" label="تاريخ الصلاحية" readonly></v-text-field>
+            <v-text-field v-model="batch.data.number_of_tokens" label="عدد الأكواد" readonly></v-text-field>
+            <v-text-field v-model="batch.data.number_of_used_tokens" label="عدد الأكواد المستخدمة"
+                          readonly></v-text-field>
             <data-table :headers="headers" :data="batch.data.tokens" actions_route="token" uneditable></data-table>
-        </v-container>
+        </center-sheet>
+        <create-button icon="mdi-download" :link="route('course_token.export', batch.data.id)"/>
     </MainLayout>
 </template>

@@ -12,7 +12,9 @@ class HomeController extends Controller
 {
     public function home(Request $request): RedirectResponse
     {
-        if($request->user()->super_admin)
+        if(is_null($this->getAuthenticatedUser()))
+            return redirect()->route('login');
+        if($this->getAuthenticatedUser()->super_admin)
             return redirect()->route('course.index');
         return redirect()->route('classroom.index');
     }

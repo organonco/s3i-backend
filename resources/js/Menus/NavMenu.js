@@ -1,5 +1,5 @@
 export const adminMenuItems = [
-    { icon: "mdi-bookshelf", title: "المواد", 'route': 'course.index', 'value': 'course' },
+    { icon: "mdi-bookshelf", title: "الكورسات", 'route': 'course.index', 'value': 'course' },
     { icon: "mdi-account-school", title: "الطلاب", 'route': 'student.index', 'value': 'student' },
     { icon: "mdi-key", title: "الأكواد", 'route': 'course_token.index', 'value': 'course_token' },
     { icon: "mdi-shape", title: "أقسام الكورسات", 'route': 'category.index', 'value': 'category' },
