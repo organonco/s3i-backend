@@ -35,7 +35,8 @@ class CategoryController extends Controller
     {
         $request->validate(['name' => 'required']);
         $category->update($request->all());
-        $category->addMediaFromRequest('icon')->usingFileName($category->hash)->toMediaCollection('icon');
+        if($request->hasFile('icon'))
+            $category->addMediaFromRequest('icon')->usingFileName($category->hash)->toMediaCollection('icon');
         return redirect()->route('category.index');
     }
 
