@@ -308,6 +308,40 @@ export default {
     <MainLayout title="لوحة التحكم">
         <v-container>
             <v-row>
+                <v-col cols="3">
+                    <center-sheet>
+                        <v-row class="flex-row justify-center">
+                            <template v-for="(classroom, index) in classroomsData">
+                                <v-col cols="12">
+                                    <v-card
+                                        class="text-center"
+                                        @click="selectClassroom(index)"
+                                        variant="outlined"
+                                    >
+                                        <v-card-title class="mt-2" style="font-size: larger; font-weight: bolder">
+                                            {{ classroom.name }}
+                                            <div style="font-size: smaller; font-weight: lighter">
+                                                {{ classroom.course.category }}
+                                            </div>
+                                        </v-card-title>
+                                        <v-card-subtitle>
+                                            {{ classroom.number_of_students }} / {{ classroom.course.students_limit }}
+                                            <v-icon icon="mdi-account"></v-icon>
+                                        </v-card-subtitle>
+                                        <v-card-text>
+                                            <chip-with-badge class="ma-1" :value="classroom.number_of_pending_quizzes"
+                                                             content="Quiz"/>
+                                            <chip-with-badge class="ma-1" :value="classroom.number_of_pending_homeworks"
+                                                             content="Homework"/>
+                                            <chip-with-badge class="ma-1" :value="classroom.number_of_pending_meetings"
+                                                             content="Meeting"/>
+                                        </v-card-text>
+                                    </v-card>
+                                </v-col>
+                            </template>
+                        </v-row>
+                    </center-sheet>
+                </v-col>
                 <v-col cols="9">
                     <v-expand-transition>
                         <template v-if="selected.classroom">
@@ -435,40 +469,6 @@ export default {
                             </center-sheet>
                         </template>
                     </v-expand-transition>
-                </v-col>
-                <v-col cols="3">
-                    <center-sheet>
-                        <v-row class="flex-row justify-center">
-                            <template v-for="(classroom, index) in classroomsData">
-                                <v-col cols="12">
-                                    <v-card
-                                            class="text-center"
-                                            @click="selectClassroom(index)"
-                                            variant="outlined"
-                                    >
-                                        <v-card-title class="mt-2" style="font-size: larger; font-weight: bolder">
-                                            {{ classroom.name }}
-                                            <div style="font-size: smaller; font-weight: lighter">
-                                                {{ classroom.course.category }}
-                                            </div>
-                                        </v-card-title>
-                                        <v-card-subtitle>
-                                            {{ classroom.number_of_students }} / {{ classroom.course.students_limit }}
-                                            <v-icon icon="mdi-account"></v-icon>
-                                        </v-card-subtitle>
-                                        <v-card-text>
-                                            <chip-with-badge class="ma-1" :value="classroom.number_of_pending_quizzes"
-                                                             content="Quiz"/>
-                                            <chip-with-badge class="ma-1" :value="classroom.number_of_pending_homeworks"
-                                                             content="Homework"/>
-                                            <chip-with-badge class="ma-1" :value="classroom.number_of_pending_meetings"
-                                                             content="Meeting"/>
-                                        </v-card-text>
-                                    </v-card>
-                                </v-col>
-                            </template>
-                        </v-row>
-                    </center-sheet>
                 </v-col>
             </v-row>
         </v-container>
