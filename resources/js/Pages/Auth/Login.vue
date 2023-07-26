@@ -11,7 +11,7 @@
                         <v-form @submit.prevent="submit">
                             <v-text-field v-model="form.username" label="اسم المستخدم" type="text" required :error-messages="form.errors.username "></v-text-field>
                             <v-text-field v-model="form.password" label="كلمة المرور" type="password" required :error-messages="form.errors.password"></v-text-field>
-                            <v-btn :disabled="form.processing" color="black" block type="submit">Login</v-btn>
+                            <v-btn :disabled="form.processing" color="black" block type="submit">تسجيل الدخول</v-btn>
                         </v-form>
                     </v-card-text>
                 </v-card>
