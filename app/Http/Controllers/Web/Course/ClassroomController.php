@@ -4,6 +4,8 @@ namespace App\Http\Controllers\Web\Course;
 
 use App\Http\Controllers\Web\Controller;
 use App\Http\Resources\Dashboard\Index\Course\ClassroomDashboardIndexResource;
+use App\Http\Resources\Dashboard\Index\Course\Item\ClassroomMeetingDashboardIndexResource;
+use App\Http\Resources\Dashboard\Index\Course\Item\CourseMeetingDashboardIndexResource;
 use App\Http\Resources\Dashboard\Index\Course\Item\Quiz\CourseHomeworkSubmissionDashboardIndexResource;
 use App\Http\Resources\Dashboard\Index\Course\Item\Quiz\CourseQuizSubmissionDashboardIndexResource;
 use App\Http\Resources\Dashboard\Index\Student\ClassroomStudentDashboardIndexResource;
@@ -42,5 +44,16 @@ class ClassroomController extends Controller
         /** @var Classroom $classroom */
         $classroom = Classroom::byHashOrFail($hash);
         return CourseHomeworkSubmissionDashboardIndexResource::collection($classroom->getHomeworkSubmissionsQuery()->get());
+    }
+
+    public function getMeetings(string $hash)
+    {
+        /** @var Classroom $classroom */
+        $classroom = Classroom::byHashOrFail($hash);
+        $courseMeetings = $classroom->course->getMeetings();
+        $classroomMeetings = $classroom->classroomMeetings()->get();
+        foreach($courseMeetings as $meeting)
+            $meeting->classroomMeeting = $classroomMeetings->where('course_meeting_id', $meeting->id)->first();
+        return CourseMeetingDashboardIndexResource::collection($courseMeetings);
     }
 }

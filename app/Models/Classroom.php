@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\Models\BaseModels\BaseModel;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 /**
  * @property $number_of_students
@@ -43,5 +44,10 @@ class Classroom extends BaseModel
         $quiz_ids = $this->course->getQuizzes()->pluck('id');
         $student_ids = $this->students()->pluck('students.id');
         return QuizSubmission::query()->students($student_ids)->quizzes($quiz_ids);
+    }
+
+    public function classroomMeetings(): HasMany
+    {
+        return $this->hasMany(ClassroomMeeting::class);
     }
 }

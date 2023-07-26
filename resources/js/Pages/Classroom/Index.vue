@@ -32,21 +32,28 @@ export default {
                     {title: 'الحالة', key: 'status', align: 'start'},
                 ],
                 homeworks: [
-                    {title: '', key: 'status', align: 'start'},
                     {title: 'اسم الطالب', key: 'student_name', align: "start"},
+                    {title: 'الحالة', key: 'status', align: 'start'},
+                ],
+                meetings: [
+                    {title: 'اسم الاجتماع', key: 'name', align: "start"},
+                    {title: 'الحالة', key: 'status', align: 'start'},
                 ],
             },
             dialogs: {
                 homework: false,
                 quiz: false,
+                meeting: false,
                 destroy_homework_feedback_confirmation: false,
                 destroy_quiz_feedback_confirmation: false,
+                destroy_meeting_information_confirmation: false,
                 quiz_submission_preview: false,
             },
             selected: {
                 classroom: null,
                 homework: null,
                 quiz: null,
+                meeting: null,
             },
             forms: {
                 homework: {
@@ -54,6 +61,11 @@ export default {
                 },
                 quiz: {
                     feedback: "",
+                },
+                meeting: {
+                    date: "",
+                    time: "",
+                    url: "",
                 }
             }
         }
@@ -65,7 +77,7 @@ export default {
         },
 
         addLoaded: function () {
-            this.loading.classroom = (this.loading.classroom + 1) % 4;
+            this.loading.classroom = (this.loading.classroom + 1) % 5;
         },
 
         fetchClassroom: function (index) {
@@ -73,6 +85,7 @@ export default {
             this.fetchStudents(index);
             this.fetchQuizzes(index);
             this.fetchHomeworks(index);
+            this.fetchMeetings(index);
         },
 
         fetchStudents: function (index) {
@@ -93,6 +106,13 @@ export default {
             axios.get(route('classroom.homeworks', this.classroomsData[index].id)).then((response) => {
                 this.addLoaded();
                 this.classroomsData[index].homeworks = response.data.data;
+            })
+        },
+
+        fetchMeetings: function (index) {
+            axios.get(route('classroom.meetings', this.classroomsData[index].id)).then((response) => {
+                this.addLoaded();
+                this.classroomsData[index].meetings = response.data.data;
             })
         },
 
@@ -122,6 +142,19 @@ export default {
             });
             this.dialogs.homework = true
         },
+        openMeetingsDialog: function (_, item) {
+            let selected_id = item.item.raw.id;
+            this.selectedClassroom['meetings'].forEach((value, index) => {
+                if (selected_id === value.id)
+                    this.selected.meeting = index;
+            });
+            if (this.selectedMeeting.is_set) {
+                this.forms.meeting.date = this.selectedMeeting.classroom_meeting.date
+                this.forms.meeting.time = this.selectedMeeting.classroom_meeting.time
+                this.forms.meeting.url = this.selectedMeeting.classroom_meeting.url
+            }
+            this.dialogs.meeting = true
+        },
         submitHomeworkFeedback: async function (_) {
             this.loading.feedback = true;
             var feedback = this.forms.homework.feedback;
@@ -146,6 +179,20 @@ export default {
                 this.loading.feedback = false;
                 this.forms.homework.feedback = null
                 this.selectedClassroom.number_of_pending_quizzes--;
+            })
+        },
+        submitMeetingInformation: async function (_) {
+            this.forms.meeting.classroom_id = this.selectedClassroom.id;
+            axios.post(route('meeting.information', this.selectedMeeting.id), this.forms.meeting).then((_) => {
+                this.selectedMeeting.is_set = true;
+
+                this.selectedMeeting.classroom_meeting = {
+                    'date': this.forms.meeting.date,
+                    'time': this.forms.meeting.time,
+                    'url': this.forms.meeting.url,
+                }
+
+                this.selectedClassroom.number_of_pending_meetings--;
             })
         },
         confirmHomeworkDestroyDialog: function () {
@@ -190,6 +237,23 @@ export default {
             this.forms.quiz.feedback = this.selectedQuiz.feedback
         },
 
+        nextMeeting: function () {
+            this.selected.meeting = (this.selected.meeting + 1) % this.selectedClassroom['meetings'].length
+            if (this.selectedMeeting.is_set) {
+                this.forms.meeting.date = this.selectedMeeting.classroom_meeting.date
+                this.forms.meeting.time = this.selectedMeeting.classroom_meeting.time
+                this.forms.meeting.url = this.selectedMeeting.classroom_meeting.url
+            }
+        },
+        previousMeeting: function () {
+            this.selected.meeting = this.selected.meeting === 0 ? this.selectedClassroom['meetings'].length - 1 : this.selected.meeting - 1
+            if (this.selectedMeeting.is_set) {
+                this.forms.meeting.date = this.selectedMeeting.classroom_meeting.date
+                this.forms.meeting.time = this.selectedMeeting.classroom_meeting.time
+                this.forms.meeting.url = this.selectedMeeting.classroom_meeting.url
+            }
+        },
+
         openQuizDialog: function (_, item) {
             let selected_id = item.item.raw.id;
             this.selectedClassroom['quizzes'].forEach((value, index) => {
@@ -227,6 +291,9 @@ export default {
         selectedHomework: function () {
             return this.selectedClassroom['homeworks'][this.selected.homework]
         },
+        selectedMeeting: function () {
+            return this.selectedClassroom['meetings'][this.selected.meeting]
+        },
         selectedQuiz: function () {
             return this.selectedClassroom['quizzes'][this.selected.quiz];
         },
@@ -252,15 +319,6 @@ export default {
                                     <v-divider class="py-5"/>
                                 </v-row>
                                 <v-row justify="center">
-                                    <v-col cols="4" class="pa-6">
-                                        <h3 class="pb-4">
-                                            الطلاب
-                                        </h3>
-                                        <v-divider class="pb-4" length="40%"/>
-                                        <v-data-table-virtual :headers="headers.students"
-                                                              :items="selectedClassroom.students"
-                                                              class="pa-3 elevation-1"/>
-                                    </v-col>
                                     <v-col cols="8" class="pa-6">
                                         <v-row>
                                             <v-col cols="12">
@@ -332,11 +390,48 @@ export default {
                                                 </v-data-table-virtual>
                                             </v-col>
                                         </v-row>
+
+                                        <v-row>
+                                            <v-col cols="12">
+                                                <h3 class="pb-4">
+                                                    الاجتماعات
+                                                </h3>
+                                                <v-divider class="pb-4" length="40%"/>
+                                                <v-data-table-virtual
+                                                        :headers="headers.meetings"
+                                                        :items="selectedClassroom.meetings"
+                                                        item-value="name"
+                                                        @click:row="openMeetingsDialog"
+                                                        class="pa-3 elevation-1">
+                                                    <template
+                                                            v-slot:item.status="{ item }">
+                                                        <v-chip color="success"
+                                                                v-if="item.raw.is_set">
+                                                            تم التحديد
+                                                        </v-chip>
+                                                        <v-chip color="warning"
+                                                                v-else> بانتظار
+                                                            التحديد
+                                                        </v-chip>
+                                                    </template>
+                                                </v-data-table-virtual>
+                                            </v-col>
+                                        </v-row>
+
+                                    </v-col>
+                                    <v-col cols="4" class="pa-6">
+                                        <h3 class="pb-4">
+                                            الطلاب
+                                        </h3>
+                                        <v-divider class="pb-4" length="40%"/>
+                                        <v-data-table-virtual :headers="headers.students"
+                                                              :items="selectedClassroom.students"
+                                                              class="pa-3 elevation-1"/>
                                     </v-col>
                                 </v-row>
-                                <v-card-actions>
-                                    <v-btn variant="text" @click="closeClassroom"> اغلاق</v-btn>
-                                </v-card-actions>
+                                <v-row align-content="center">
+                                        <v-btn variant="text" @click="closeClassroom" width="100%"> إغلاق</v-btn>
+                                </v-row>
                             </center-sheet>
                         </template>
                     </v-expand-transition>
@@ -515,6 +610,43 @@ export default {
                                 </v-btn>
                             </template>
                             <v-btn variant="text" @click="previousQuiz">
+                                السابق
+                            </v-btn>
+                        </v-row>
+                    </v-card-actions>
+                </v-form>
+            </v-card>
+        </v-dialog>
+
+        <v-dialog v-model="dialogs.meeting" width="auto" height="auto">
+            <v-card width="800px">
+                <v-form @submit.prevent="submitMeetingInformation">
+                    <v-card-title class="text-center">
+                        <v-chip color="success" class="my-3" v-if="this.selectedMeeting.is_set"> تم التحديد
+                        </v-chip>
+                        <v-chip color="warning" class="my-3" v-else> بانتظار التحديد</v-chip>
+                        <br/>
+                        {{ this.selectedMeeting.name }}
+                    </v-card-title>
+                    <v-divider class="my-4"/>
+                    <v-card-text class="text-center">
+                        <v-text-field v-model="forms.meeting.url" label="رابط الاجتماع" variant="outlined"
+                                      prepend-icon="mdi-link"/>
+                        <v-text-field v-model="forms.meeting.date" type="date" label="وقت الاجتماع" variant="outlined"
+                                      prepend-icon="mdi-clock"/>
+                        <v-text-field v-model="forms.meeting.time" type="time" label="تاريخ الاجتماع" variant="outlined"
+                                      prepend-icon="mdi-calendar"/>
+                    </v-card-text>
+                    <v-divider/>
+                    <v-card-actions class="pa-8">
+                        <v-row class="justify-space-between">
+                            <v-btn variant="text" @click="nextMeeting">
+                                التالي
+                            </v-btn>
+                            <v-btn variant="outlined" width="250px" color="success" type="submit">
+                                حفظ
+                            </v-btn>
+                            <v-btn variant="text" @click="previousMeeting">
                                 السابق
                             </v-btn>
                         </v-row>

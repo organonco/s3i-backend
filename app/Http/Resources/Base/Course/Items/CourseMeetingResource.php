@@ -11,6 +11,9 @@ class CourseMeetingResource extends JsonResource
     {
         return [
             'name' => $this->name,
+            'id' => $this->hash,
+            'classroom_meeting' => $this->whenNotNull(ClassroomMeetingResource::make($this->classroomMeeting)),
+            'is_set' => !is_null($this->classroomMeeting),
         ];
     }
 }

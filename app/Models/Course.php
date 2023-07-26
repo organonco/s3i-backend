@@ -54,6 +54,16 @@ class Course extends BaseModel implements HasMedia
             ->pluck('item');
     }
 
+    public function getMeetings()
+    {
+        return $this
+            ->courseItems()
+            ->where('item_type', CourseMeeting::class)
+            ->with('item')
+            ->get()
+            ->pluck('item');
+    }
+
     public function getStudentsAttribute()
     {
         $collection = collect([]);

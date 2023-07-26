@@ -17,4 +17,9 @@ class CourseMeeting extends BaseModel implements HasCourseItemInterface
     {
         return CourseMeetingResource::class;
     }
+
+    public function classroomMeetings()
+    {
+        return $this->hasMany(ClassroomMeeting::class);
+    }
 }
