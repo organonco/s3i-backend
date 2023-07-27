@@ -6,5 +6,8 @@ return [
     ],
     'meeting_set' => [
         'title' => 'تم تحديث معلومات الإجتماع',
+    ],
+    'homework_feedback_added' => [
+        'title' => 'تم تصحيح الوظيفة',
     ]
 ];
