@@ -28,6 +28,7 @@ Route::group(['middleware' => 'auth:sanctum'], function () {
     });
 
     Route::get('/notifications', [\App\Http\Controllers\API\Student\NotificationController::class, 'index']);
+    Route::get('/notifications/{id}/mark-as-read', [\App\Http\Controllers\API\Student\NotificationController::class, 'markAsRead']);
 
     Route::resource('/token', \App\Http\Controllers\API\Course\TokenController::class)->only(['store']);
     Route::get('/course/my-courses', [\App\Http\Controllers\API\Course\CourseController::class, 'indexMyCourses'])->name('course.my-courses');
