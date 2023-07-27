@@ -15,11 +15,6 @@ class CourseQuizSubmissionResource extends JsonResource
     public function toArray(Request $request): array
     {
         return [
-            'id' => $this->hash,
-            'student_name' => $this->student->name_ar,
-            'quiz_id' => $this->courseQuiz->hash,
-            'quiz_name' => $this->courseQuiz->name,
-            'quiz_type' => $this->courseQuiz->type,
             'has_feedback' => $this->has_feedback,
             'feedback' => $this->feedback,
         ];

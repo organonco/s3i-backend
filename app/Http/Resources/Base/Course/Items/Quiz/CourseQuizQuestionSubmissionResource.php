@@ -17,7 +17,6 @@ class CourseQuizQuestionSubmissionResource extends JsonResource
     {
         return [
             'id' => $this->hash,
-            'quiz_question' => CourseQuizQuestionDashboardShowResource::make($this->courseQuizQuestion),
             'answer' => json_decode($this->answer),
         ];
     }

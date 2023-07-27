@@ -50,37 +50,36 @@ class QuizController extends Controller
         /** @var CourseQuiz $quiz */
         $quiz = CourseItem::byHash($itemId)->item;
         $student = $this->getAuthenticatedStudent();
-        if(!is_null(QuizSubmission::findForStudentAndQuiz($student->id, $quiz->id)))
+        if (!is_null(QuizSubmission::findForStudentAndQuiz($student->id, $quiz->id)))
             throw new AlreadySubmitted;
 
 
-        DB::transaction(function() use ($request, $quiz, $student){
+        DB::transaction(function () use ($request, $quiz, $student) {
             $submission = QuizSubmission::create(['quiz_id' => $quiz->id, 'student_id' => $this->getAuthenticatedStudent()->id]);
-            foreach($request->getAnswers() as $answer)
-            {
+            foreach ($request->getAnswers() as $answer) {
                 $questionId = CourseQuizQuestion::hashToId($answer['question_id']);
                 /** @var CourseQuizQuestion $question */
                 $question = $quiz->questions()->find($questionId);
-                if(is_null($question))
+                if (is_null($question))
                     throw new NotFound;
 
-                switch($question->type){
+                switch ($question->type) {
                     case CourseQuizQuestionTypes::TEXT:
                         $json = json_encode(['text' => $answer['text_answer']]);
                         break;
                     case CourseQuizQuestionTypes::RADIO:
                         $optionId = CourseQuizQuestionOption::hashToId($answer['selected_option']);
                         $option = $question->options()->find($optionId);
-                        if(is_null($option))
+                        if (is_null($option))
                             throw new NotFound();
                         $json = json_encode(['option' => $answer['selected_option']]);
                         break;
                     case CourseQuizQuestionTypes::CHECK:
                         $answers = [];
-                        foreach($answer['selected_options'] as $selected_option){
+                        foreach ($answer['selected_options'] as $selected_option) {
                             $optionId = CourseQuizQuestionOption::hashToId($selected_option);
                             $option = $question->options()->find($optionId);
-                            if(is_null($option))
+                            if (is_null($option))
                                 throw new NotFound();
                             $answers[] = $selected_option;
                         }
@@ -94,6 +93,7 @@ class QuizController extends Controller
             }
         });
 
+        return CourseQuizAPIResource::make($quiz);
     }
 
 

@@ -11,7 +11,11 @@ class CourseQuizSubmissionDashboardIndexResource extends CourseQuizSubmissionRes
     public function toArray(Request $request): array
     {
         $base = parent::toArray($request);
-        $base['submission_url'] = route('quiz.submission.show', $this->hash);
+        $base['id'] = $this->hash;
+        $base['student_name'] = $this->student->name_ar;
+        $base['quiz_id'] = $this->courseQuiz->hash;
+        $base['quiz_name'] = $this->courseQuiz->name;
+        $base['quiz_type'] = $this->courseQuiz->type;
         return $base;
     }
 }

@@ -11,8 +11,7 @@ use App\Notifications\TokenActivated;
 
 
 /**
- * @group Course
- * @subgroup Token
+ * @group Token
  */
 class TokenController extends Controller
 {

@@ -19,7 +19,7 @@ class HomeworkController extends Controller
 {
 
     /**
-     * Submit Homework
+     * Submit
      * @authenticated
      * @response {}
      * @responseFile 409 app/Http/Responses/Samples/Course/already-submitted.json

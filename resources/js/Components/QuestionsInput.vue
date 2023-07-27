@@ -19,7 +19,7 @@ export default {
         },
         addQuestion() {
             if (this.question != null && this.question !== '')
-                this.value.push({"type": this.type, "object": {text: this.question, options: [], type: 'radio'}})
+                this.value.push({"type": this.type, "object": {text: this.question, options: [], type: this.type}})
             this.question = null
         },
     },

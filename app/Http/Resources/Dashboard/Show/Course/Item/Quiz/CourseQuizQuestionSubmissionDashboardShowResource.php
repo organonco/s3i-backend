@@ -9,6 +9,8 @@ class CourseQuizQuestionSubmissionDashboardShowResource extends CourseQuizQuesti
 {
     public function toArray(Request $request): array
     {
-        return parent::toArray($request);
+        $base = parent::toArray($request);
+        $base['quiz_question'] = CourseQuizQuestionDashboardShowResource::make($this->courseQuizQuestion);
+        return $base;
     }
 }
