@@ -26,6 +26,9 @@ Route::group(['middleware' => 'auth:sanctum'], function () {
         Route::put('/profile', 'update');
         Route::post('/reset-password', 'resetPassword');
     });
+
+    Route::get('/notifications', [\App\Http\Controllers\API\Student\NotificationController::class, 'index']);
+
     Route::resource('/token', \App\Http\Controllers\API\Course\TokenController::class)->only(['store']);
     Route::get('/course/my-courses', [\App\Http\Controllers\API\Course\CourseController::class, 'indexMyCourses'])->name('course.my-courses');
 

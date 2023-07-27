@@ -18,6 +18,7 @@ class StudentAPIResource extends StudentResource
     public function toArray(Request $request): array
     {
         $base = parent::toArray($request);
+        $base['number_of_notifications'] = $this->notifications()->count();
         unset($base['number_of_login_attempts']);
         unset($base['is_verified']);
         return $base;

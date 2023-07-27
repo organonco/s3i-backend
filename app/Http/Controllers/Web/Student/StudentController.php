@@ -30,4 +30,5 @@ class StudentController extends Controller
         $student->resetNumberOfLoginAttempts();
         return redirect()->route('student.show', ['student' => $student->hash]);
     }
+
 }
