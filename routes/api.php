@@ -36,6 +36,7 @@ Route::group(['middleware' => 'auth:sanctum'], function () {
     Route::post('/verify/send', [\App\Http\Controllers\API\Auth\VerifyController::class, 'send'])->middleware('throttle:5,1')->name('verify.send');
     Route::post('/verify/{verification_hash}/verify', [\App\Http\Controllers\API\Auth\VerifyController::class, 'verify'])->middleware('throttle:5,1')->name('verify.verify');
 
+    Route::get('/homework/{id}', [\App\Http\Controllers\API\Course\HomeworkController::class, 'show']);
     Route::post('/homework/{id}', [\App\Http\Controllers\API\Course\HomeworkController::class, 'submit']);
     Route::get('/quiz/{id}', [\App\Http\Controllers\API\Course\QuizController::class, 'show']);
     Route::post('/quiz/{id}', [\App\Http\Controllers\API\Course\QuizController::class, 'submit']);

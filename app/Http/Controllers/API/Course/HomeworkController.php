@@ -5,7 +5,9 @@ namespace App\Http\Controllers\API\Course;
 use App\Exceptions\Course\AlreadySubmitted;
 use App\Exceptions\NotFound;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\API\Course\Homework\ShowHomeworkRequest;
 use App\Http\Requests\API\Course\Homework\StoreHomeworkRequest;
+use App\Http\Resources\API\Course\Items\CourseHomeworkAPIResource;
 use App\Models\Course;
 use App\Models\CourseHomework;
 use App\Models\CourseHomeworkSubmission;
@@ -33,6 +35,16 @@ class HomeworkController extends Controller
         /** @var CourseHomeworkSubmission $submission */
         $submission = $homework->courseHomeworkSubmissions()->create(['student_id' => $request->user()->id]);
         $submission->addMediaFromRequest('file')->usingFileName($submission->hash)->toMediaCollection('file');
+    }
+
+    /**
+     * Show
+     * @authenticated
+     */
+    public function show(string $itemId, ShowHomeworkRequest $request)
+    {
+        $homework = CourseItem::byHash($itemId)->item;
+        return CourseHomeworkAPIResource::make($homework);
     }
 
 }
