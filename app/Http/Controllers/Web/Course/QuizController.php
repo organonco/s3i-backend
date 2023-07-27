@@ -5,8 +5,8 @@ namespace App\Http\Controllers\Web\Course;
 use App\Http\Controllers\Web\Controller;
 use App\Http\Resources\Dashboard\Show\Course\Item\Quiz\CourseQuizSubmissionDashboardShowResource;
 use App\Models\QuizSubmission;
+use App\Notifications\QuizFeedbackAdded;
 use Illuminate\Http\Request;
-use Inertia\Inertia;
 
 class QuizController extends Controller
 {
@@ -24,6 +24,7 @@ class QuizController extends Controller
             'feedback' => 'required',
         ]);
         $quizSubmission->update(['feedback' => $request->input('feedback')]);
+        $quizSubmission->student->notify(new QuizFeedbackAdded($quizSubmission->courseQuiz));
     }
 
     public function removeFeedback(string $hash, Request $request)

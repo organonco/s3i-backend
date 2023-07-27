@@ -9,5 +9,8 @@ return [
     ],
     'homework_feedback_added' => [
         'title' => 'تم تصحيح الوظيفة',
+    ],
+    'quiz_feedback_added' => [
+        'title' => 'تم تصحيح الاختبار',
     ]
 ];
