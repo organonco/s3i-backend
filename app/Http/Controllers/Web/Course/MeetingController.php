@@ -22,7 +22,7 @@ class MeetingController extends Controller
             'classroom_id' => 'required',
         ]);
         $classroom = Classroom::byHash($request->input('classroom_id'));
-        $classroom_id = $classroom->hash;
+        $classroom_id = $classroom->id;
 
         $courseMeeting->classroomMeetings()->updateOrCreate(['classroom_id' => $classroom_id], [
             'url' => $request->input('url'),
@@ -30,7 +30,6 @@ class MeetingController extends Controller
             'time' => $request->input('time'),
             'classroom_id' => $classroom_id,
         ]);
-
         Notification::send($classroom->students, new MeetingSet($courseMeeting));
     }
 }
