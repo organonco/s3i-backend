@@ -6,6 +6,8 @@ use App\Exceptions\Course\InvalidToken;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\API\Course\Token\StoreTokenRequest;
 use App\Models\CourseToken;
+use App\Models\Student;
+use App\Notifications\TokenActivated;
 
 
 /**
@@ -24,10 +26,13 @@ class TokenController extends Controller
      */
     public function store(StoreTokenRequest $request)
     {
+        /** @var Student $student */
+        $student = $request->user();
         $token = CourseToken::byHash($request->getToken());
         if (is_null($token) || $token->isUsed())
             throw new InvalidToken;
-        $token->setStudent($request->user());
+        $token->setStudent($student);
+        $student->notify(new TokenActivated($token));
     }
 
 }

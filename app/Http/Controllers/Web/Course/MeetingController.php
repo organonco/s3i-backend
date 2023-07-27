@@ -3,11 +3,11 @@
 namespace App\Http\Controllers\Web\Course;
 
 use App\Http\Controllers\Web\Controller;
-use App\Http\Resources\Dashboard\Show\Course\Item\Quiz\CourseQuizSubmissionDashboardShowResource;
 use App\Models\Classroom;
 use App\Models\CourseMeeting;
-use App\Models\QuizSubmission;
+use App\Notifications\MeetingSet;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Notification;
 
 class MeetingController extends Controller
 {
@@ -21,7 +21,8 @@ class MeetingController extends Controller
             'time' => 'required',
             'classroom_id' => 'required',
         ]);
-        $classroom_id = Classroom::hashToId($request->input('classroom_id'));
+        $classroom = Classroom::byHash($request->input('classroom_id'));
+        $classroom_id = $classroom->hash;
 
         $courseMeeting->classroomMeetings()->updateOrCreate(['classroom_id' => $classroom_id], [
             'url' => $request->input('url'),
@@ -29,5 +30,7 @@ class MeetingController extends Controller
             'time' => $request->input('time'),
             'classroom_id' => $classroom_id,
         ]);
+
+        Notification::send($classroom->students, new MeetingSet($courseMeeting));
     }
 }
