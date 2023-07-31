@@ -23,7 +23,7 @@ class HomeworkController extends Controller
     /**
      * Submit
      * @authenticated
-     * @response app/Http/Responses/Samples/Homework/Show.json
+     * @responseFile app/Http/Responses/Samples/Homework/Show.json
      * @responseFile 409 app/Http/Responses/Samples/Course/already-submitted.json
      */
     public function submit(string $itemId, StoreHomeworkRequest $request)
