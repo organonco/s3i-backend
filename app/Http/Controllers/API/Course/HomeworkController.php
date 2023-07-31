@@ -23,7 +23,7 @@ class HomeworkController extends Controller
     /**
      * Submit
      * @authenticated
-     * @response {}
+     * @response app/Http/Responses/Samples/Homework/Show.json
      * @responseFile 409 app/Http/Responses/Samples/Course/already-submitted.json
      */
     public function submit(string $itemId, StoreHomeworkRequest $request)
@@ -35,10 +35,12 @@ class HomeworkController extends Controller
         /** @var CourseHomeworkSubmission $submission */
         $submission = $homework->courseHomeworkSubmissions()->create(['student_id' => $request->user()->id]);
         $submission->addMediaFromRequest('file')->usingFileName($submission->hash)->toMediaCollection('file');
+        return CourseHomeworkAPIResource::make($homework);
     }
 
     /**
      * Show
+     * @responseFile app/Http/Responses/Samples/Homework/Show.json
      * @authenticated
      */
     public function show(string $itemId, ShowHomeworkRequest $request)

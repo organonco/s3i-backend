@@ -41,7 +41,7 @@ class QuizController extends Controller
     /**
      * Submit
      * @authenticated
-     * @response {}
+     * @responseFile app/Http/Responses/Samples/Quiz/show.json
      * @responseFile 404 app/Http/Responses/Samples/not-found.json
      * @responseFile 409 app/Http/Responses/Samples/Course/already-submitted.json
      */
