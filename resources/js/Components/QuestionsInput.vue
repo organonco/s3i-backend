@@ -18,8 +18,9 @@ export default {
             this.value.splice(index, 1)
         },
         addQuestion() {
+            let type = (this.type === 'multiple_choice')? 'radio' : this.type;
             if (this.question != null && this.question !== '')
-                this.value.push({"type": this.type, "object": {text: this.question, options: [], type: this.type}})
+                this.value.push({"type": this.type, "object": {text: this.question, options: [], type}})
             this.question = null
         },
     },
