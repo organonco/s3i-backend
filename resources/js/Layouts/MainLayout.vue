@@ -3,6 +3,7 @@ import {Head, Link} from '@inertiajs/vue3';
 import {adminMenuItems, teacherMenuItems} from "@/Menus/NavMenu";
 </script>
 <script>
+const version = 1.1;
 
 export default {
     props: {
@@ -22,7 +23,7 @@ export default {
         <v-navigation-drawer expand-on-hover
                              rail
                              location="right"
-                            class="text-right">
+                             class="text-right">
             <template v-slot:prepend>
                 <v-list-item lines="two"
                              prepend-icon="mdi-account"
@@ -43,8 +44,14 @@ export default {
                     </Link>
                 </template>
             </v-list>
+            <v-list-item
+                class="position-absolute" style="bottom: 0"
+                variant="text"
+                :title="'V' + version"
+            >
+            </v-list-item>
         </v-navigation-drawer>
-        <v-main class="">
+        <v-main>
             <v-container class="">
                 <v-row class="mt-12 mb-6 mx-2">
                     <h1>
