@@ -24,6 +24,15 @@ class NotificationController extends Controller
     }
 
     /**
+     * Count (unread)
+     * @response 4
+     */
+    public function count(IndexRequest $request)
+    {
+        return $request->user()->notifications()->unread()->count();
+    }
+
+    /**
      * Mark As Read
      */
     public function markAsRead(MarkAsReadRequest $request, $id)
