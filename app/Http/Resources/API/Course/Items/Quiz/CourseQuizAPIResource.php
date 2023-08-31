@@ -2,6 +2,7 @@
 
 namespace App\Http\Resources\API\Course\Items\Quiz;
 
+use App\Enums\CourseQuizTypes;
 use App\Http\Resources\Base\Course\Items\Quiz\CourseQuizResource;
 use App\Models\QuizSubmission;
 use App\Traits\ChecksSubscription;
@@ -22,7 +23,7 @@ class CourseQuizAPIResource extends CourseQuizResource
             $submissionResource = CourseQuizSubmissionAPIResource::make($submission)->toArray($request);
             $base['questions'] = $submissionResource['answers'];
             $base['feedback'] = $submissionResource['feedback'];
-            $base['has_feedback'] = $submissionResource['has_feedback'];
+            $base['has_feedback'] = $this->type == CourseQuizTypes::MULTIPLE_CHOICE ? true : $submissionResource['has_feedback'];
         }
         return $base;
     }

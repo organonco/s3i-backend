@@ -15,6 +15,7 @@
                     "type": "check",
                     "object": {
                         "text": "question 2",
+                        "answer": ["45FDS2"],
                         "options": [
                             {
                                 "id": "45FDS2",
@@ -41,6 +42,7 @@
                     "type": "radio",
                     "object": {
                         "text": "question 3",
+                        "answer": "45FDS2",
                         "options": [
                             {
                                 "id": "45FDS2",
