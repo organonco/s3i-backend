@@ -19,6 +19,7 @@ class CourseQuizQuestionSubmissionAPIResource extends JsonResource
         if ($question->type == CourseQuizQuestionTypes::TEXT)
             $questionResource['answer'] = $answer->text;
         elseif ($question->type == CourseQuizQuestionTypes::RADIO) {
+            $questionResource['answer'] = $answer->option;
             $questionResource['options'] = $questionResource['options']->toArray($request);
             for ($i = 0; $i < sizeof($questionResource['options']); $i++) {
                 $option = $questionResource['options'][$i];
@@ -30,6 +31,7 @@ class CourseQuizQuestionSubmissionAPIResource extends JsonResource
             }
         } else {
             $questionResource['options'] = $questionResource['options']->toArray($request);
+            $questionResource['answer'] = $answer->options;
             for ($i = 0; $i < sizeof($questionResource['options']); $i++) {
                 $option = $questionResource['options'][$i];
                 foreach ($answer->options as $selectedOption)
