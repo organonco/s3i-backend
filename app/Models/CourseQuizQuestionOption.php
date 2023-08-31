@@ -15,7 +15,7 @@ class CourseQuizQuestionOption extends BaseModel
             self::create(array_merge(['order' => $index, 'course_quiz_question_id' => $question_id], $dataObject['object']));
         else {
             $option = self::byHash($dataObject['id']);
-            $option->upadte([
+            $option->update([
                 'text' => $dataObject['object']['text'],
                 'is_correct' => $dataObject['object']['is_correct'],
             ]);

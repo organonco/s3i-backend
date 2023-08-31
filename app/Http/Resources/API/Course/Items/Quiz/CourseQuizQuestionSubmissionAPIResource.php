@@ -20,29 +20,8 @@ class CourseQuizQuestionSubmissionAPIResource extends JsonResource
             $questionResource['answer'] = $answer->text;
         elseif ($question->type == CourseQuizQuestionTypes::RADIO) {
             $questionResource['answer'] = $answer->option;
-            $questionResource['options'] = $questionResource['options']->toArray($request);
-            for ($i = 0; $i < sizeof($questionResource['options']); $i++) {
-                $option = $questionResource['options'][$i];
-                if ($answer->option == $option['id'])
-                    $option['is_selected'] = true;
-                else
-                    $option['is_selected'] = false;
-                $questionResource['options'][$i] = $option;
-            }
         } else {
-            $questionResource['options'] = $questionResource['options']->toArray($request);
             $questionResource['answer'] = $answer->options;
-            for ($i = 0; $i < sizeof($questionResource['options']); $i++) {
-                $option = $questionResource['options'][$i];
-                foreach ($answer->options as $selectedOption)
-                    if ($selectedOption == $option['id']) {
-                        $option['is_selected'] = true;
-                        break;
-                    }
-                    else
-                        $option['is_selected'] = false;
-                $questionResource['options'][$i] = $option;
-            }
         }
         return $questionResource;
     }

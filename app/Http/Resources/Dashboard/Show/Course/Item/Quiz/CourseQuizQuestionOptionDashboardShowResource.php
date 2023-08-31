@@ -14,9 +14,11 @@ class CourseQuizQuestionOptionDashboardShowResource extends CourseQuizQuestionOp
      */
     public function toArray(Request $request): array
     {
+        $base = parent::toArray($request);
         return [
             'type' => 'option',
-            'object' => parent::toArray($request)
+            'id' => $base['id'],
+            'object' => $base
         ];
     }
 }
