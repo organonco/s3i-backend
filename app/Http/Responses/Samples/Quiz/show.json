@@ -20,19 +20,16 @@
                             {
                                 "id": "45FDS2",
                                 "text": "option 1",
-                                "is_selected": true,
                                 "is_correct": true
                             },
                             {
                                 "id": "45FDS2",
                                 "text": "option 2",
-                                "is_selected": false,
                                 "is_correct": false
                             },
                             {
                                 "id": "45FDS2",
                                 "text": "option 3",
-                                "is_selected": false,
                                 "is_correct": true
                             }
                         ]
@@ -47,29 +44,25 @@
                             {
                                 "id": "45FDS2",
                                 "text": "option 1",
-                                "is_selected": true,
                                 "is_correct": true
                             },
                             {
                                 "id": "45FDS2",
                                 "text": "option 2",
-                                "is_selected": false,
                                 "is_correct": true
                             },
                             {
                                 "id": "45FDS2",
                                 "text": "option 3",
-                                "is_selected": false,
                                 "is_correct": false
                             }
                         ]
                     }
                 }
             ],
-            "feedback": {
-                "has_feedback": true,
-                "feedback": "Good Work"
-            }
+            "is_submitted": true,
+            "has_feedback": true,
+            "feedback": "Good Work"
         }
     }
 }
