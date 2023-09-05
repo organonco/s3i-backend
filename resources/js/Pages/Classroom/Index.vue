@@ -348,7 +348,7 @@ export default {
                             <center-sheet>
                                 <v-row justify="center">
                                     <h1 class="pb-4">
-                                        {{ this.selectedClassroom.name }}
+                                        {{ selectedClassroom.name }}
                                     </h1>
                                     <v-divider class="py-5"/>
                                 </v-row>
@@ -477,29 +477,29 @@ export default {
             <v-card width="800px">
                 <v-form @submit.prevent="submitHomeworkFeedback">
                     <v-card-title class="text-center">
-                        <v-chip color="success" class="my-3" v-if="this.selectedHomework.has_feedback"> تم التصحيح
+                        <v-chip color="success" class="my-3" v-if="selectedHomework.has_feedback"> تم التصحيح
                         </v-chip>
                         <v-chip color="warning" class="my-3" v-else> بانتظار التصحيح</v-chip>
                         <br/>
-                        {{ this.selectedHomework.homework_name }}
+                        {{ selectedHomework.homework_name }}
                     </v-card-title>
                     <v-card-subtitle class="text-center">
-                        {{ this.selectedHomework.student_name }}
+                        {{ selectedHomework.student_name }}
                     </v-card-subtitle>
                     <v-divider class="my-4"/>
                     <v-card-text class="text-center">
-                        <a :href="this.selectedHomework.file_url" download>
+                        <a :href="selectedHomework.file_url" download>
                             <v-btn variant="outlined" color="black" class="mb-12 mr-5"> تحميل حل الطالب
                             </v-btn>
                         </a>
-                        <a :href="this.selectedHomework.file_url" target="_blank">
+                        <a :href="selectedHomework.file_url" target="_blank">
                             <v-btn variant="outlined" color="black" class="mb-12"> عرض حل الطالب</v-btn>
                         </a>
                         <v-textarea
-                                v-if="this.selectedHomework.has_feedback"
+                                v-if="selectedHomework.has_feedback"
                                 class="v-locale--is-rtl text-success"
                                 variant="filled"
-                                v-model="this.selectedHomework.feedback"
+                                v-model="selectedHomework.feedback"
                                 readonly
                         />
                         <v-textarea
@@ -518,7 +518,7 @@ export default {
                             <v-btn variant="text" @click="nextHomework">
                                 التالي
                             </v-btn>
-                            <template v-if="this.selectedHomework.has_feedback">
+                            <template v-if="selectedHomework.has_feedback">
                                 <v-btn color="error" width="250px" variant="outlined"
                                        @click="activateDestroyHomeworkDialog">
                                     حذف التصحيح
@@ -544,21 +544,21 @@ export default {
                     <v-card-title class="text-center">
                         <div class="my-3">
                             <v-chip color="success"
-                                    v-if="this.selectedQuiz.has_feedback"> تم
+                                    v-if="selectedQuiz.has_feedback"> تم
                                 التصحيح
                             </v-chip>
                             <v-chip color="success"
-                                    v-else-if="this.selectedQuiz.quiz_type === 'multiple_choice'">
+                                    v-else-if="selectedQuiz.quiz_type === 'multiple_choice'">
                                 تم التصحيح التلقائي
                             </v-chip>
                             <v-chip color="warning" v-else> بانتظار
                                 التصحيح
                             </v-chip>
                         </div>
-                        {{ this.selectedQuiz.quiz_name }}
+                        {{ selectedQuiz.quiz_name }}
                     </v-card-title>
                     <v-card-subtitle class="text-center">
-                        {{ this.selectedQuiz.student_name }}
+                        {{ selectedQuiz.student_name }}
                     </v-card-subtitle>
                     <v-divider class="my-4"/>
                     <v-card-text class="text-center">
@@ -573,14 +573,14 @@ export default {
                         </div>
                         <v-expand-transition>
                             <div v-show="dialogs.quiz_submission_preview">
-                                <quiz-submission-preview :answers="this.selectedQuiz.answers"></quiz-submission-preview>
+                                <quiz-submission-preview :answers="selectedQuiz.answers"></quiz-submission-preview>
                             </div>
                         </v-expand-transition>
                         <v-textarea
-                                v-if="this.selectedQuiz.has_feedback"
+                                v-if="selectedQuiz.has_feedback"
                                 class="v-locale--is-rtl text-success"
                                 variant="filled"
-                                v-model="this.selectedQuiz.feedback"
+                                v-model="selectedQuiz.feedback"
                                 readonly
                         />
                         <v-textarea
@@ -599,7 +599,7 @@ export default {
                             <v-btn variant="text" @click="nextQuiz">
                                 التالي
                             </v-btn>
-                            <template v-if="this.selectedQuiz.has_feedback">
+                            <template v-if="selectedQuiz.has_feedback">
                                 <v-btn color="error" width="250px" variant="outlined"
                                        @click="activateDestroyQuizDialog"> حذف التصحيح
                                 </v-btn>
@@ -622,11 +622,11 @@ export default {
             <v-card width="800px">
                 <v-form @submit.prevent="submitMeetingInformation">
                     <v-card-title class="text-center">
-                        <v-chip color="success" class="my-3" v-if="this.selectedMeeting.is_set"> تم التحديد
+                        <v-chip color="success" class="my-3" v-if="selectedMeeting.is_set"> تم التحديد
                         </v-chip>
                         <v-chip color="warning" class="my-3" v-else> بانتظار التحديد</v-chip>
                         <br/>
-                        {{ this.selectedMeeting.name }}
+                        {{ selectedMeeting.name }}
                     </v-card-title>
                     <v-divider class="my-4"/>
                     <v-card-text class="text-center">
