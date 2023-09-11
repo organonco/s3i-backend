@@ -41,5 +41,9 @@ class NotificationController extends Controller
         $notification = $request->user()->notifications()->find($id);
         if (!is_null($notification))
             $notification->markAsRead();
+        return [
+            'notifications' => NotificationResource::collection($request->user()->notifications),
+            'count' => $request->user()->notifications()->unread()->count()
+        ];
     }
 }
