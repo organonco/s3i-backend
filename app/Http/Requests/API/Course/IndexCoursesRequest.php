@@ -5,9 +5,6 @@ namespace App\Http\Requests\API\Course;
 use App\Http\Requests\API\Request;
 use App\Models\Category;
 
-/**
- * @queryParam category_id optional
- */
 class IndexCoursesRequest extends Request
 {
     public function authorize(): bool
