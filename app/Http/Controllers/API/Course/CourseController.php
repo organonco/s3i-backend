@@ -27,6 +27,16 @@ class CourseController extends Controller
     }
 
     /**
+     * New Courses
+     * @authenticated
+     * @responseFile app/Http/Responses/Samples/Course/index.json
+     */
+    public function indexNew(IndexCoursesRequest $request)
+    {
+        return CourseAPIResource::collection(Course::query()->orderBy('created_at', 'DESC')->get());
+    }
+
+    /**
      * My Courses
      * @authenticated
      * @responseFile app/Http/Responses/Samples/Course/index.json
