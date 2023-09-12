@@ -5,6 +5,7 @@ namespace App\Http\Controllers\API\Course;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\API\Course\IndexCoursesRequest;
 use App\Http\Requests\API\Course\IndexMyCoursesRequest;
+use App\Http\Requests\API\Course\IndexNewCoursesRequest;
 use App\Http\Requests\API\Course\ShowCourseRequest;
 use App\Http\Resources\API\Course\CourseAPIResource;
 use App\Models\Course;
@@ -31,7 +32,7 @@ class CourseController extends Controller
      * @authenticated
      * @responseFile app/Http/Responses/Samples/Course/index.json
      */
-    public function indexNew(IndexCoursesRequest $request)
+    public function indexNew(IndexNewCoursesRequest $request)
     {
         return CourseAPIResource::collection(Course::query()->orderBy('created_at', 'DESC')->get());
     }
