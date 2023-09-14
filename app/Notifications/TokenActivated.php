@@ -35,8 +35,10 @@ class TokenActivated extends BaseNotification
         return trans('notifications.token_activated.text') . $text;
     }
 
-    public function getActionUrl(): string
+    public function getActionUrl(): array
     {
-        return 'my-courses';
+        return [
+            'screen_name' => "MY_COURSES",
+        ];
     }
 }

@@ -16,7 +16,7 @@ class MeetingSet extends BaseNotification
     {
         $this->courseMeeting = $courseMeeting;
     }
-    
+
     public function getTitle(): string
     {
         return trans('notifications.meeting_set.title');
@@ -27,8 +27,13 @@ class MeetingSet extends BaseNotification
         return $this->courseMeeting->name;
     }
 
-    public function getActionUrl(): string
+    public function getActionUrl(): array
     {
-        return '';
+        return [
+            'screen_name' => "COURSE",
+            'params' => [
+                'course_id' => $this->courseMeeting->course->hash,
+            ]
+        ];
     }
 }

@@ -27,8 +27,13 @@ class HomeworkFeedbackAdded extends BaseNotification
         return $this->courseHomework->name;
     }
 
-    public function getActionUrl(): string
+    public function getActionUrl(): array
     {
-        return '';
+        return [
+            'screen_name' => "HOMEWORK",
+            'params' => [
+                'homework_id' => $this->courseHomework->courseItem->hash,
+            ]
+        ];
     }
 }

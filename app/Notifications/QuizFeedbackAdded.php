@@ -28,8 +28,13 @@ class QuizFeedbackAdded extends BaseNotification
         return $this->courseQuiz->name;
     }
 
-    public function getActionUrl(): string
+    public function getActionUrl(): array
     {
-        return '';
+        return [
+            'screen_name' => "QUIZ",
+            'params' => [
+                'quiz_id' => $this->courseQuiz->courseItem->hash,
+            ]
+        ];
     }
 }
