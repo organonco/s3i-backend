@@ -20,7 +20,10 @@ class NotificationController extends Controller
      */
     public function index(IndexRequest $request)
     {
-        return NotificationResource::collection($request->user()->notifications);
+        return [
+            'notifications' => NotificationResource::collection($request->user()->notifications),
+            'count' => $request->user()->notifications()->unread()->count()
+        ];
     }
 
     /**
@@ -34,6 +37,7 @@ class NotificationController extends Controller
 
     /**
      * Mark As Read
+     * @responseFile  app/Http/Responses/Samples/Notification/index.json
      */
     public function markAsRead(MarkAsReadRequest $request, $id)
     {
