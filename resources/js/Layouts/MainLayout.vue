@@ -3,7 +3,7 @@ import {Head, Link} from '@inertiajs/vue3';
 import {adminMenuItems, teacherMenuItems} from "@/Menus/NavMenu";
 </script>
 <script>
-const version = "1.1.3";
+const version = "1.1.4";
 
 export default {
     props: {

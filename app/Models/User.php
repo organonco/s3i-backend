@@ -3,6 +3,10 @@
 namespace App\Models;
 
 use App\Models\BaseModels\BaseUser;
+use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Casts\Attribute;
+use Illuminate\Support\Facades\Hash;
+
 
 /**
  * @property string $name
@@ -16,6 +20,7 @@ class User extends BaseUser
         'name',
         'username',
         'password',
+        'super_admin'
     ];
 
     protected $hidden = [
@@ -42,8 +47,16 @@ class User extends BaseUser
         return $this->courses()->with('classrooms')->get()->pluck('classrooms')->flatten(1);
     }
 
-    public function scopeTeachers($query)
+    public function scopeTeachers(Builder $builder): Builder
     {
-        return $query->where('super_admin', false);
+        return $builder->where('super_admin', false);
+    }
+
+    protected function password(): Attribute
+    {
+        return Attribute::make(
+            get: fn(string $value) => $value,
+            set: fn(string $value) => Hash::make($value),
+        );
     }
 }
