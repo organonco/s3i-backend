@@ -29,7 +29,6 @@ class CourseController extends Controller
 
     /**
      * New Courses
-     * @authenticated
      * @responseFile app/Http/Responses/Samples/Course/index.json
      */
     public function indexNew(IndexNewCoursesRequest $request)
