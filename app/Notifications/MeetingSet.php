@@ -32,7 +32,7 @@ class MeetingSet extends BaseNotification
         return [
             'screen_name' => "COURSE",
             'params' => [
-                'course_id' => $this->courseMeeting->course->hash,
+                'course_id' => $this->courseMeeting->courseItem->course->hash,
             ]
         ];
     }
