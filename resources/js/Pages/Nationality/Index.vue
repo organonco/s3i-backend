@@ -27,10 +27,9 @@ export default {
 
 <template>
     <MainLayout title="الجنسيات">
-        <create-button :link="route('nationality.create')"/>
         <center-sheet cols="12">
             <v-row class="pt-5">
-                <data-table :headers="headers" :data="nationalities.data" actions_route="nationality"/>
+                <data-table :headers="headers" :data="nationalities.data" actions_route="nationality" uneditable/>
             </v-row>
         </center-sheet>
     </MainLayout>

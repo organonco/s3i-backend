@@ -26,10 +26,9 @@ export default {
 
 <template>
     <MainLayout title="المستويات الدراسية">
-        <create-button :link="route('education_level.create')"/>
         <center-sheet cols="12">
             <v-row class="pt-5">
-                <data-table :headers="headers" :data="education_levels.data" actions_route="education_level"/>
+                <data-table :headers="headers" :data="education_levels.data" actions_route="education_level" uneditable/>
             </v-row>
         </center-sheet>
     </MainLayout>
