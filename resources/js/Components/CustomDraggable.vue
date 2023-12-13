@@ -1,11 +1,11 @@
 <script setup>
 const types = {
-    'multiple_choice': 'اختيار من متعدد',
-    'text': 'نصي',
+    'multiple_choice': 'اختبار',
+    'text': 'وظيفة',
     'quiz': 'اختبار',
-    'homework': 'وظيفة',
-    'section': 'قسم',
-    'file': 'ملف',
+    'homework': 'استلام ملف',
+    'section': 'محور',
+    'file': 'رفع ملف',
     'video': 'فيديو',
     'meeting': 'اجتماع',
 }
@@ -53,7 +53,8 @@ export default {
                         <template v-slot:prepend>
                             <v-icon class="handle" color="primary">mdi-menu</v-icon>
                         </template>
-                        <v-list-item-title>{{ types[element.type] }}</v-list-item-title>
+                        <v-list-item-title v-if="element.type === 'quiz'">{{ types[element.object.type] }}</v-list-item-title>
+                        <v-list-item-title v-else>{{ types[element.type] }}</v-list-item-title>
                         <v-list-item-subtitle > {{ element.object.name }} {{
                             element.object.text
                             }}

@@ -43,10 +43,10 @@ export default {
 </script>
 
 <template>
-    <MainLayout title="كورس جديد">
+    <MainLayout title="دورة جديدة">
         <simple-form-sheet cols="8" @save="submit">
             <v-row>
-                <v-text-field label="اسم الكورس" variant="solo" v-model="form.name"
+                <v-text-field label="اسم الدورة" variant="solo" v-model="form.name"
                               :error-messages="form.errors.name"></v-text-field>
             </v-row>
             <v-row>

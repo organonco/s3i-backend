@@ -15,7 +15,7 @@ export default {
         return {
             headers: [
                 {title: 'الرمز', align: 'start', key: 'id'},
-                {title: 'اسم الكورس', align: 'start', key: 'name'},
+                {title: 'اسم الدورة', align: 'start', key: 'name'},
             ],
         }
     },
@@ -23,7 +23,7 @@ export default {
 </script>
 
 <template>
-    <MainLayout title="الكورسات">
+    <MainLayout title="الدورات">
         <create-button :link="route('course.create')"/>
         <center-sheet cols="12">
             <v-row class="pt-5">

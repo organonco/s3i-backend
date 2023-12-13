@@ -34,7 +34,7 @@ export default {
 <template>
     <MainLayout title="مجموعة أكواد جديدة">
         <simple-form-sheet cols="6" @save="submit">
-            <v-autocomplete v-model="form.courses" label="الكورسات" :items="courses.data"
+            <v-autocomplete v-model="form.courses" label="الدورات" :items="courses.data"
                             item-value="id" item-title="name"
                             chips
                             closable-chips

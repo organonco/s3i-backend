@@ -17,7 +17,7 @@ export default {
             headers: [
                 {title: 'الرمز', align: 'start', key: 'id'},
                 {title: 'تاريخ الصلاحية', align: 'start', key: 'expires_at'},
-                {title: 'الكورسات', align: 'start', key: 'courses'},
+                {title: 'الدورات', align: 'start', key: 'courses'},
                 {title: 'الوسوم', align: 'start', key: 'tags'},
                 {title: 'عدد الأكواد', align: 'start', key: 'number_of_tokens'},
                 {title: 'عدد الأكواد المستعملة', align: 'start', key: 'number_of_used_tokens'},

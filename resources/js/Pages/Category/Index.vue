@@ -26,7 +26,7 @@ export default {
 </script>
 
 <template>
-    <MainLayout title="أقسام الكورسات">
+    <MainLayout title="الاختصاصات">
         <create-button :link="route('category.create')"/>
         <center-sheet cols="12">
             <v-row class="pt-5">

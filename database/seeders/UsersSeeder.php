@@ -4,6 +4,7 @@ namespace Database\Seeders;
 
 use App\Models\User;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\Hash;
 
 class UsersSeeder extends Seeder
 {
@@ -12,13 +13,13 @@ class UsersSeeder extends Seeder
         User::firstOrCreate(['username' => 'admin'], [
             'name' => 'Super Admin',
             'super_admin' => true,
-            'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi',
+            'password' => 'password',
         ]);
 
         User::firstOrCreate(['username' => 'teacher'], [
             'name' => 'Example Teacher',
             'super_admin' => false,
-            'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi',
+            'password' => 'password',
         ]);
     }
 }

@@ -4,10 +4,12 @@ namespace App\Http\Controllers\Web\Auth;
 
 use App\Http\Controllers\Web\Controller;
 use App\Http\Requests\Web\Auth\LoginRequest;
+use App\Models\User;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 use Inertia\Response;

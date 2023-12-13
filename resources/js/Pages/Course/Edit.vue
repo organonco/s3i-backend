@@ -45,9 +45,9 @@ export default {
 </script>
 
 <template>
-    <MainLayout title="تعديل كورس">
+    <MainLayout title="تعديل دورة">
         <simple-form-sheet cols="8" @save="submit">
-            <v-text-field label="اسم الكورس" variant="solo" v-model="form.name" :error-messages="form.errors.name"></v-text-field>
+            <v-text-field label="اسم الدورة" variant="solo" v-model="form.name" :error-messages="form.errors.name"></v-text-field>
             <v-textarea label="الوصف" variant="solo" v-model="form.description" :error-messages="form.errors.description"></v-textarea>
             <v-text-field label="رابط الفيديو التعريفي" variant="solo" v-model="form.introduction_video_url" :error-messages="form.errors.introduction_video_url"></v-text-field>
             <v-text-field label="عدد الطلاب في كل صف" type="number" variant="solo" v-model="form.students_limit" :error-messages="form.errors.students_limit"></v-text-field>
