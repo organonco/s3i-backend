@@ -12,6 +12,8 @@ class Category extends BaseModel implements HasMedia
     use HasFactory, InteractsWithMedia;
 
     public $fillable = ['name'];
+    protected $cascadeDeletes = ['courses'];
+
 
     public function getIconUrlAttribute(): string
     {
@@ -23,6 +25,11 @@ class Category extends BaseModel implements HasMedia
         $this
             ->addMediaCollection('icon')
             ->singleFile();
+    }
+
+    public function courses()
+    {
+        return $this->hasMany(Course::class);
     }
 
 }

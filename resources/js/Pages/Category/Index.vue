@@ -30,7 +30,7 @@ export default {
         <create-button :link="route('category.create')"/>
         <center-sheet cols="12">
             <v-row class="pt-5">
-                <data-table :headers="headers" :data="categories.data" actions_route="category"/>
+                <data-table :headers="headers" :data="categories.data" actions_route="category" delete-message="حذف الاختصاص سيؤدي الى حذفه وحذف كل الدورات التابعة له"/>
             </v-row>
         </center-sheet>
     </MainLayout>

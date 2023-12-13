@@ -7,6 +7,7 @@ defineProps({
     actions_route: {type: String},
     uneditable: {type: Boolean},
     showable: {type: Boolean},
+    deleteMessage: {type: String}
 });
 </script>
 
@@ -42,7 +43,7 @@ export default {
 
 <template>
     <v-container>
-        <confirmation-dialog v-model="dialogs.destroy.active" title="تأكيد الحذف" @confirm="confirmDestroyDialog">
+        <confirmation-dialog v-model="dialogs.destroy.active" title="تأكيد الحذف" @confirm="confirmDestroyDialog" :text="deleteMessage">
         </confirmation-dialog>
 
         <v-row>

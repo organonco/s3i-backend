@@ -4,6 +4,7 @@
             <v-card-title>
                 <div class="ma-4">{{ title }}</div>
             </v-card-title>
+            <v-card-text v-if="text">{{text}}</v-card-text>
             <v-divider/>
             <v-card-actions class="justify-space-between">
                 <v-btn variant="text" @click="confirm" color="warning">نعم</v-btn>
@@ -16,7 +17,7 @@
 <script>
 export default {
     name: "ConfirmationDialog",
-    props: ['modelValue', "title"],
+    props: ['modelValue', "title", "text"],
     emits: ['update:modelValue', 'confirm'],
     methods: {
         close: function(){

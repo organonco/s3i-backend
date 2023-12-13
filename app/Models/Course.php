@@ -11,6 +11,7 @@ class Course extends BaseModel implements HasMedia
     use InteractsWithMedia;
 
     protected $fillable = ['name', 'description', 'introduction_video_url', 'category_id', 'students_limit'];
+    protected $cascadeDeletes = ['courseItems', 'classrooms'];
 
     public function getImageUrlAttribute(): string
     {
