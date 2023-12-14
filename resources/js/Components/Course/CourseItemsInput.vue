@@ -43,6 +43,7 @@
 
     <add-item-dialog :title="quiz?.object?.type === 'text' ? 'إضافة وظيفة' : 'إضافة اختبار' " v-model="quiz.dialog" @save="saveDialog('quiz')" :index="index">
         <v-text-field :label="quiz?.object?.type === 'text' ? 'اسم الوظيفة' : 'اسم الاختبار' " variant="solo" v-model="quiz.object.name"  :rules="requiredRule"/>
+        <v-text-field type="number" v-if="quiz?.object?.type === 'multiple_choice'" label="وقت الاختبار (بالدقائق)" variant="solo" v-model="quiz.object.time_limit"/>
         <v-select style="display: none" label="نوع الاختبار" variant="solo" v-model="quiz.object.type" :rules="requiredRule" :items="quiz_types"
                   item-title="name" item-value="value" :disabled="quiz.object.questions.length !== 0"/>
         <quiz-questions-input v-if="quiz.object.type !== null" v-model="quiz.object.questions" :quiz_type="quiz.object.type"></quiz-questions-input>
@@ -157,6 +158,7 @@ export default {
                     return {
                         "name": null,
                         "type": null,
+                        "time_limit": null,
                         "questions": []
                     }
                 }

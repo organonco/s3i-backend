@@ -63,7 +63,7 @@ export default {
             </v-row>
             <v-row>
                 <v-autocomplete
-                        label="القسم"
+                        label="الاختصاص"
                         variant="solo"
                         v-model="form.category_id"
                         :items="categories.data"

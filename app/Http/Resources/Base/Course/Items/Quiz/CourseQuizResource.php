@@ -17,6 +17,8 @@ class CourseQuizResource extends JsonResource
         return [
             'name' => $this->name,
             'type' => $this->type,
+            'time_limit' => $this->time_limit,
+            'is_limited' => $this->is_limited,
             'questions' => CourseQuizQuestionResource::collection($this->whenLoaded('questions'))
         ];
     }

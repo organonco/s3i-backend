@@ -15,8 +15,9 @@ class CourseQuiz extends BaseModel implements HasCourseItemInterface
 {
     use HasCourseItem;
 
-    protected $fillable = ['name', 'type'];
+    protected $fillable = ['name', 'type', 'time_limit'];
     protected $with = ['questions'];
+    protected $appends = ['is_limited'];
 
     public static function create(array $attributes = [])
     {
@@ -64,5 +65,10 @@ class CourseQuiz extends BaseModel implements HasCourseItemInterface
     public function quizSubmissions()
     {
         return $this->hasMany(QuizSubmission::class, 'quiz_id');
+    }
+
+    public function getIsLimitedAttribute()
+    {
+        return !is_null($this->time_limit);
     }
 }
