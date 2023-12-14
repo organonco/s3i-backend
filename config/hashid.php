@@ -9,5 +9,5 @@ return [
     /*
      * Determine HashId characters set.
      */
-    'hash_alphabet' => env('HASHID_ALPHABET', 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789'),
+    'hash_alphabet' => env('HASHID_ALPHABET', '0123456789ABCDEF'),
 ];
