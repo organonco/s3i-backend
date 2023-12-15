@@ -14,9 +14,7 @@ class NationalitiesSeeder extends Seeder
     public function run(): void
     {
         $names = [
-            'دمشق',
-            'حلب',
-            'حمص',
+            'دمشق', 'ريف دمشق', 'حمص', 'حماة', 'حلب', 'درعا','السويداء', 'القنيطرة', 'الحسكة', 'دير الزور', 'إدلب', 'طرطوس', 'اللاذقية', 'الرقة'
         ];
 
         foreach($names as $name)
