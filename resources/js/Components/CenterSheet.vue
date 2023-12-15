@@ -1,7 +1,7 @@
 <template>
     <v-row justify="center">
         <v-col :cols="cols">
-            <v-sheet class="pa-4 " elevation="4" color="blue-grey-lighten-5">
+            <v-sheet class="pa-4 " elevation="4" color="surface">
                 <v-container>
                     <slot/>
                 </v-container>

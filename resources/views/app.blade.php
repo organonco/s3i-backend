@@ -19,7 +19,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@200;300;400;500;600;700;800;900;1000&display=swap" rel="stylesheet">
 
-    <body class="antialiased">
+    <body class="antialiased" style="background-color: #f2eee4">
         @inertia
     </body>
 </html>

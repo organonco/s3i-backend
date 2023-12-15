@@ -23,12 +23,14 @@ export default {
         <v-navigation-drawer expand-on-hover
                              rail
                              location="right"
-                             class="text-right">
+                             class="text-right"
+                             color="secondary"
+        >
             <template v-slot:prepend>
                 <v-list-item lines="two"
                              prepend-icon="mdi-account"
                              :title="$page.props.auth.user.name">
-                    <Link as="a" class="text-black" :href="route('logout')" method="post"> تسحيل الخروح</Link>
+                    <Link as="a" class="text-white" :href="route('logout')" method="post"> تسحيل الخروح</Link>
                 </v-list-item>
             </template>
             <v-divider></v-divider>
@@ -37,7 +39,7 @@ export default {
                     <Link as="div" :href="route(listItem.route)">
                         <v-list-item
                                 variant="text"
-                                active-color="secondary"
+                                active-color=""
                                 as="v-list-item" :prepend-icon="listItem.icon" :title="listItem.title"
                                 :value="listItem.value"
                                 :active="listItem.value === $page.props.metadata.route"></v-list-item>
@@ -45,7 +47,7 @@ export default {
                 </template>
             </v-list>
             <v-list-item
-                class="position-absolute" style="bottom: 0"
+                class="position-absolute text-center" style="bottom: 0; width: 100%"
                 variant="text"
                 :title="'V' + version"
             >

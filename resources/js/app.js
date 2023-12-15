@@ -21,9 +21,19 @@ const myCustomLightTheme = {
         customProperties: true
     },
     colors: {
-        surface: '#F5F5F5',
+        //01a598
+        /*
+         surface: '#F5F5F5',
         primary: '#d09923',
         secondary: '#d09923',
+        error: '#B00020',
+        info: '#2196F3',
+        success: '#4CAF50',
+        warning: '#FB8C00',
+         */
+        surface: 'red',
+        primary: '#d09923',
+        secondary: '#01a598',
         error: '#B00020',
         info: '#2196F3',
         success: '#4CAF50',
@@ -68,6 +78,6 @@ createInertiaApp({
             .mount(el);
     },
     progress: {
-        color: '#4B5563',
+        color: '#d09923',
     },
 });
