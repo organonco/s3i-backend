@@ -27,6 +27,9 @@ export default {
                              color="secondary"
         >
             <template v-slot:prepend>
+<!--                <v-list-item>-->
+                        <v-img src="logo.png" style="margin: 5px; margin-top: 20px"></v-img>
+<!--                </v-list-item>-->
                 <v-list-item lines="two"
                              prepend-icon="mdi-account"
                              :title="$page.props.auth.user.name">
@@ -46,12 +49,15 @@ export default {
                     </Link>
                 </template>
             </v-list>
-            <v-list-item
-                class="position-absolute text-center" style="bottom: 0; width: 100%"
-                variant="text"
-                :title="'V' + version"
-            >
-            </v-list-item>
+            <template v-slot:append>
+                <v-list-item
+                        class="text-center" style="width: 100%"
+                        variant="text"
+                        :title="'V' + version"
+                >
+                </v-list-item>
+            </template>
+
         </v-navigation-drawer>
         <v-main>
             <v-container class="">
