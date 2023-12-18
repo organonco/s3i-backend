@@ -17,10 +17,12 @@ class StudentAPIResource extends StudentResource
      */
     public function toArray(Request $request): array
     {
+        $this->load('nationality', 'educationLevel');
         $base = parent::toArray($request);
         $base['number_of_notifications'] = $this->notifications()->count();
         unset($base['number_of_login_attempts']);
         unset($base['is_verified']);
+        unset($base['id']);
         return $base;
     }
 
