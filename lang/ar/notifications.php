@@ -12,5 +12,8 @@ return [
     ],
     'quiz_feedback_added' => [
         'title' => 'تم تصحيح الاختبار',
+    ],
+    'new_items_added' => [
+        'title' => 'تم إضافة شرائح جديدة للدورة',
     ]
 ];

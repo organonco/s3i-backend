@@ -10,7 +10,9 @@ use App\Models\Category;
 use App\Models\Course;
 use App\Models\CourseItem;
 use App\Models\User;
+use App\Notifications\NewItemsAdded;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Notification;
 use Inertia\Inertia;
 use Inertia\Response;
 use Veelasky\LaravelHashId\Rules\ExistsByHash;
@@ -63,10 +65,16 @@ class CourseController extends Controller
 
         $course->users()->sync($userIds);
         $course->save();
-        
+
         $remainingIds = collect($request->items)->whereNotNull('id')->pluck(['id'])->transform(function ($hash) {
             return CourseItem::hashToId($hash);
         });
+
+        $hasNewItems = collect($request->items)->whereNull('id')->count() > 0;
+
+        if($hasNewItems)
+            Notification::send($course->students, new NewItemsAdded($course));
+
         $course->courseItems()->whereNotIn('id', $remainingIds)->delete();
 
         foreach ($request->items as $order => $item)
