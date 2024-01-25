@@ -1,0 +1,1 @@
+import{_ as a}from"./MainLayout-b008417d.js";import{o as t,f as e,w as o,b as r}from"./app-74683a22.js";const m={__name:"Dashboard",setup(s){return(_,c)=>(t(),e(a,{title:"Dashboard"},{default:o(()=>[r(" Hi ")]),_:1}))}};export{m as default};
