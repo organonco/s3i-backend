@@ -20,6 +20,7 @@ class CourseAPIResource extends CourseResource
         $isSubscribed = $this->isSubscribedToCourse($this->id);
 
         $base['items'] = $this->when($isSubscribed, CourseItemAPIResource::collection($this->whenLoaded('courseItems')));
+        $base['telegram_url'] = $this->when($isSubscribed, $this->telegram_url);
         $base['is_subscribed'] = $isSubscribed;
         return $base;
     }

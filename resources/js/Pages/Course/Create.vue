@@ -25,6 +25,7 @@ export default {
                 category_id: "",
                 image: "",
                 students_limit: "",
+                telegram_url: "",
                 user_ids: [],
             })
         }
@@ -56,6 +57,10 @@ export default {
             <v-row>
                 <v-text-field label="رابط الفيديو التعريفي" variant="solo" v-model="form.introduction_video_url"
                               :error-messages="form.errors.introduction_video_url"></v-text-field>
+            </v-row>
+            <v-row>
+                <v-text-field label="رابط مجموعة التلغرام" variant="solo" v-model="form.telegram_url"
+                              :error-messages="form.errors.telegram_url"></v-text-field>
             </v-row>
             <v-row>
                 <v-text-field label="عدد الطلاب في كل صف" type="number" variant="solo" v-model="form.students_limit"

@@ -14,6 +14,7 @@ class CourseDashboardShowResource extends CourseResource
         $base['items'] = CourseItemDashboardShowResource::collection($this->whenLoaded('courseItems'));
         $base['category'] = CategoryDashboardShowResource::make($this->whenLoaded('category'));
         $base['user_ids'] = $this->users->plucK('hash');
+        $base['telegram_url'] = $this->telegram_url;
         return $base;
     }
 }
