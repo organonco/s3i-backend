@@ -14,6 +14,10 @@ class MeetingController extends Controller
 
     public function addInformation(string $hash, Request $request)
     {
+        if(!$this->getAuthenticatedUser()->isSuperAdmin()){
+            abort(403);
+        }
+
         $courseMeeting = CourseMeeting::byHash($hash);
         $request->validate([
             'url' => 'required|url',

@@ -7,6 +7,7 @@ export const adminMenuItems = [
     { icon: "mdi-earth", title: "المحافظات", 'route': 'nationality.index', 'value': 'nationality' },
     { icon: "mdi-school", title: "المستويات الدراسية", 'route': 'education_level.index', 'value': 'education_level' },
     { icon: "mdi-account-key", title: "تغيير كلمة المرور", 'route': 'profile.edit', 'value': 'profile' },
+    { icon: "mdi-cast-education", title: "لوحة التحكم", 'route': 'classroom.index', 'value': 'classrooms' },
 ]
 
 export const teacherMenuItems = [

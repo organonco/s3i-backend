@@ -21,7 +21,8 @@ class ClassroomController extends Controller
     {
         $user = $this->getAuthenticatedUser();
         return Inertia::render('Classroom/Index', [
-            "classrooms" => ClassroomDashboardIndexResource::collection($user->classrooms),
+            "classrooms" => ClassroomDashboardIndexResource::collection($user->isSuperAdmin()? Classroom::all() : $user->classrooms),
+            "is_super_admin" => $user->isSuperAdmin()
         ]);
     }
 
