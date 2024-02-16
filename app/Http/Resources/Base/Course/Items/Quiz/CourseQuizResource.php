@@ -15,6 +15,7 @@ class CourseQuizResource extends JsonResource
     public function toArray(Request $request): array
     {
         return [
+            'id' => $this->id,
             'name' => $this->name,
             'type' => $this->type,
             'time_limit' => $this->time_limit,
