@@ -16,6 +16,7 @@ export default {
                 {title: 'الرمز', align: 'start', key: 'id'},
                 {title: 'الاسم', align: 'start', key: 'name_ar'},
                 {title: 'رقم الهاتف', align: 'start', key: 'phone'},
+                {title: 'تاريخ الانضمام', align: 'start', key: 'created_at'},
             ],
         }
     },

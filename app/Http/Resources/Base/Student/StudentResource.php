@@ -4,6 +4,7 @@ namespace App\Http\Resources\Base\Student;
 
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
+use Illuminate\Support\Carbon;
 
 class StudentResource extends JsonResource
 {
@@ -27,6 +28,7 @@ class StudentResource extends JsonResource
             'education_level' => EducationLevelResource::make($this->whenLoaded('educationLevel')),
             'nationality' => NationalityResource::make($this->whenLoaded('nationality')),
             'is_verified' => $this->is_verified,
+            'created_at' => date('d/m/Y', strtotime($this->created_at))
         ];
     }
 }

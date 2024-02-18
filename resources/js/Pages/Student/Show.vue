@@ -8,6 +8,7 @@ defineProps({
 });
 const rows = [
     {icon: 'mdi-account', key: 'name_ar', name: 'الاسم'},
+    {icon: 'mdi-account', key: 'name_en', name: 'الاسم باللغة الانكليزية'},
     {icon: 'mdi-phone', key: 'phone', name: 'رقم الهاتف'},
     {icon: 'mdi-email', key: 'email', name: 'البريد الالكتروني'},
     {icon: 'mdi-calendar', key: 'date_of_birth', name: 'تاريخ الميلاد'},
@@ -15,6 +16,7 @@ const rows = [
     {icon: 'mdi-school', key: 'education_level', name: 'المستوى الدراسي'},
     {icon: 'mdi-map-marker', key: 'address', name: 'العنوان'},
     {icon: 'mdi-information-variant', key: 'reference', name: 'كيف علمت عنا'},
+    {icon: 'mdi-calendar', key: 'created_at', name: 'تاريخ الانضمام'},
 ];
 </script>
 
