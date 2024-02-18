@@ -632,11 +632,11 @@ export default {
                     <v-divider class="my-4"/>
                     <v-card-text class="text-center">
                         <v-text-field v-model="forms.meeting.url" label="رابط الاجتماع" variant="outlined"
-                                      prepend-icon="mdi-link" :readonly="!is_super_admin"/>
+                                      prepend-icon="mdi-link"/>
                         <v-text-field v-model="forms.meeting.date" type="date" label="وقت الاجتماع" variant="outlined"
-                                      prepend-icon="mdi-clock" :readonly="!is_super_admin"/>
+                                      prepend-icon="mdi-clock"/>
                         <v-text-field v-model="forms.meeting.time" type="time" label="تاريخ الاجتماع" variant="outlined"
-                                      prepend-icon="mdi-calendar" :readonly="!is_super_admin"/>
+                                      prepend-icon="mdi-calendar"/>
                     </v-card-text>
                     <v-divider/>
                     <v-card-actions class="pa-8">
@@ -644,7 +644,7 @@ export default {
                             <v-btn variant="text" @click="nextMeeting">
                                 التالي
                             </v-btn>
-                            <v-btn v-if="is_super_admin" variant="outlined" width="250px" color="success" type="submit">
+                            <v-btn variant="outlined" width="250px" color="success" type="submit">
                                 حفظ
                             </v-btn>
                             <v-btn variant="text" @click="previousMeeting">
