@@ -31,7 +31,7 @@ export default {
 <template>
     <MainLayout title="معلم جديد">
         <simple-form-sheet @save="submit">
-            <v-text-field label="اسم المعلم" variant="solo" v-model="form.name"
+            <v-text-field label="اسم المدرب" variant="solo" v-model="form.name"
                           :error-messages="form.errors.name"></v-text-field>
             <v-text-field label="اسم المستخدم" variant="solo" v-model="form.username"
                           :error-messages="form.errors.username"></v-text-field>

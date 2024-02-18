@@ -1,7 +1,7 @@
 export const adminMenuItems = [
     { icon: "mdi-bookshelf", title: "الدورات", 'route': 'course.index', 'value': 'course' },
     { icon: "mdi-account-school", title: "الطلاب", 'route': 'student.index', 'value': 'student' },
-    { icon: "mdi-account", title: "المعلمين", 'route': 'teacher.index', 'value': 'teacher' },
+    { icon: "mdi-account", title: "المدربين", 'route': 'teacher.index', 'value': 'teacher' },
     { icon: "mdi-key", title: "الأكواد", 'route': 'course_token.index', 'value': 'course_token' },
     { icon: "mdi-shape", title: "الاختصاصات", 'route': 'category.index', 'value': 'category' },
     { icon: "mdi-earth", title: "المحافظات", 'route': 'nationality.index', 'value': 'nationality' },

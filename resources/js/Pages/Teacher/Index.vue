@@ -27,7 +27,7 @@ export default {
 </script>
 
 <template>
-    <MainLayout title="المعلمين">
+    <MainLayout title="المدربين">
         <create-button :link="route('teacher.create')"/>
         <center-sheet cols="12">
             <v-row class="pt-5">

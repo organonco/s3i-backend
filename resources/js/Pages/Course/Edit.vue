@@ -63,7 +63,7 @@ export default {
                 item-value="id"
             ></v-autocomplete>
             <v-select
-                label="المعلمين"
+                label="المدربين"
                 variant="solo"
                 v-model="form.user_ids"
                 :items="teachers.data"

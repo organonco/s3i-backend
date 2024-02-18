@@ -79,7 +79,7 @@ export default {
             </v-row>
             <v-row>
                 <v-select
-                        label="المعلمين"
+                        label="المدربين"
                         variant="solo"
                         v-model="form.user_ids"
                         :items="teachers.data"
