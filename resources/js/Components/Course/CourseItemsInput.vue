@@ -17,20 +17,24 @@
 
     <add-item-dialog title="إضافة محور" v-model="section.dialog" @save="saveDialog('section')" :index="index">
         <v-text-field label="اسم المحور" variant="solo" v-model="section.object.name" :rules="requiredRule"/>
+        <v-textarea label="الوصف" variant="solo" v-model="section.object.description"/>
     </add-item-dialog>
 
     <add-item-dialog title="إضافة فيديو" v-model="video.dialog" @save="saveDialog('video')" :index="index">
         <v-text-field label="عنوان الفيديو" variant="solo" v-model="video.object.name" :rules="requiredRule"/>
+        <v-textarea label="الوصف" variant="solo" v-model="video.object.description"/>
         <v-text-field label="رابط الفيديو" variant="solo" v-model="video.object.url" :rules="requiredRule"/>
     </add-item-dialog>
 
     <add-item-dialog title="إضافة اجتماع" v-model="meeting.dialog" @save="saveDialog('meeting')" :index="index">
         <v-label>يتم تحديد وقت ورابط الاجتماع لاحقاً لكل صف على حدى</v-label>
         <v-text-field label="عنوان الاجتماع" variant="solo" v-model="meeting.object.name" :rules="requiredRule"/>
+        <v-textarea label="الوصف" variant="solo" v-model="meeting.object.description"/>
     </add-item-dialog>
 
     <add-item-dialog title="رفع ملف" v-model="file.dialog" @save="saveDialog('file')" :index="index">
         <v-text-field label="عنوان الملف" variant="solo" v-model="file.object.name" :rules="requiredRule"/>
+        <v-textarea label="الوصف" variant="solo" v-model="file.object.description"/>
         <v-file-input prepend-icon="mdi-attachment" label="الملف" variant="solo"
                       @input="file.object.file = $event.target.files[0]" :rules="requiredRule"/>
     </add-item-dialog>
@@ -39,10 +43,12 @@
         <v-label>تتيح الوظيفة للطالب رفع ملف
         </v-label>
         <v-text-field label="عنوان الملف" variant="solo" v-model="homework.object.name" :rules="requiredRule"/>
+        <v-textarea label="الوصف" variant="solo" v-model="homework.object.description"/>
     </add-item-dialog>
 
     <add-item-dialog :title="quiz?.object?.type === 'text' ? 'إضافة وظيفة' : 'إضافة اختبار' " v-model="quiz.dialog" @save="saveDialog('quiz')" :index="index">
         <v-text-field :label="quiz?.object?.type === 'text' ? 'اسم الوظيفة' : 'اسم الاختبار' " variant="solo" v-model="quiz.object.name"  :rules="requiredRule"/>
+        <v-textarea label="الوصف" variant="solo" v-model="quiz.object.description"/>
         <v-text-field type="number" v-if="quiz?.object?.type === 'multiple_choice'" label="وقت الاختبار (بالدقائق)" variant="solo" v-model="quiz.object.time_limit"/>
         <v-select style="display: none" label="نوع الاختبار" variant="solo" v-model="quiz.object.type" :rules="requiredRule" :items="quiz_types"
                   item-title="name" item-value="value" :disabled="quiz.object.questions.length !== 0"/>
@@ -111,7 +117,8 @@ export default {
                 "dialog": false,
                 initial: function () {
                     return {
-                        "name": null
+                        "name": null,
+                        "description": null
                     }
                 }
             },
@@ -121,6 +128,7 @@ export default {
                     return {
                         "name": null,
                         "url": null,
+                        "description": null
                     }
                 }
             },
@@ -132,6 +140,7 @@ export default {
                         "url": null,
                         "date": null,
                         "time": null,
+                        "description": null
                     }
                 }
             },
@@ -141,6 +150,7 @@ export default {
                     return {
                         "name": null,
                         "file": null,
+                        "description": null
                     }
                 }
             },
@@ -149,6 +159,7 @@ export default {
                 initial: function () {
                     return {
                         "name": null,
+                        "description": null
                     }
                 }
             },
@@ -157,6 +168,7 @@ export default {
                 initial: function () {
                     return {
                         "name": null,
+                        "description": null,
                         "type": null,
                         "time_limit": null,
                         "questions": []

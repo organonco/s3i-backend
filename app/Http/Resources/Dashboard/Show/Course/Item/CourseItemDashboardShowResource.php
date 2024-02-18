@@ -18,7 +18,7 @@ class CourseItemDashboardShowResource extends CourseItemResource
     public function toArray(Request $request): array
     {
         $base = parent::toArray($request);
-        $base['object'] = $this->getCourseItemObjectResource($this->item);
+        $base['object'] = array_merge($this->getCourseItemObjectResource($this->item)->toArray($request), ['description' => $this->description]);
         return $base;
     }
 

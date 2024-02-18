@@ -16,6 +16,9 @@ import {useForm} from "@inertiajs/vue3";
 import _ from 'lodash'
 
 export default {
+    mounted() {
+        console.log(this.course)
+    },
     data: function () {
         return {
             items: this.course.data.items,

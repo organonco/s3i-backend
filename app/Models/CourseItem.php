@@ -7,17 +7,17 @@ use Illuminate\Database\Eloquent\Builder;
 
 class CourseItem extends BaseModel
 {
-    protected $fillable = ['order', 'item_id', 'item_type', 'course_id'];
+    protected $fillable = ['order', 'item_id', 'item_type', 'course_id', 'description'];
 
     public static function createOrUpdateFromDataObject($dataObject, $order, $courseId): self
     {
         if (isset($dataObject['id'])) {
             $courseItem = self::byHash($dataObject['id']);
             $courseItem->item->update($dataObject['object']);
-            $courseItem->update(['order' => $order]);
+            $courseItem->update(['order' => $order, 'description' => $dataObject['object']['description']]);
         } else {
             $courseItemDetails = self::typeToClass($dataObject['type'])::create($dataObject['object']);
-            $courseItem = $courseItemDetails->courseItem()->create(['course_id' => $courseId, 'order' => $order]);
+            $courseItem = $courseItemDetails->courseItem()->create(['course_id' => $courseId, 'order' => $order, 'description' => $dataObject['object']['description']]);
         }
         return $courseItem;
     }
