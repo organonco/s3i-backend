@@ -28,6 +28,8 @@ class RegisterController extends Controller
      */
     public function store(RegisterRequest $request)
     {
-        Student::create($request->validated());
+        /** Student $student */
+        $student = Student::create($request->validated());
+        return ['token' => $student->createToken('access-token')->plainTextToken];
     }
 }
