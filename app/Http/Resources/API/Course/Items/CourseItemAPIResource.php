@@ -20,7 +20,7 @@ class CourseItemAPIResource extends CourseItemResource
         return [
             'id' => $this->hash,
             'type' => $this->type,
-            'object' => $this->getCourseItemObjectResource($this->item),
+            'object' => array_merge($this->getCourseItemObjectResource($this->item)->toArray($request), ['description' => $this->description]),
         ];
     }
 
