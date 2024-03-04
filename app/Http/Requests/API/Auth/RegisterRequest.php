@@ -35,6 +35,7 @@ class RegisterRequest extends Request
             'nationality_id' => ['required', new ExistsByHash(Nationality::class)],
             'education_level_id' => ['required', new ExistsByHash(EducationLevel::class)],
             'address' => 'required',
+            'reference' => 'nullable',
         ];
     }
 
