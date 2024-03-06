@@ -5,10 +5,11 @@ namespace App\Http\Resources\API\Teacher;
 use App\Http\Resources\Base\Student\EducationLevelResource;
 use App\Http\Resources\Base\Student\NationalityResource;
 use App\Http\Resources\Base\Student\StudentResource;
+use App\Http\Resources\Base\TeacherResource;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class TeacherAPIResource extends StudentResource
+class TeacherAPIResource extends TeacherResource
 {
     /**
      * Transform the resource into an array.
