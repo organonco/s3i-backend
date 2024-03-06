@@ -6,5 +6,5 @@ use App\Http\Resources\Base\TeacherResource;
 
 class TeacherDashboardShowResource extends TeacherResource
 {
-
+    
 }

@@ -8,35 +8,52 @@ defineProps({
 </script>
 
 <script>
-import {useForm} from "@inertiajs/vue3";
+import { useForm } from "@inertiajs/vue3";
 
 export default {
     data: function () {
         return {
             form: useForm({
-                username: this.teacher.data.username,
+                _method: "put",
                 name: this.teacher.data.name,
-                password: ''
+                username: this.teacher.data.username,
+                password: '',
+                bio: this.teacher.data.bio,
+                education: this.teacher.data.education,
+                image: "",
             })
         }
     },
     methods: {
         submit: function () {
-            this.form.put(route('teacher.update', this.teacher.data.id));
-        }
+            this.form.post(route('teacher.update', this.teacher.data.id));
+        }   
     }
 }
 </script>
 
 <template>
     <MainLayout title="تعديل المدرب">
-        <simple-form-sheet @save="submit">
-            <v-text-field label="اسم المدرب" variant="solo" v-model="form.name"
-                          :error-messages="form.errors.name"></v-text-field>
-            <v-text-field label="اسم المستخدم" variant="solo" v-model="form.username"
-                          :error-messages="form.errors.username"></v-text-field>
-            <v-text-field label="كلمة المرور" variant="solo" v-model="form.password"
-                          :error-messages="form.errors.password" type="password"></v-text-field>
+        <simple-form-sheet cols="12" @save="submit" >
+            <v-row>
+                <v-col cols="6">
+                    <img :src="this.teacher.data.image_url" style="width: 100%"/>
+                </v-col>
+                <v-col cols="6">
+                    <v-text-field label="اسم المدرب" variant="solo" v-model="form.name"
+                        :error-messages="form.errors.name"></v-text-field>
+                    <v-text-field label="اسم المستخدم" variant="solo" v-model="form.username"
+                        :error-messages="form.errors.username"></v-text-field>
+                    <v-textarea label="لمحة" variant="solo" v-model="form.bio"
+                        :error-messages="form.errors.bio"></v-textarea>
+                    <v-text-field label="الاختصاص" variant="solo" v-model="form.education"
+                        :error-messages="form.errors.education"></v-text-field>
+                    <v-file-input prepend-icon="mdi-image" name="image" label="الصورة" variant="solo"
+                        :error-messages="form.errors.image" @input="form.image = $event.target.files[0]"></v-file-input>
+                    <v-text-field label="كلمة المرور" variant="solo" v-model="form.password"
+                        :error-messages="form.errors.password" type="password"></v-text-field>
+                </v-col>
+            </v-row>
         </simple-form-sheet>
     </MainLayout>
 </template>

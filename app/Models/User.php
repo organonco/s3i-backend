@@ -6,6 +6,8 @@ use App\Models\BaseModels\BaseUser;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Support\Facades\Hash;
+use Spatie\MediaLibrary\HasMedia;
+use Spatie\MediaLibrary\InteractsWithMedia;
 
 
 /**
@@ -13,14 +15,21 @@ use Illuminate\Support\Facades\Hash;
  * @property string $hash
  * @property string $username
  * @property bool $super_admin
+ * @property string $bio
+ * @property string $education
  */
-class User extends BaseUser
+class User extends BaseUser implements HasMedia
 {
+    
+    use InteractsWithMedia;
+
     protected $fillable = [
         'name',
         'username',
         'password',
-        'super_admin'
+        'super_admin',
+        'bio',
+        'education'
     ];
 
     protected $hidden = [
@@ -58,5 +67,17 @@ class User extends BaseUser
             get: fn(string $value) => $value,
             set: fn(string $value) => Hash::make($value),
         );
+    }
+
+    public function getImageUrlAttribute(): string
+    {
+        return $this->getFirstMediaUrl('image');
+    }
+
+    public function registerMediaCollections(): void
+    {
+        $this
+            ->addMediaCollection('image')
+            ->singleFile();
     }
 }

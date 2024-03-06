@@ -37,11 +37,19 @@ class TeacherController extends Controller
         $request->validate([
             'name' => 'required',
             'username' => 'required|alpha|unique:users,username,' . $teacher->id,
-            'password' => 'nullable|min:8'
+            'password' => 'nullable|min:8',
+            'bio' => 'nullable',
+            'education' => 'nullable',
+            'image' => 'nullable|image',
         ]);
+
         $teacher->update(array_merge(array_filter($request->all()), [
             'super_admin' => 0,
         ]));
+
+        if($request->hasFile('image'))
+            $teacher->addMediaFromRequest('image')->toMediaCollection("image");
+
         return redirect()->route('teacher.index');
     }
 
@@ -50,11 +58,19 @@ class TeacherController extends Controller
         $request->validate([
             'name' => 'required',
             'username' => 'required|alpha|unique:users',
-            'password' => 'required|min:8'
+            'password' => 'required|min:8',
+            'bio' => 'nullable',
+            'education' => 'nullable',
+            'image' => 'nullable|image',
         ]);
-        User::create(array_merge(array_filter($request->all()), [
+
+        $user = User::create(array_merge(array_filter($request->all()), [
             'super_admin' => 0,
         ]));
+        
+        if($request->hasFile('image'))
+            $user->addMediaFromRequest('image')->toMediaCollection("image");
+
         return redirect()->route('teacher.index');
     }
 

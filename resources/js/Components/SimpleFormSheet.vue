@@ -1,5 +1,5 @@
 <template>
-    <center-sheet cols="5">
+    <center-sheet :cols="cols ? cols : 5">
         <v-form @submit.prevent="$emit('save')">
             <v-row>
                 <v-col cols="12">
@@ -25,6 +25,7 @@ import SaveButton from "@/Components/SaveButton.vue";
 export default {
     name: "SimpleFormSheet",
     components: {SaveButton, CenterSheet},
+    props: ['cols'],
     emits: ['save']
 }
 </script>

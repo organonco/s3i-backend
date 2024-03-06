@@ -18,6 +18,7 @@ export default {
                 { title: 'الرمز', align: 'start', key: 'id' },
                 { title: 'اسم المستخدم', align: 'start', key: 'username' },
                 { title: 'الاسم', align: 'start', key: 'name' },
+                { title: 'الاختصاص', align: 'start', key: 'education' },
             ],
         }
     },
