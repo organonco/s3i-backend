@@ -20,6 +20,7 @@ export default {
                 password: '',
                 bio: this.teacher.data.bio,
                 education: this.teacher.data.education,
+                visible: this.teacher.data.visible,
                 image: "",
             })
         }
@@ -52,8 +53,11 @@ export default {
                         :error-messages="form.errors.image" @input="form.image = $event.target.files[0]"></v-file-input>
                     <v-text-field label="كلمة المرور" variant="solo" v-model="form.password"
                         :error-messages="form.errors.password" type="password"></v-text-field>
+                    <v-checkbox label="ظهور في صفحة الكادر التدريسي" v-model="form.visible" :true-value="1" :false-value="0">
+                    </v-checkbox>
                 </v-col>
             </v-row>
         </simple-form-sheet>
     </MainLayout>
 </template>
+

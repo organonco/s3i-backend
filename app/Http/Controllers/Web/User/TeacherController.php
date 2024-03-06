@@ -34,6 +34,7 @@ class TeacherController extends Controller
 
     public function update(User $teacher, Request $request)
     {
+        
         $request->validate([
             'name' => 'required',
             'username' => 'required|alpha|unique:users,username,' . $teacher->id,
@@ -41,10 +42,12 @@ class TeacherController extends Controller
             'bio' => 'nullable',
             'education' => 'nullable',
             'image' => 'nullable|image',
+            'visible' => 'nullable|boolean',
         ]);
 
         $teacher->update(array_merge(array_filter($request->all()), [
             'super_admin' => 0,
+            'visible' => ($request->visible == true)
         ]));
 
         if($request->hasFile('image'))
@@ -62,10 +65,12 @@ class TeacherController extends Controller
             'bio' => 'nullable',
             'education' => 'nullable',
             'image' => 'nullable|image',
+            'visible' => 'nullable|boolean',
         ]);
 
         $user = User::create(array_merge(array_filter($request->all()), [
             'super_admin' => 0,
+            'visible' => ($request->visible == true)
         ]));
         
         if($request->hasFile('image'))

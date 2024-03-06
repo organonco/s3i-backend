@@ -29,7 +29,8 @@ class User extends BaseUser implements HasMedia
         'password',
         'super_admin',
         'bio',
-        'education'
+        'education',
+        'visible'
     ];
 
     protected $hidden = [
@@ -59,6 +60,11 @@ class User extends BaseUser implements HasMedia
     public function scopeTeachers(Builder $builder): Builder
     {
         return $builder->where('super_admin', false);
+    }
+
+    public function scopeVisible(Builder $builder): Builder
+    {
+        return $builder->where('visible', true);
     }
 
     protected function password(): Attribute

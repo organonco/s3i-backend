@@ -14,6 +14,7 @@ return new class extends Migration
         Schema::table('users', function (Blueprint $table) {
             $table->string("bio")->nullable();
             $table->string("education")->nullable();
+            $table->boolean('visible')->default(false);
         });
     }
 
@@ -25,6 +26,7 @@ return new class extends Migration
         Schema::table('users', function (Blueprint $table) {
             $table->dropColumn('bio');
             $table->dropColumn('education');
+            $table->dropColumn('visible');
         });
     }
 };

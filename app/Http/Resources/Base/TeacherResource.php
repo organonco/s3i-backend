@@ -21,6 +21,7 @@ class TeacherResource extends JsonResource
             'bio' => $this->bio,
             'education' => $this->education,
             'image_url' => $this->image_url,
+            'visible' => $this->visible,
         ];
     }
 }
