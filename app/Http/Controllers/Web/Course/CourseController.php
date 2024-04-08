@@ -55,8 +55,10 @@ class CourseController extends Controller
             'items.*.object' => 'required',
             'user_ids' => 'required|array',
             'user_ids.*' => ['required', new ExistsByHash(User::class)],
+            'price' => ['nullable', 'numeric'],
         ]);
         $course->update(array_merge($request->all(), ['category_id' => Category::hashToId($request->category_id)]));
+
         if ($request->hasFile('image'))
             $course->addMediaFromRequest('image')->toMediaCollection("image");
 
@@ -73,7 +75,7 @@ class CourseController extends Controller
 
         $hasNewItems = collect($request->items)->whereNull('id')->count() > 0;
 
-        if($hasNewItems)
+        if ($hasNewItems)
             Notification::send($course->students, new NewItemsAdded($course));
 
         $course->courseItems()->whereNotIn('id', $remainingIds)->delete();
@@ -98,6 +100,7 @@ class CourseController extends Controller
             'items' => 'required',
             'items.*.type' => 'required',
             'items.*.object' => 'required',
+            'price' => ['nullable', 'numeric'],
         ]);
         /** @var Course $course */
         $course = Course::create(array_merge($request->all(), [

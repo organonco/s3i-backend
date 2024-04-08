@@ -22,6 +22,7 @@ class CourseResource extends JsonResource
             'students_limit' => $this->students_limit,
             'image_url' => $this->image_url,
             'category' => CategoryResource::make($this->category),
+            'price' => $this->price
         ];
     }
 }

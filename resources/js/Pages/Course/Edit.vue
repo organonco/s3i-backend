@@ -32,6 +32,7 @@ export default {
                 user_ids: this.course.data.user_ids,
                 telegram_url: this.course.data.telegram_url,
                 image: "",
+                price: this.course.data.price
             })
         }
     },
@@ -56,6 +57,7 @@ export default {
             <v-text-field label="رابط الفيديو التعريفي" variant="solo" v-model="form.introduction_video_url" :error-messages="form.errors.introduction_video_url"></v-text-field>
             <v-text-field label="رابط مجموعة التلغرام" variant="solo" v-model="form.telegram_url" :error-messages="form.errors.telegram_url"></v-text-field>
             <v-text-field label="عدد الطلاب في كل صف" type="number" variant="solo" v-model="form.students_limit" :error-messages="form.errors.students_limit"></v-text-field>
+            <v-text-field label="السعر بالليرة السورية" type="number" variant="solo" v-model="form.price" :error-messages="form.errors.price"></v-text-field>
             <v-autocomplete
                 label="القسم"
                 variant="solo"
