@@ -2,15 +2,16 @@
 
 namespace App\Models;
 
+use App\Interfaces\Purchasable;
 use App\Models\BaseModels\BaseModel;
 use Spatie\MediaLibrary\HasMedia;
 use Spatie\MediaLibrary\InteractsWithMedia;
 
-class Course extends BaseModel implements HasMedia
+class Course extends BaseModel implements HasMedia, Purchasable
 {
     use InteractsWithMedia;
 
-    protected $fillable = ['name', 'description', 'introduction_video_url', 'category_id', 'students_limit', 'telegram_url'];
+    protected $fillable = ['name', 'description', 'introduction_video_url', 'category_id', 'students_limit', 'telegram_url', 'price'];
     protected $cascadeDeletes = ['courseItems', 'classrooms'];
 
     public function getImageUrlAttribute(): string
@@ -100,4 +101,18 @@ class Course extends BaseModel implements HasMedia
         return $this->belongsToMany(User::class);
     }
 
+    public function getPrice()
+    {
+        return $this->price;
+    }
+
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    public function getType()
+    {
+        return self::class;
+    }
 }

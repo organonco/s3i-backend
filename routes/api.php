@@ -41,6 +41,8 @@ Route::group(['middleware' => 'auth:sanctum'], function () {
     Route::post('/homework/{id}', [\App\Http\Controllers\API\Course\HomeworkController::class, 'submit']);
     Route::get('/quiz/{id}', [\App\Http\Controllers\API\Course\QuizController::class, 'show']);
     Route::post('/quiz/{id}', [\App\Http\Controllers\API\Course\QuizController::class, 'submit']);
+
+    Route::post('/purchase/course', [\App\Http\Controllers\API\Course\PurchaseController::class, 'purchaseCourse']);
 });
 
 Route::resource('/category', \App\Http\Controllers\API\Course\CategoryController::class)->only(['index']);
