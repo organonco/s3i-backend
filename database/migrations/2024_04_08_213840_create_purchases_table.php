@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->foreignId('student_id');
             $table->morphs('purchasable');
-            $table->foreignId('ecash_payment_id');
+            $table->foreignUuid('ecash_payment_id');
             $table->timestamps();
         });
     }
