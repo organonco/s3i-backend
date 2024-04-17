@@ -32,7 +32,7 @@ class Purchase extends Model
             ->where('purchasable_id', $purchasable->getId())
             ->first();
     }
-    public static function findByPayment(int $payment_id)
+    public static function findByPayment(string $payment_id)
     {
         return self::query()->where('ecash_payment_id', $payment_id)->first();
     }
