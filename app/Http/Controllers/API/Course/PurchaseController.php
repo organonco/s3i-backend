@@ -28,6 +28,8 @@ class PurchaseController extends Controller
         $purchase = Purchase::findExistingPurchase($studentId, $course);
         if (is_null($purchase)) {
             $paymentDataObject = new PaymentDataObject(CheckoutType::CARD, $course->getPrice());
+            $paymentDataObject->setRedirectUrl("https://www.s3i.training");
+
             $payment = LaravelEcashClient::checkout($paymentDataObject);
             $purchase = Purchase::create([
                 'purchasable_id' => $course->id,
