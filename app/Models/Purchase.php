@@ -4,7 +4,7 @@ namespace App\Models;
 
 use App\Interfaces\Purchasable;
 use Illuminate\Database\Eloquent\Model;
-use Organon\LaravelEcash\Models\EcashPayment;
+use Alhelwany\LaravelEcash\Models\EcashPayment;
 
 class Purchase extends Model
 {

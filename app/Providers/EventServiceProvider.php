@@ -6,7 +6,7 @@ use App\Listeners\AddStudentToCourse;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Auth\Listeners\SendEmailVerificationNotification;
 use Illuminate\Foundation\Support\Providers\EventServiceProvider as ServiceProvider;
-use Organon\LaravelEcash\Events\PaymentStatusUpdated;
+use Alhelwany\LaravelEcash\Events\PaymentStatusUpdated;
 
 class EventServiceProvider extends ServiceProvider
 {

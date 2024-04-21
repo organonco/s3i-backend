@@ -7,8 +7,8 @@ use App\Models\Purchase;
 use App\Notifications\PurchaseFailed;
 use App\Notifications\PurchasePaid;
 use App\Notifications\PurchaseProcessing;
-use Organon\LaravelEcash\Enums\PaymentStatus;
-use Organon\LaravelEcash\Events\PaymentStatusUpdated as EventsPaymentStatusUpdated;
+use Alhelwany\LaravelEcash\Enums\PaymentStatus;
+use Alhelwany\LaravelEcash\Events\PaymentStatusUpdated as EventsPaymentStatusUpdated;
 
 class AddStudentToCourse
 {

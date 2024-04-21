@@ -7,9 +7,9 @@ use App\Http\Requests\API\Course\PurchaseCourseRequest;
 use App\Models\Course;
 use App\Models\Purchase;
 use App\Traits\ChecksSubscription;
-use Organon\LaravelEcash\DataObjects\PaymentDataObject;
-use Organon\LaravelEcash\Enums\CheckoutType;
-use Organon\LaravelEcash\Facades\LaravelEcashClient;
+use Alhelwany\LaravelEcash\DataObjects\PaymentDataObject;
+use Alhelwany\LaravelEcash\Enums\CheckoutType;
+use Alhelwany\LaravelEcash\Facades\LaravelEcashClient;
 
 /**
  * @group Purchase
