@@ -31,15 +31,18 @@ class Student extends BaseUser
         $this->save();
     }
 
-    public function resetNumberOfLoginAttempts()
+    public function resetNumberOfLoginAttempts($attempts)
     {
-        $this->number_of_login_attempts = 0;
+        if($this->number_of_login_attempts == $attempts)
+            $this->number_of_login_attempts = 0;
+        else
+            $this->number_of_login_attempts = $attempts;
         $this->save();
     }
 
     public function canLogin(): int
     {
-        return $this->number_of_login_attempts < 3;
+        return $this->number_of_login_attempts < 6;
     }
 
     public function getCoursesAttribute()

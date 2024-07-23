@@ -26,11 +26,17 @@ import {useForm} from "@inertiajs/vue3";
 
 export default {
     data() {
-
+        return {
+            form: useForm({
+                attempts: this.student.data['number_of_login_attempts']
+            })
+        }
     },
     methods: {
         resetLoginAttempts: function (id) {
-            useForm({}).put(route('student.unfreeze', { 'student': id }))
+            this.form.put(route('student.unfreeze', { 'student': id }))
+            if(this.form.attempts == this.student.data['number_of_login_attempts'])
+                this.form.attempts = 0
         }
     }
 }
@@ -54,9 +60,7 @@ export default {
                     <v-icon>mdi-login</v-icon>
                 </v-col>
                 <v-col cols="7" align-self="center">
-                    <v-text-field variant="outlined" label="عدد مرات تسجيل الدخول"
-                                  v-model="student.data['number_of_login_attempts']"
-                                  readonly hide-details></v-text-field>
+                    <v-text-field variant="outlined" label="عدد مرات تسجيل الدخول" v-model="form.attempts" ></v-text-field>
                 </v-col>
                 <v-col cols="4" align-self="center">
                     <v-btn append-icon="mdi-lock-reset" variant="text" color="primary" @click="resetLoginAttempts(student.data.id)">اعادة
