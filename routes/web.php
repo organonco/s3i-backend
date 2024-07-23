@@ -29,6 +29,7 @@ Route::middleware('auth')->group(function () {
         Route::resource('teacher', \App\Http\Controllers\Web\User\TeacherController::class);
         Route::get('course_token/{id}/export', [\App\Http\Controllers\Web\Course\TokenController::class, 'export'])->name('course_token.export');
         Route::put('student/{student}/unfreeze', [\App\Http\Controllers\Web\Student\StudentController::class, 'unfreeze'])->name('student.unfreeze');
+        Route::put('student/{student}/reset_password', [\App\Http\Controllers\Web\Student\StudentController::class, 'resetPassword'])->name('student.reset_password');
     });
     Route::resource('classroom', \App\Http\Controllers\Web\Course\ClassroomController::class)->only('index');
     Route::get('classroom/{hash}/students', [\App\Http\Controllers\Web\Course\ClassroomController::class, 'getStudents'])->name('classroom.students');

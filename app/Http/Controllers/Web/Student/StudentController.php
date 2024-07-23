@@ -32,4 +32,12 @@ class StudentController extends Controller
         return redirect()->route('student.show', ['student' => $student->hash]);
     }
 
+    public function resetPassword(Request $request, Student $student)
+    {
+        $request->validate([
+            'password' => 'required|min:8',
+        ]);
+        $student->resetPassword($request->input('password'));
+        return redirect()->route('student.show', ['student' => $student->hash]);
+    }
 }

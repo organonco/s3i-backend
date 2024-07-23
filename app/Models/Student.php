@@ -40,6 +40,12 @@ class Student extends BaseUser
         $this->save();
     }
 
+    public function resetPassword($password)
+    {
+        $this->password = Hash::make($password);
+        $this->save();
+    }
+
     public function canLogin(): int
     {
         return $this->number_of_login_attempts < 6;
