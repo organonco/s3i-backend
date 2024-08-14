@@ -2,7 +2,6 @@
 
 namespace App\Notifications;
 
-use App\Models\CourseHomework;
 use App\Models\CourseQuiz;
 
 class QuizFeedbackAdded extends BaseNotification

@@ -14,9 +14,12 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::group(['middleware' => 'guest'], function () {
-    Route::post('/login', \App\Http\Controllers\API\Auth\LoginController::class)->name('login');
+	Route::post('/login', \App\Http\Controllers\API\Auth\LoginController::class)->name('login');
     Route::get('/register', [\App\Http\Controllers\API\Auth\RegisterController::class, 'show'])->name('register.show');
     Route::post('/register', [\App\Http\Controllers\API\Auth\RegisterController::class, 'store'])->name('register.store');
+
+	Route::post('/verify/send', [\App\Http\Controllers\API\Auth\VerifyController::class, 'send'])->middleware('throttle:5,1')->name('verify.send');
+	Route::post('/verify/{verification_hash}/verify', [\App\Http\Controllers\API\Auth\VerifyController::class, 'verify'])->middleware('throttle:5,1')->name('verify.verify');
 });
 
 Route::group(['middleware' => 'auth:sanctum'], function () {
@@ -34,8 +37,6 @@ Route::group(['middleware' => 'auth:sanctum'], function () {
     Route::resource('/token', \App\Http\Controllers\API\Course\TokenController::class)->only(['store']);
     Route::get('/course/my-courses', [\App\Http\Controllers\API\Course\CourseController::class, 'indexMyCourses'])->name('course.my-courses');
 
-    Route::post('/verify/send', [\App\Http\Controllers\API\Auth\VerifyController::class, 'send'])->middleware('throttle:5,1')->name('verify.send');
-    Route::post('/verify/{verification_hash}/verify', [\App\Http\Controllers\API\Auth\VerifyController::class, 'verify'])->middleware('throttle:5,1')->name('verify.verify');
 
     Route::get('/homework/{id}', [\App\Http\Controllers\API\Course\HomeworkController::class, 'show']);
     Route::post('/homework/{id}', [\App\Http\Controllers\API\Course\HomeworkController::class, 'submit']);

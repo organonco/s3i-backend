@@ -2,16 +2,18 @@
 
 namespace App\Models;
 
+use Alhelwany\LaravelMtn\Interfaces\MTNNotifiable;
 use App\Models\BaseModels\BaseUser;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Notifications\Notifiable;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Hash;
 use Laravel\Sanctum\HasApiTokens;
 
-class Student extends BaseUser
+class Student extends BaseUser implements MTNNotifiable
 {
-    use HasApiTokens;
+    use HasApiTokens, Notifiable;
 
     public $fillable = ['phone', 'password', 'name_ar', 'name_en', 'email', 'date_of_birth', 'nationality_id', 'education_level_id', 'address', 'reference', 'phone_verified_at'];
 
@@ -89,4 +91,9 @@ class Student extends BaseUser
     {
         return '+963' . $this->phone;
     }
+
+	public function getPhone() : string
+	{
+		return $this->phone;
+	}
 }

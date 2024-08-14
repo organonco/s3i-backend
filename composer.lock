@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "52310bde88fc5630282e4605b2820f44",
+    "content-hash": "f3c74a3174f407ff6b6cd93f27d74d3b",
     "packages": [
         {
             "name": "alhelwany/laravel-ecash",
@@ -86,6 +86,86 @@
                 }
             ],
             "time": "2024-04-17T12:18:36+00:00"
+        },
+        {
+            "name": "alhelwany/laravel-mtn",
+            "version": "v1.0.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/alhelwany/laravel-mtn.git",
+                "reference": "d3125ad6fb0b5074b44b0ed250e68e8666453358"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/alhelwany/laravel-mtn/zipball/d3125ad6fb0b5074b44b0ed250e68e8666453358",
+                "reference": "d3125ad6fb0b5074b44b0ed250e68e8666453358",
+                "shasum": ""
+            },
+            "require": {
+                "guzzlehttp/guzzle": "^7.2",
+                "illuminate/contracts": "^10.0||^11.0",
+                "php": "^8.2",
+                "spatie/laravel-package-tools": "^1.16"
+            },
+            "require-dev": {
+                "larastan/larastan": "^2.9",
+                "laravel/pint": "^1.14",
+                "nunomaduro/collision": "^8.1.1||^7.10.0",
+                "orchestra/testbench": "^9.0.0||^8.22.0",
+                "pestphp/pest": "^2.34",
+                "pestphp/pest-plugin-arch": "^2.7",
+                "pestphp/pest-plugin-laravel": "^2.3",
+                "phpstan/extension-installer": "^1.3",
+                "phpstan/phpstan-deprecation-rules": "^1.1",
+                "phpstan/phpstan-phpunit": "^1.3",
+                "spatie/laravel-ray": "^1.35"
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "Alhelwany\\LaravelMtn\\LaravelMtnServiceProvider"
+                    ],
+                    "aliases": {
+                        "LaravelMtn": "Alhelwany\\LaravelMtn\\Facades\\LaravelMtn"
+                    }
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Alhelwany\\LaravelMtn\\": "src/",
+                    "Alhelwany\\LaravelMtn\\Database\\Factories\\": "database/factories/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Mhd Ghaith Alhelwany",
+                    "email": "mhdghaithalhelwany@gmail.com",
+                    "role": "Developer"
+                }
+            ],
+            "description": "A simple Laravel notification Channel that utilizes MTN Syria services to send SMS",
+            "homepage": "https://github.com/alhelwany/laravel-mtn",
+            "keywords": [
+                "Alhelwany",
+                "laravel",
+                "laravel-mtn"
+            ],
+            "support": {
+                "issues": "https://github.com/alhelwany/laravel-mtn/issues",
+                "source": "https://github.com/alhelwany/laravel-mtn/tree/v1.0.0"
+            },
+            "funding": [
+                {
+                    "url": "https://github.com/Alhelwany",
+                    "type": "github"
+                }
+            ],
+            "time": "2024-08-14T22:03:15+00:00"
         },
         {
             "name": "brick/math",

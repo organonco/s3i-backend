@@ -9,6 +9,8 @@
     "license": "MIT",
     "require": {
         "php": "^8.1",
+        "alhelwany/laravel-ecash": "^1.1",
+        "alhelwany/laravel-mtn": "^1.0",
         "dyrynda/laravel-cascade-soft-deletes": "^4.3",
         "guzzlehttp/guzzle": "^7.2",
         "inertiajs/inertia-laravel": "^0.6.8",
@@ -17,7 +19,6 @@
         "laravel/telescope": "^4.14",
         "laravel/tinker": "^2.8",
         "league/csv": "^9.0",
-        "alhelwany/laravel-ecash": "^1.1",
         "spatie/laravel-medialibrary": "^10.0.0",
         "spatie/laravel-tags": "^4.3",
         "tightenco/ziggy": "^1.0",
