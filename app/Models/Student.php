@@ -94,6 +94,6 @@ class Student extends BaseUser implements MTNNotifiable
 
 	public function getPhone() : string
 	{
-		return $this->phone;
+		return "0" . $this->phone;
 	}
 }

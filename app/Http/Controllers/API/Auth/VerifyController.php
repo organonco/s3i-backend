@@ -27,7 +27,7 @@ class VerifyController extends Controller
      */
     public function send(SendVerificationCodeRequest $request)
     {
-        $student = Student::where('phone', $request->phone)->first();
+        $student = Student::where('phone', $request->phone)->firstOrFail();
         if ($student->is_verified)
             throw new AccountAlreadyVerified;
         $verification = $student->verifications()->create(['code' => rand(100000, 999999)]);
