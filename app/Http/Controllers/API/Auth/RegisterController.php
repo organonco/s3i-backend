@@ -5,7 +5,9 @@ namespace App\Http\Controllers\API\Auth;
 use App\Http\Controllers\API\Controller;
 use App\Http\Requests\API\Auth\RegisterRequest;
 use App\Http\Resources\API\RegisterDataResource;
+use App\Http\Resources\Base\VerificationResource;
 use App\Models\Student;
+use App\Notifications\OTP;
 
 class RegisterController extends Controller
 {
@@ -30,6 +32,8 @@ class RegisterController extends Controller
     {
         /** Student $student */
         $student = Student::create($request->validated());
-        return ['token' => $student->createToken('access-token')->plainTextToken];
+		$verification = $student->verifications()->create(['code' => rand(100000, 999999)]);
+		$student->notify(new OTP($verification));
+		return VerificationResource::make($verification);
     }
 }

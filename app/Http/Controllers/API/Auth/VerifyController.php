@@ -21,7 +21,7 @@ class VerifyController extends Controller
 {
     /**
      * Send Verification Code
-     * @response {}
+	 * @responseFile app/Http/Responses/Samples/Auth/verification.json
      * @responseFile 403 app/Http/Responses/Samples/Auth/account-already-verified-exception.json
      * @throws AccountAlreadyVerified
      */
@@ -38,7 +38,7 @@ class VerifyController extends Controller
     /**
      * Verify
      * @authenticated
-     * @response {}
+     * @responseFile app/Http/Responses/Samples/Auth/login.json
      * @responseFile 403 app/Http/Responses/Samples/Auth/account-already-verified-exception.json
      * @responseFile 403 app/Http/Responses/Samples/Auth/code-expired.json
      * @responseFile 403 app/Http/Responses/Samples/Auth/invalid-code.json
@@ -52,7 +52,8 @@ class VerifyController extends Controller
     public function verify($verification_id, VerifyRequest $request)
     {
         $verification = Verification::byHash($verification_id);
-        $student = $this->getAuthenticatedStudent();
+        $student = $verification->student;
+		
         if ($student->is_verified)
             throw new AccountAlreadyVerified;
         if ($verification->student_id != $student->id)
@@ -63,6 +64,7 @@ class VerifyController extends Controller
             throw new InvalidCode;
 
         $verification->markAsVerified();
+		return ['token' => $student->createToken('access-token')->plainTextToken];
     }
 
 }
