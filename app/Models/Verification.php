@@ -24,6 +24,6 @@ class Verification extends BaseModel
 
     public function getIsExpiredAttribute() : bool
     {
-        return Carbon::parse($this->created_at)->addSeconds(config('verification.phone_verification_expires_in'))->isPast();
+        return Carbon::parse($this->created_at)->addMinutes(config('verification.phone_verification_expires_in'))->isPast();
     }
 }

@@ -51,7 +51,7 @@ class VerifyController extends Controller
      */
     public function verify($verification_id, VerifyRequest $request)
     {
-        $verification = Verification::byHash($verification_id);
+        $verification = Verification::byHashOrFail($verification_id);
         $student = $verification->student;
 		
         if ($student->is_verified)
