@@ -120,7 +120,7 @@ export default {
                         variant="text"
                         color="error"
                         @click="submitpwd()"
-                        >إعادة تعيين كلمة المرور
+                        >إعادة تعيين
                     </v-btn>
                 </v-col>
             </v-row>
