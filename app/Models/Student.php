@@ -44,8 +44,7 @@ class Student extends BaseUser implements MTNNotifiable
 
     public function resetPassword($password)
     {
-        $this->password = Hash::make($password);
-        $this->save();
+        $this->update(['password' => $password]);
     }
 
     public function canLogin(): int
