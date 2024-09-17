@@ -44,7 +44,7 @@ class Student extends BaseUser implements MTNNotifiable
 
     public function resetPassword($password)
     {
-        $this->password = Hash::make($password);
+        $this->password = $password;
         $this->save();
     }
 
@@ -96,4 +96,9 @@ class Student extends BaseUser implements MTNNotifiable
 	{
 		return "09" . $this->phone;
 	}
+
+	public function passwordResetTokens() : HasMany
+    {
+        return $this->hasMany(PasswordResetToken::class);
+    }
 }

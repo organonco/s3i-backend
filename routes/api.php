@@ -20,6 +20,9 @@ Route::group(['middleware' => 'guest'], function () {
 
 	Route::post('/verification/send', [\App\Http\Controllers\API\Auth\VerifyController::class, 'send'])->middleware('throttle:5,1')->name('verify.send');
 	Route::post('/verification/verify/{verification_hash}', [\App\Http\Controllers\API\Auth\VerifyController::class, 'verify'])->middleware('throttle:5,1')->name('verify.verify');
+
+	Route::post('/password/send', [\App\Http\Controllers\API\Auth\ResetPasswordController::class, 'send'])->middleware('throttle:5,1')->name('password-reset.send');
+	Route::post('/password/reset/{reset_password_hash}', [\App\Http\Controllers\API\Auth\ResetPasswordController::class, 'reset'])->middleware('throttle:5,1')->name('password-reset.reset');
 });
 
 Route::group(['middleware' => 'auth:sanctum'], function () {
