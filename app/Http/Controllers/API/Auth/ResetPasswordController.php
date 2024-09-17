@@ -27,7 +27,7 @@ class ResetPasswordController extends Controller
     {
         $student = Student::where('phone', $request->phone)->firstOrFail();
         $passwordReset = $student->passwordResetTokens()->create(['code' => rand(100000, 999999)]);
-		// $student->notify(new PasswordReset($passwordReset));
+		$student->notify(new PasswordReset($passwordReset));
         return VerificationResource::make($passwordReset);
     }
 
