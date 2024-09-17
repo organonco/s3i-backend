@@ -67,7 +67,7 @@ export default {
 
 <template>
     <MainLayout title="عرض بطاقة الطالب">
-        <center-sheet cols="4">
+        <center-sheet cols="12">
             <v-row v-for="row in rows">
                 <v-col cols="1" align-self="center">
                     <v-icon>{{ row.icon }}</v-icon>
@@ -120,7 +120,7 @@ export default {
                         variant="text"
                         color="error"
                         @click="submitpwd()"
-                        >إعادة تعيين كلمة المرور
+                        >إعادة تعيين
                     </v-btn>
                 </v-col>
             </v-row>
