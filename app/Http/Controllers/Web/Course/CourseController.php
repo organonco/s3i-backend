@@ -92,7 +92,7 @@ class CourseController extends Controller
             'name' => 'required',
             'description' => 'required',
             'introduction_video_url' => 'required',
-            'telegram_url' => 'required',
+            'telegram_url' => 'nullable',
             'category_id' => ['required', new ExistsByHash(Category::class)],
             'user_ids' => 'required|array',
             'user_ids.*' => ['required', new ExistsByHash(User::class)],
