@@ -38,7 +38,7 @@ export default {
         <simple-form-sheet cols="12" @save="submit" >
             <v-row>
                 <v-col cols="6">
-                    <img :src="this.teacher.data.image_url" style="width: 100%"/>
+                    <img :src="teacher.data.image_url" style="width: 100%"/>
                 </v-col>
                 <v-col cols="6">
                     <v-text-field label="اسم المدرب" variant="solo" v-model="form.name"
