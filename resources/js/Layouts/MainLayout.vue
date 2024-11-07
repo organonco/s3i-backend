@@ -27,9 +27,7 @@ export default {
                              color="secondary"
         >
             <template v-slot:prepend>
-<!--                <v-list-item>-->
-                        <v-img src="logo.png" style="margin: 5px; margin-top: 20px"></v-img>
-<!--                </v-list-item>-->
+                <v-img src="logo.png" style="margin: 5px; margin-top: 20px"></v-img>
                 <v-list-item lines="two"
                              prepend-icon="mdi-account"
                              :title="$page.props.auth.user.name">

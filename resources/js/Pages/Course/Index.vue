@@ -16,6 +16,7 @@ export default {
             headers: [
                 {title: 'الرمز', align: 'start', key: 'id'},
                 {title: 'اسم الدورة', align: 'start', key: 'name'},
+                {title: 'سعر الدورة', align: 'start', key: 'price'},
             ],
         }
     },

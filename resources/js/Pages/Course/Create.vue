@@ -67,10 +67,10 @@ export default {
 				<v-text-field label="عدد الطلاب في كل صف" type="number" variant="solo" v-model="form.students_limit"
 					:error-messages="form.errors.students_limit"></v-text-field>
 			</v-row>
-			<!-- <v-row>
+			<v-row>
 				<v-text-field label="السعر بالليرة السورية" type="number" variant="solo" v-model="form.price"
 					:error-messages="form.errors.price"></v-text-field>
-			</v-row> -->
+			</v-row>
 			<v-row>
 				<v-autocomplete label="الاختصاص" variant="solo" v-model="form.category_id" :items="categories.data"
 					:error-messages="form.errors.category_id" item-title="name" item-value="id"></v-autocomplete>

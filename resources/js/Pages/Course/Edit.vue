@@ -62,7 +62,7 @@ export default {
 				:error-messages="form.errors.telegram_url"></v-text-field> -->
 			<v-text-field label="عدد الطلاب في كل صف" type="number" variant="solo" v-model="form.students_limit"
 				:error-messages="form.errors.students_limit"></v-text-field>
-			<!-- <v-text-field label="السعر بالليرة السورية" type="number" variant="solo" v-model="form.price" :error-messages="form.errors.price"></v-text-field -->
+			<v-text-field label="السعر بالليرة السورية" type="number" variant="solo" v-model="form.price" :error-messages="form.errors.price"></v-text-field>
 			<v-autocomplete label="القسم" variant="solo" v-model="form.category_id" :items="categories.data"
 				:error-messages="form.errors.category_id" item-title="name" item-value="id"></v-autocomplete>
 			<v-select label="المدربين" variant="solo" v-model="form.user_ids" :items="teachers.data"

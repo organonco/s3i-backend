@@ -55,7 +55,7 @@ class CourseController extends Controller
             'items.*.object' => 'required',
             'user_ids' => 'required|array',
             'user_ids.*' => ['required', new ExistsByHash(User::class)],
-            'price' => ['nullable', 'numeric'],
+            'price' => ['required', 'numeric'],
         ]);
         $course->update(array_merge($request->all(), ['category_id' => Category::hashToId($request->category_id)]));
 
@@ -100,7 +100,7 @@ class CourseController extends Controller
             'items' => 'required',
             'items.*.type' => 'required',
             'items.*.object' => 'required',
-            'price' => ['nullable', 'numeric'],
+            'price' => ['required', 'numeric'],
         ]);
         /** @var Course $course */
         $course = Course::create(array_merge($request->all(), [
