@@ -32,7 +32,7 @@ export default {
 
 <template>
     <MainLayout title="عرض الأكواد">
-        <center-sheet cols="6">
+        <center-sheet cols="12">
             <v-text-field v-model="batch.data.id" label="الرمز" readonly></v-text-field>
             <v-autocomplete v-model="courses" chips readonly label="التدريبات"/>
             <v-combobox

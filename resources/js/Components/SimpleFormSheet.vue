@@ -1,5 +1,5 @@
 <template>
-    <center-sheet :cols="cols ? cols : 5">
+    <center-sheet :cols="cols ? cols : 12">
         <v-form @submit.prevent="$emit('save')">
             <v-row>
                 <v-col cols="12">
