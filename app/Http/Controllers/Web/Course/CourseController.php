@@ -46,7 +46,7 @@ class CourseController extends Controller
         $request->validate([
             'name' => 'required',
             'description' => 'required',
-            'introduction_video_url' => 'required',
+            'introduction_video_url' => 'nullable',
             'telegram_url' => 'nullable',
             'category_id' => ['required', new ExistsByHash(Category::class)],
             'image' => 'nullable|image',
@@ -91,7 +91,7 @@ class CourseController extends Controller
         $request->validate([
             'name' => 'required',
             'description' => 'required',
-            'introduction_video_url' => 'required',
+            'introduction_video_url' => 'nullable',
             'telegram_url' => 'nullable',
             'category_id' => ['required', new ExistsByHash(Category::class)],
             'user_ids' => 'required|array',
