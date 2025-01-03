@@ -14,7 +14,7 @@ const rows = [
     { icon: "mdi-phone", key: "phone", name: "رقم الهاتف" },
     { icon: "mdi-email", key: "email", name: "البريد الالكتروني" },
     { icon: "mdi-calendar", key: "date_of_birth", name: "تاريخ الميلاد" },
-    { icon: "mdi-earth", key: "nationality", name: "الجنسية" },
+    { icon: "mdi-earth", key: "nationality", name: "المحافظة" },
     { icon: "mdi-school", key: "education_level", name: "المستوى الدراسي" },
     { icon: "mdi-map-marker", key: "address", name: "العنوان" },
     { icon: "mdi-information-variant", key: "reference", name: "كيف علمت عنا" },
@@ -39,6 +39,9 @@ export default {
             pwd_form: useForm({
                 password: null,
             }),
+            notification_form: useForm({
+                text: null,
+            }),
             modal: false,
         };
     },
@@ -58,6 +61,11 @@ export default {
                 })
             );
         },
+        submitNotification: function() {
+            this.notification_form.post(route('student.send_notification', {
+                student: this.student.data.id
+            }))
+        },
         opendialog: function () {
             this.modal = true;
         },
@@ -73,54 +81,53 @@ export default {
                     <v-icon>{{ row.icon }}</v-icon>
                 </v-col>
                 <v-col cols="11" align-self="center">
-                    <v-text-field
-                        variant="outlined"
-                        :label="row.name"
-                        v-model="student.data[row.key]"
-                        readonly
-                        hide-details
-                    ></v-text-field>
+                    <v-text-field variant="outlined" :label="row.name" v-model="student.data[row.key]" readonly
+                        hide-details></v-text-field>
                 </v-col>
             </v-row>
             <v-row justify="space-around">
                 <v-col cols="1" align-self="center">
                     <v-icon>mdi-login</v-icon>
                 </v-col>
-                <v-col cols="7" align-self="center">
-                    <v-text-field
-                        variant="outlined"
-                        label="عدد مرات تسجيل الدخول"
-                        v-model="form.attempts"
-                    ></v-text-field>
+                <v-col cols="9" align-self="center">
+                    <v-text-field variant="outlined" label="عدد مرات تسجيل الدخول"
+                        v-model="form.attempts"></v-text-field>
                 </v-col>
-                <v-col cols="4" align-self="center">
-                    <v-btn
-                        append-icon="mdi-lock-reset"
-                        variant="text"
-                        color="secondary"
-                        @click="resetLoginAttempts(student.data.id)"
-                        >اعادة التعيين
+                <v-col cols="2" align-self="center">
+                    <v-btn append-icon="mdi-lock-reset" variant="text" color="secondary"
+                        @click="resetLoginAttempts(student.data.id)">اعادة التعيين
                     </v-btn>
                 </v-col>
             </v-row>
             <v-row justify="space-around">
-                <v-divider/>
-                <br/>
-                <v-col cols="7" align-self="center">
-                    <v-text-field
-                        variant="outlined"
-                        label="كلمة المرور"
-                        v-model="pwd_form.password"
-                        :error-messages="pwd_form.errors.password"
-                    ></v-text-field>
+                <v-divider />
+                <br />
+                <v-col cols="1" align-self="center">
+                    <v-icon>mdi-lock</v-icon>
                 </v-col>
-                <v-col cols="5" align-self="center">
-                    <v-btn
-                        append-icon="mdi-account-lock"
-                        variant="text"
-                        color="error"
-                        @click="submitpwd()"
-                        >إعادة تعيين
+                <v-col cols="9" align-self="center">
+                    <v-text-field variant="outlined" label="كلمة المرور" v-model="pwd_form.password"
+                        :error-messages="pwd_form.errors.password"></v-text-field>
+                </v-col>
+                <v-col cols="2" align-self="center">
+                    <v-btn append-icon="mdi-account-lock" variant="text" color="error" @click="submitpwd()">إعادة تعيين
+                    </v-btn>
+                </v-col>
+            </v-row>
+            <v-row justify="space-around">
+                <v-divider />
+                <br />
+                <v-col cols="1" align-self="center">
+                    <v-icon>mdi-bell</v-icon>
+                </v-col>
+                <v-col cols="9" align-self="center">
+                    <v-text-field variant="outlined" label="نص الإشعار" v-model="notification_form.text"
+                        :error-messages="notification_form.errors.text">
+                    </v-text-field>
+                </v-col>
+                <v-col cols="2" align-self="center">
+                    <v-btn append-icon="mdi-bell" variant="text" color="secondary" @click="submitNotification()">
+                        إرسال إشعار
                     </v-btn>
                 </v-col>
             </v-row>

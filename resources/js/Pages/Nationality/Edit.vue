@@ -29,9 +29,9 @@ export default {
 </script>
 
 <template>
-    <MainLayout title="تعديل الجنسية">
+    <MainLayout title="تعديل المحافظة">
         <simple-form-sheet @save="submit">
-            <v-text-field label="اسم الجنسية" variant="solo" v-model="form.name"
+            <v-text-field label="اسم المحافظة" variant="solo" v-model="form.name"
                           :error-messages="form.errors.name"></v-text-field>
         </simple-form-sheet>
     </MainLayout>

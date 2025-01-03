@@ -6,6 +6,7 @@ use App\Http\Controllers\Web\Controller;
 use App\Http\Resources\Dashboard\Index\Student\StudentDashboardIndexResource;
 use App\Http\Resources\Dashboard\Show\Student\StudentDashboardShowResource;
 use App\Models\Student;
+use App\Notifications\GeneralNotification;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 use Inertia\Response;
@@ -39,5 +40,13 @@ class StudentController extends Controller
         ]);
         $student->resetPassword($request->input('password'));
         return redirect()->route('student.show', ['student' => $student->hash]);
+    }
+
+    public function sendNotification(Request $request, Student $student)
+    {
+        $request->validate([
+            'text' => 'required',
+        ]);
+        $student->notify(new GeneralNotification($request->input('text')));
     }
 }
