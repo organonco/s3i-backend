@@ -45,7 +45,7 @@ export default {
 </script>
 
 <template>
-    <v-list select-strategy="classic" class="bg-blue-grey-lighten-5">
+    <v-list select-strategy="classic" class="bg-blue-grey-lighten-5" v-if="value.length > 0">
         <draggable :list="value" item-key="id" v-bind="dragOptions" handle=".handle">
             <template #item="{ element, index }">
                 <div class="ma-1">

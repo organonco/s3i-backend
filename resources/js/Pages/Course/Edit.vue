@@ -52,7 +52,7 @@ export default {
 <template>
 	<MainLayout title="تعديل دورة">
 		<simple-form-sheet cols="8" @save="submit">
-			<v-text-field label="اسم الدورة" variant="solo" v-model="form.name"
+			<v-text-field label="اسم التدريب" variant="solo" v-model="form.name"
 				:error-messages="form.errors.name"></v-text-field>
 			<v-textarea label="الوصف" variant="solo" v-model="form.description"
 				:error-messages="form.errors.description"></v-textarea>
@@ -63,9 +63,9 @@ export default {
 			<v-text-field label="عدد الطلاب في كل صف" type="number" variant="solo" v-model="form.students_limit"
 				:error-messages="form.errors.students_limit"></v-text-field>
 			<v-text-field label="السعر بالليرة السورية" type="number" variant="solo" v-model="form.price" :error-messages="form.errors.price"></v-text-field>
-			<v-autocomplete label="القسم" variant="solo" v-model="form.category_id" :items="categories.data"
+			<v-autocomplete label="التخصص" variant="solo" v-model="form.category_id" :items="categories.data"
 				:error-messages="form.errors.category_id" item-title="name" item-value="id"></v-autocomplete>
-			<v-select label="المدربين" variant="solo" v-model="form.user_ids" :items="teachers.data"
+			<v-select label="المدربين/ات" variant="solo" v-model="form.user_ids" :items="teachers.data"
 				:error-messages="form.errors.user_ids" multiple item-title="name" item-value="id"></v-select>
 			<v-row>
 				<v-col>
