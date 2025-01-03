@@ -44,7 +44,7 @@
     </add-item-dialog>
 
     <add-item-dialog title="استلام ملف" v-model="homework.dialog" @save="saveDialog('homework')" :index="index">
-        <v-label>تتيح الوظيفة للطالب رفع ملف
+        <v-label>تتيح الوظيفة للمتدرب رفع ملف
         </v-label>
         <v-text-field label="عنوان الملف" variant="solo" v-model="homework.object.name" :rules="requiredRule" />
         <v-textarea label="الوصف" variant="solo" v-model="homework.object.description" />

@@ -26,7 +26,7 @@ export default {
 </script>
 
 <template>
-    <MainLayout title="الطلاب">
+    <MainLayout title="المتدربين/ات">
         <center-sheet cols="12">
             <v-row class="pt-5">
                 <data-table uneditable showable :headers="headers" :data="students.data" actions_route="student"/>

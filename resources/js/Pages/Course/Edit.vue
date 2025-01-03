@@ -50,7 +50,7 @@ export default {
 </script>
 
 <template>
-	<MainLayout title="تعديل دورة">
+	<MainLayout title="تعديل تدريب">
 		<simple-form-sheet cols="8" @save="submit">
 			<v-text-field label="اسم التدريب" variant="solo" v-model="form.name"
 				:error-messages="form.errors.name"></v-text-field>
@@ -60,7 +60,7 @@ export default {
 				:error-messages="form.errors.introduction_video_url"></v-text-field>
 			<v-text-field label="رابط مجموعة التلغرام" variant="solo" v-model="form.telegram_url"
 				:error-messages="form.errors.telegram_url"></v-text-field>
-			<v-text-field label="عدد الطلاب في كل صف" type="number" variant="solo" v-model="form.students_limit"
+			<v-text-field label="عدد المتدربين في كل صف" type="number" variant="solo" v-model="form.students_limit"
 				:error-messages="form.errors.students_limit"></v-text-field>
 			<v-text-field label="السعر بالليرة السورية" type="number" variant="solo" v-model="form.price" :error-messages="form.errors.price"></v-text-field>
 			<v-autocomplete label="التخصص" variant="solo" v-model="form.category_id" :items="categories.data"

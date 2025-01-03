@@ -1,5 +1,5 @@
 <template>
-    <v-card-subtitle class="mt-12">هذا هو الشكل التقريبي للنموذج الذي سيظهر للطالب عند تقديم الاختبار</v-card-subtitle>
+    <v-card-subtitle class="mt-12">هذا هو الشكل التقريبي للنموذج الذي سيظهر للمتدرب عند تقديم الاختبار</v-card-subtitle>
     <v-card>
         <v-card-title class="ma-8 text-center">
             <h3>

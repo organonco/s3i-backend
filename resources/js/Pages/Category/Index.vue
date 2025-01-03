@@ -26,11 +26,11 @@ export default {
 </script>
 
 <template>
-    <MainLayout title="الاختصاصات">
+    <MainLayout title="التخصصات">
         <create-button :link="route('category.create')"/>
         <center-sheet cols="12">
             <v-row class="pt-5">
-                <data-table :headers="headers" :data="categories.data" actions_route="category" delete-message="حذف الاختصاص سيؤدي الى حذفه وحذف كل الدورات التابعة له"/>
+                <data-table :headers="headers" :data="categories.data" actions_route="category" delete-message="حذف التخصص سيؤدي الى حذفه وحذف كل التدريبات التابعة له"/>
             </v-row>
         </center-sheet>
     </MainLayout>

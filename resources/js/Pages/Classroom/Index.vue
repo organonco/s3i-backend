@@ -29,11 +29,11 @@ export default {
                 ],
                 quizzes: [
                     {title: 'نوع الاختبار', key: 'quiz_type', align: "start"},
-                    {title: 'اسم الطالب', key: 'student_name', align: "start"},
+                    {title: 'اسم المتدرب', key: 'student_name', align: "start"},
                     {title: 'الحالة', key: 'status', align: 'start'},
                 ],
                 homeworks: [
-                    {title: 'اسم الطالب', key: 'student_name', align: "start"},
+                    {title: 'اسم المتدرب', key: 'student_name', align: "start"},
                     {title: 'الحالة', key: 'status', align: 'start'},
                 ],
                 meetings: [
@@ -456,7 +456,7 @@ export default {
                                     </v-col>
                                     <v-col cols="4" class="pa-6">
                                         <h3 class="pb-4">
-                                            الطلاب
+                                            المتدربين
                                         </h3>
                                         <v-divider class="pb-4" length="40%"/>
                                         <v-data-table-virtual :headers="headers.students"
@@ -490,11 +490,11 @@ export default {
                     <v-divider class="my-4"/>
                     <v-card-text class="text-center">
                         <a :href="selectedHomework.file_url" download>
-                            <v-btn variant="outlined" color="black" class="mb-12 mr-5"> تحميل حل الطالب
+                            <v-btn variant="outlined" color="black" class="mb-12 mr-5"> تحميل حل المتدرب
                             </v-btn>
                         </a>
                         <a :href="selectedHomework.file_url" target="_blank">
-                            <v-btn variant="outlined" color="black" class="mb-12"> عرض حل الطالب</v-btn>
+                            <v-btn variant="outlined" color="black" class="mb-12"> عرض حل المتدرب</v-btn>
                         </a>
                         <v-textarea
                                 v-if="selectedHomework.has_feedback"
@@ -565,11 +565,11 @@ export default {
                     <v-card-text class="text-center">
                         <div v-if="dialogs.quiz_submission_preview" @click="closeQuizSubmissionPreviewDialog"
                              class="mb-6">
-                            اخفاء حل الطالب
+                            اخفاء حل المتدرب
                             <v-btn icon="mdi-chevron-up" variant="flat"></v-btn>
                         </div>
                         <div v-else @click="openQuizSubmissionPreviewDialog" class="mb-6">
-                            عرض حل الطالب
+                            عرض حل المتدرب
                             <v-btn icon="mdi-chevron-down" variant="flat"></v-btn>
                         </div>
                         <v-expand-transition>

@@ -32,14 +32,14 @@ export default {
 </script>
 
 <template>
-    <MainLayout title="معلم جديد">
+    <MainLayout title="مدرب جديد">
         <simple-form-sheet @save="submit">
             <v-text-field label="اسم المدرب" variant="solo" v-model="form.name"
                 :error-messages="form.errors.name"></v-text-field>
             <v-text-field label="اسم المستخدم" variant="solo" v-model="form.username"
                 :error-messages="form.errors.username"></v-text-field>
             <v-textarea label="لمحة" variant="solo" v-model="form.bio" :error-messages="form.errors.bio"></v-textarea>
-            <v-text-field label="الاختصاص" variant="solo" v-model="form.education"
+            <v-text-field label="التخصص" variant="solo" v-model="form.education"
                 :error-messages="form.errors.education"></v-text-field>
             <v-file-input prepend-icon="mdi-image" name="image" label="الصورة" variant="solo"
                             :error-messages="form.errors.image"

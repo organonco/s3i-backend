@@ -30,7 +30,7 @@ export default {
 </script>
 
 <template>
-    <MainLayout title="تعديل قسم الكورسات">
+    <MainLayout title="تعديل قسم التدريبات">
         <simple-form-sheet @save="submit">
             <v-row>
                 <v-col cols="9">

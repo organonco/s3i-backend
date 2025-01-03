@@ -15,8 +15,8 @@ export default {
         return {
             headers: [
                 {title: 'الرمز', align: 'start', key: 'id'},
-                {title: 'اسم الدورة', align: 'start', key: 'name'},
-                {title: 'سعر الدورة', align: 'start', key: 'price'},
+                {title: 'اسم التدريب', align: 'start', key: 'name'},
+                {title: 'سعر التدريب', align: 'start', key: 'price'},
             ],
         }
     },
@@ -24,7 +24,7 @@ export default {
 </script>
 
 <template>
-    <MainLayout title="الدورات">
+    <MainLayout title="التدريبات">
         <create-button :link="route('course.create')"/>
         <center-sheet cols="12">
             <v-row class="pt-5">

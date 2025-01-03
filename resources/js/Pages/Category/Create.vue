@@ -25,7 +25,7 @@ export default {
 </script>
 
 <template>
-    <MainLayout title="قسم كورسات جديد">
+    <MainLayout title="قسم تدريبات جديد">
         <simple-form-sheet @save="submit">
             <v-text-field label="اسم القسم" variant="solo" v-model="form.name" :error-messages="form.errors.name"></v-text-field>
             <v-file-input prepend-icon="mdi-image" name="icon" label="أيقونة القسم" variant="solo"

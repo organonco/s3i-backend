@@ -18,7 +18,7 @@ export default {
         return {
             headers: [
                 {title: 'الكود', align: 'start', key: 'token'},
-                {title: 'الطالب', align: 'start', key: 'student'},
+                {title: 'المتدرب', align: 'start', key: 'student'},
             ],
         }
     },
@@ -34,7 +34,7 @@ export default {
     <MainLayout title="عرض الأكواد">
         <center-sheet cols="6">
             <v-text-field v-model="batch.data.id" label="الرمز" readonly></v-text-field>
-            <v-autocomplete v-model="courses" chips readonly label="الكورسات"/>
+            <v-autocomplete v-model="courses" chips readonly label="التدريبات"/>
             <v-combobox
                     v-model="batch.data.tags"
                     :hide-no-data="false"

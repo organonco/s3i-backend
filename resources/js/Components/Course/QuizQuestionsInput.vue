@@ -10,7 +10,7 @@
 
         <add-item-dialog title="إضافة خيارات" v-model="multiple_choice.dialog" @save="saveDialog('multiple_choice')" :index="index">
             <v-text-field label="نص السؤال" variant="solo" v-model="multiple_choice.object.text" :rules="requiredRule"/>
-            <v-checkbox label="تمكين الطالب من اختيار أكثر من إجابة" variant="solo" v-model="multiple_choice.object.type" true-value="check" false-value="radio"/>
+            <v-checkbox label="تمكين المتدرب من اختيار أكثر من إجابة" variant="solo" v-model="multiple_choice.object.type" true-value="check" false-value="radio"/>
             <v-divider class="py-8"/>
             <quiz-question-options-input v-model="multiple_choice.object.options"></quiz-question-options-input>
         </add-item-dialog>
