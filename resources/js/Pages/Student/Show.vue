@@ -14,6 +14,7 @@ const rows = [
     { icon: "mdi-phone", key: "phone", name: "رقم الهاتف" },
     { icon: "mdi-email", key: "email", name: "البريد الالكتروني" },
     { icon: "mdi-calendar", key: "date_of_birth", name: "تاريخ الميلاد" },
+    { icon: "mdi-human", key: "gender", name: "الجنس" },
     { icon: "mdi-earth", key: "nationality", name: "المحافظة" },
     { icon: "mdi-school", key: "education_level", name: "المستوى الدراسي" },
     { icon: "mdi-map-marker", key: "address", name: "العنوان" },

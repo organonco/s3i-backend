@@ -20,6 +20,7 @@ class StudentResource extends JsonResource
             'phone' => $this->full_phone_number,
             'name_ar' => $this->name_ar,
             'name_en' => $this->name_en,
+            'gender' => trans('constants.gender.' . $this->gender),
             'email' => $this->email,
             'date_of_birth' => $this->date_of_birth,
             'address' => $this->address,

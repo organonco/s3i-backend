@@ -15,7 +15,7 @@ class Student extends BaseUser implements MTNNotifiable
 {
     use HasApiTokens, Notifiable;
 
-    public $fillable = ['phone', 'password', 'name_ar', 'name_en', 'email', 'date_of_birth', 'nationality_id', 'education_level_id', 'address', 'reference', 'phone_verified_at'];
+    public $fillable = ['phone', 'password', 'name_ar', 'name_en', 'email', 'date_of_birth', 'nationality_id', 'education_level_id', 'address', 'reference', 'phone_verified_at', 'gender'];
 
     public function nationality()
     {

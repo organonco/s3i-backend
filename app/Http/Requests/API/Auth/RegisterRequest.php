@@ -36,6 +36,7 @@ class RegisterRequest extends Request
             'education_level_id' => ['required', new ExistsByHash(EducationLevel::class)],
             'address' => 'required',
             'reference' => 'nullable',
+            'gender' => 'required'
         ];
     }
 
@@ -74,6 +75,9 @@ class RegisterRequest extends Request
             ],
             'reference' => [
                 'example' => 'Facebook'
+            ],
+            'gender' => [
+                'example' => '1'
             ],
         ];
     }
