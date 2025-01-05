@@ -19,7 +19,7 @@
                         <v-row class="px-5" v-if="question.type === 'text'">
                             <v-textarea v-if="question.type === 'text'" variant="outlined"></v-textarea>
                         </v-row>
-                        <v-row class="pr-4" v-if="question.type === 'multiple_choice'">
+                        <v-row class="pr-4" v-if="question.type != 'text'">
                             <v-col v-if="question.object.type === 'check'" cols="12">
                                 <v-row v-for="option in question.object.options">
                                     <v-checkbox-btn density="compact" :label="option.object.text"

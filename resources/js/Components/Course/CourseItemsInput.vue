@@ -17,6 +17,7 @@
         <v-btn class="ma-1" color="primary" @click="openDialog(-1, 'homework')">استلام ملف</v-btn>
         <v-btn class="ma-1" color="primary" @click="openDialog(-1, 'quiz', 'multiple_choice')">إضافة اختبار</v-btn>
         <v-btn class="ma-1" color="primary" @click="openDialog(-1, 'quiz', 'text')">إضافة وظيفة</v-btn>
+        <v-btn class="ma-1" color="primary" @click="openDialog(-1, 'quiz', 'review')">إضافة تقييم</v-btn>
     </v-row>
 
     <add-item-dialog title="إضافة محور" v-model="section.dialog" @save="saveDialog('section')" :index="index">
@@ -116,7 +117,11 @@ export default {
                 {
                     "name": "اختبار اختيار من متعدد",
                     "value": "multiple_choice"
-                }
+                },
+                {
+                    "name": "تقييم",
+                    "value": "review"
+                },
             ]
         }
     },

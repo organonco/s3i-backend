@@ -8,6 +8,7 @@ const types = {
     'file': 'رفع ملف',
     'video': 'فيديو',
     'meeting': 'اجتماع',
+    'review': 'تقييم',
 }
 </script>
 

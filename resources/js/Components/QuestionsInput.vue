@@ -18,7 +18,7 @@ export default {
             this.value.splice(index, 1)
         },
         addQuestion() {
-            let type = (this.type === 'multiple_choice')? 'radio' : this.type;
+            let type = (this.type == 'text')? 'text' : 'radio';
             if (this.question != null && this.question !== '')
                 this.value.push({"type": this.type, "object": {text: this.question, options: [], type}})
             this.question = null
@@ -62,7 +62,7 @@ export default {
                             </v-row>
                         </v-list-item-title>
                         <template v-slot:append>
-                            <v-btn append-icon="mdi-plus" variant="text" color="primary" @click="edit(index)" v-if="this.type === 'multiple_choice'">
+                            <v-btn append-icon="mdi-plus" variant="text" color="primary" @click="edit(index)" v-if="this.type != 'text'">
                                 إضافة خيارات
                             </v-btn>
                             <v-btn append-icon="mdi-delete" variant="text" @click="remove(index)" color="error">
