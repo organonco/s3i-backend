@@ -309,7 +309,7 @@ export default {
     <MainLayout title="لوحة التحكم">
         <v-container>
             <v-row>
-                <v-col cols="3">
+                <v-col cols="12">
                     <center-sheet>
                         <v-row class="flex-row justify-center">
                             <template v-for="(classroom, index) in classroomsData">
@@ -331,11 +331,11 @@ export default {
                                         </v-card-subtitle>
                                         <v-card-text>
                                             <chip-with-badge class="ma-1" :value="classroom.number_of_pending_quizzes"
-                                                             content="Quiz"/>
+                                                             content="اختبارات"/>
                                             <chip-with-badge class="ma-1" :value="classroom.number_of_pending_homeworks"
-                                                             content="Homework"/>
+                                                             content="وظائف"/>
                                             <chip-with-badge class="ma-1" :value="classroom.number_of_pending_meetings"
-                                                             content="Meeting"/>
+                                                             content="اجتماعات"/>
                                         </v-card-text>
                                     </v-card>
                                 </v-col>
@@ -343,7 +343,7 @@ export default {
                         </v-row>
                     </center-sheet>
                 </v-col>
-                <v-col cols="9">
+                <v-col cols="12">
                     <v-expand-transition>
                         <template v-if="selected.classroom">
                             <center-sheet>
@@ -354,7 +354,7 @@ export default {
                                     <v-divider class="py-5"/>
                                 </v-row>
                                 <v-row justify="center">
-                                    <v-col cols="8" class="pa-6">
+                                    <v-col cols="12" class="pa-6">
                                         <v-row>
                                             <v-col cols="12">
                                                 <h3 class="pb-4">
@@ -454,7 +454,7 @@ export default {
                                         </v-row>
 
                                     </v-col>
-                                    <v-col cols="4" class="pa-6">
+                                    <v-col cols="12" class="pa-6">
                                         <h3 class="pb-4">
                                             المتدربين
                                         </h3>
@@ -475,7 +475,7 @@ export default {
         </v-container>
 
         <v-dialog v-model="dialogs.homework" width="auto" height="auto">
-            <v-card width="800px">
+            <v-card>
                 <v-form @submit.prevent="submitHomeworkFeedback">
                     <v-card-title class="text-center">
                         <v-chip color="success" class="my-3" v-if="selectedHomework.has_feedback"> تم التصحيح
@@ -520,13 +520,13 @@ export default {
                                 التالي
                             </v-btn>
                             <template v-if="selectedHomework.has_feedback">
-                                <v-btn color="error" width="250px" variant="outlined"
+                                <v-btn color="error" width="150px" variant="outlined"
                                        @click="activateDestroyHomeworkDialog">
                                     حذف التصحيح
                                 </v-btn>
                             </template>
                             <template v-else>
-                                <v-btn variant="outlined" width="250px" color="success" type="submit">
+                                <v-btn variant="outlined" width="150px" color="success" type="submit">
                                     تصحيح
                                 </v-btn>
                             </template>
@@ -540,7 +540,7 @@ export default {
         </v-dialog>
 
         <v-dialog v-model="dialogs.quiz" width="auto" height="auto">
-            <v-card width="800">
+            <v-card>
                 <v-form @submit.prevent="submitQuizFeedback">
                     <v-card-title class="text-center">
                         <div class="my-3">
@@ -601,12 +601,12 @@ export default {
                                 التالي
                             </v-btn>
                             <template v-if="selectedQuiz.has_feedback">
-                                <v-btn color="error" width="250px" variant="outlined"
+                                <v-btn color="error" width="150px" variant="outlined"
                                        @click="activateDestroyQuizDialog"> حذف التصحيح
                                 </v-btn>
                             </template>
                             <template v-else>
-                                <v-btn variant="outlined" width="250px" color="success" type="submit">
+                                <v-btn variant="outlined" width="150px" color="success" type="submit">
                                     تصحيح
                                 </v-btn>
                             </template>
@@ -620,7 +620,7 @@ export default {
         </v-dialog>
 
         <v-dialog v-model="dialogs.meeting" width="auto" height="auto">
-            <v-card width="800px">
+            <v-card>
                 <v-form @submit.prevent="submitMeetingInformation">
                     <v-card-title class="text-center">
                         <v-chip color="success" class="my-3" v-if="selectedMeeting.is_set"> تم التحديد
@@ -644,7 +644,7 @@ export default {
                             <v-btn variant="text" @click="nextMeeting">
                                 التالي
                             </v-btn>
-                            <v-btn variant="outlined" width="250px" color="success" type="submit">
+                            <v-btn variant="outlined" width="150px" color="success" type="submit">
                                 حفظ
                             </v-btn>
                             <v-btn variant="text" @click="previousMeeting">
