@@ -633,9 +633,9 @@ export default {
                     <v-card-text class="text-center">
                         <v-text-field v-model="forms.meeting.url" label="رابط الاجتماع" variant="outlined"
                                       prepend-icon="mdi-link"/>
-                        <v-text-field v-model="forms.meeting.date" type="date" label="وقت الاجتماع" variant="outlined"
+                        <v-text-field v-model="forms.meeting.time" type="time" label="وقت الاجتماع" variant="outlined"
                                       prepend-icon="mdi-clock"/>
-                        <v-text-field v-model="forms.meeting.time" type="time" label="تاريخ الاجتماع" variant="outlined"
+                        <v-text-field v-model="forms.meeting.date" type="date" label="تاريخ الاجتماع" variant="outlined"
                                       prepend-icon="mdi-calendar"/>
                     </v-card-text>
                     <v-divider/>
