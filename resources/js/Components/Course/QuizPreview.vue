@@ -12,8 +12,8 @@
                 <v-list lines="two">
                     <v-list-item v-for="question in questions">
                         <v-row class="pa-4">
-                            <h3>
-                                {{ question.object.text }}
+                            <h3 style="text-wrap: wrap; word-break: break-all;">
+                                {{ question.object.text }} 
                             </h3>
                         </v-row>
                         <v-row class="px-5" v-if="question.type === 'text'">
